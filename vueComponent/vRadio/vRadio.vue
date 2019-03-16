@@ -1,0 +1,82 @@
+<template>
+	<div class="vRadio" :style="{paddingLeft:lableWidth}">
+		<span class="lable" :style="{width:lableWidth}">{{lable}}：</span>
+		<div v-for="item in options" class="radio-item">
+			<input type="radio" v-if="item.value == value" :value="item.value" :name="name" checked="true" @input="formChange" />
+			<input type="radio" v-else :value="item.value" :name="name" @input="formChange" />
+			<span>{{item.label}}</span>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		name: "vRadio",
+		props: {
+			lable: {
+				type: String,
+				default: ''
+			},
+			lableWidth: {
+				type: Number,
+				default: 80
+			},
+			options: {
+				type: Array,
+				default: function() {
+					return []
+				}
+			},
+			name: {
+				type: String,
+				default: ''
+			},
+			value: {
+				type: String,
+				default: ''
+			}
+		},
+		data () {
+		    return {}
+		},
+		methods: {
+			formChange: function(e) {
+				var res = {
+					name: this.name,
+					value: e.path[0].defaultValue
+				}
+				this.$emit('formChange', res)
+			}
+		}		
+	}
+</script>
+
+<style scoped>
+	.vRadio{
+		margin:6px;
+		position:relative;
+	}
+	.lable{
+		display:inline-block;
+		font-size:14px;
+		text-align:right;
+		position:absolute;
+		top:0;
+		left:0;
+		height:28px;
+		line-height:28px;
+	}
+	.radio-item{
+		display:inline-block;
+		height:28px;
+		padding-right:20px;
+		line-height: 28px;
+	}
+	.radio-item span{
+		vertical-align: middle;
+	}
+	.radio-item input[type="radio"]{
+		height:24px;
+		vertical-align: middle;
+	}
+</style>

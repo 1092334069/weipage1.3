@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title></title>
+		<script src="../src/js/jquery-1.12.4.min.js"></script>
+		<script src="../src/js/vue.js"></script>
+	</head>
+	<body>
+		<div id="weipage">
+			<div class="edit-page">
+				<ul class="tab-control">
+					<li class="current">样式</li>
+					<li>事件</li>
+				</ul>
+				<v-style :form-data="editForm.style" @form-change="formChange"></v-style>
+			</div>		
+		</div>
+	</body>
+</html>

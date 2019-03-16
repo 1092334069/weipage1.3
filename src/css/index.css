@@ -1,0 +1,25 @@
+body{
+	color:#333;
+}
+.edit-page{
+	position:absolute;
+	right:0;
+	top:0;
+	width:450px;
+	background-color:#f8f8f8;
+}
+.edit-page .tab-control{
+	background-color:#ddd;
+	display:flex;
+	justify-content:flex-start;
+	padding:10px 0 0 10px;
+}
+.edit-page .tab-control li{
+	padding:10px 20px;
+	font-size:18px;
+	border-radius:8px 8px 0 0;
+	cursor:pointer;
+}
+.edit-page .tab-control li.current{
+	background-color:#f8f8f8;
+}
