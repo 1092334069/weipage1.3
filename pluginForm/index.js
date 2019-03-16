@@ -1,7 +1,7 @@
-import vFourSides from './vFourSides'
+import vStyle from './vStyle'
 
 let result = {}
-let pluginList = [vFourSides]
+let pluginList = [vStyle]
 
 for (let i = 0; i < pluginList.length; i++) {
 	for(let key in pluginList[i]){

@@ -4,6 +4,7 @@ import '../css/reset.css'
 import '../css/index.css'
 import '../../vueComponent'
 import '../../vueComponents'
+import '../../pluginForm'
 
 new Vue({
 	el: '#weipage',
