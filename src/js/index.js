@@ -4,7 +4,7 @@ import '../css/reset.css'
 import '../css/index.css'
 import '../../vueComponent'
 import '../../vueComponents'
-import '../../pluginForm'
+import '../../plugin'
 
 new Vue({
 	el: '#weipage',
@@ -28,6 +28,11 @@ new Vue({
 				fill: {
 					color: '#138ed4',
 					image: 'http://shop.bizban.cn/src/assets/images/project/homePage/ic_comm.png'
+				},
+				location: {
+					position: 'relative',
+					top: 0,
+					left: 0
 				}
 			}
 		}

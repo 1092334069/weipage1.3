@@ -1,7 +1,7 @@
-import vStyle from './vStyle'
+import panel from './panel'
 
 let result = {}
-let pluginList = [vStyle]
+let pluginList = [panel]
 
 for (let i = 0; i < pluginList.length; i++) {
 	for(let key in pluginList[i]){

@@ -44,6 +44,21 @@
 				</div>
 			</div>
 		</div>
+		<div class="form-group" @click="triggerForm('location')">
+			<span>定位</span>
+			<span class="form-trigger" :class="{close:formValid.location}"></span>
+		</div>
+		<div v-if="formValid.location">
+			<div class="form">
+				<v-radio lable="是否定位" :options="locationPositionOptions" :value="formData.location.position" name="location.position" @formChange="formChange"></v-radio>
+			</div>
+			<div class="form" v-if="formData.location.position==='absolute'">
+				<v-number lable="横向" :value="formData.location.left" name="location.left" @formChange="formChange"></v-number>
+			</div>
+			<div class="form" v-if="formData.location.position==='absolute'">
+				<v-number lable="纵向" :value="formData.location.top" name="location.top" @formChange="formChange"></v-number>
+			</div>
+		</div>
 		<div class="form-group" @click="triggerForm('fill')">
 			<span>填充</span>
 			<span class="form-trigger" :class="{close:formValid.fill}"></span>
@@ -61,7 +76,7 @@
 
 <script>
 	export default {
-		name: "vStyle",
+		name: "panelStyleForm",
 		props: {
 			formData: {
 				type: Object,
@@ -73,15 +88,12 @@
 		data () {
 		    return {
 		    	lableWidth: 30,
+		    	isReadOnly: true,
 		    	formValid: {
-		    		shape: false,
+		    		shape: true,
 		    		border: false,
+		    		location: false,
 		    		fill: false
-		    	},
-		    	subFormValid: {
-		    		margin: false,
-		    		padding: false,
-		    		borderRadius: false
 		    	},
 		    	borderDisplayOptions: [{
 		    		label: '是',
@@ -100,7 +112,13 @@
 		    		label: '点线',
 		    		value: 'dotted'
 		    	}],
-		    	isReadOnly: true
+		    	locationPositionOptions: [{
+		    		label: '否',
+		    		value: 'relative'
+		    	},{
+		    		label: '是',
+		    		value: 'absolute'
+		    	}]
 		    }
 		},
 		methods: {
