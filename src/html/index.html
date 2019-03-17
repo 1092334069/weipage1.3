@@ -1,11 +1,20 @@
 <html>
 	<head>
 		<title></title>
+		<style type="text/css">
+			[v-cloak]{
+				opacity:0;
+			}
+		</style>
 		<script src="../src/js/jquery-1.12.4.min.js"></script>
 		<script src="../src/js/vue.js"></script>
 	</head>
 	<body>
-		<div id="weipage">
+		<div id="weipage" v-cloak>
+			<div class="view-page">
+				<div class="view-page-head"></div>
+				<div class="view-page-content"></div>
+			</div>
 			<div class="edit-page">
 				<ul class="tab-control">
 					<li class="current">样式</li>
