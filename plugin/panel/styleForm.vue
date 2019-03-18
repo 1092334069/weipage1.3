@@ -6,10 +6,10 @@
 		</div>
 		<div v-if="formValid.shape">
 			<div class="form">
-				<v-number lable="宽度" :value="formData.shape.width" name="shape.width" @formChange="formChange"></v-number>
+				<v-number-quantifier lable="宽度" :value="formData.shape.width.value" :quantifier="formData.shape.width.quantifier" name="shape.width" quantifierValue="vw" @formChange="formChange"></v-number-quantifier>
 			</div>
 			<div class="form">
-				<v-number lable="高度" :value="formData.shape.height" name="shape.height" @formChange="formChange"></v-number>
+				<v-number-quantifier lable="高度" :value="formData.shape.height.value" :quantifier="formData.shape.height.quantifier" name="shape.height" quantifierValue="vh" @formChange="formChange"></v-number-quantifier>
 			</div>
 			<div class="form">
 				<v-four-sides lable="外边距" :value="formData.shape.margin" name="shape.margin" @formChange="formChange"></v-four-sides>

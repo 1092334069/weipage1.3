@@ -126,7 +126,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.more-input{
 		width:20px;
 		height:20px;
@@ -134,7 +134,7 @@
 		background-size:100% 100%;
 		position:absolute;
 		right:55px;
-		top:4px;
+		top:10px;
 		cursor:pointer;
 	}
 	.more-input.close{
@@ -158,7 +158,7 @@
 		border-bottom:10px solid transparent;
 		border-right:20px solid #f0f0f0;
 		position:absolute;
-		top:4px;
+		top:10px;
 		left:-20px;
 	}
 	.sub-form.hidden{

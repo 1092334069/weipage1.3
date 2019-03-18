@@ -55,6 +55,7 @@
 	.vRadio{
 		margin:6px;
 		position:relative;
+		display:inline-block;
 	}
 	.lable{
 		display:inline-block;

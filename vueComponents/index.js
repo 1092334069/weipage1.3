@@ -1,7 +1,8 @@
 import vFourSides from './vFourSides'
+import vNumberQuantifier from './vNumberQuantifier'
 
 let result = {}
-let pluginList = [vFourSides]
+let pluginList = [vFourSides, vNumberQuantifier]
 
 for (let i = 0; i < pluginList.length; i++) {
 	for(let key in pluginList[i]){

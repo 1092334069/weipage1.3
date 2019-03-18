@@ -12,8 +12,14 @@ new Vue({
 		editForm: {
 			style: {
 				shape: {
-					width: 100,
-					height: 50,
+					width: {
+						value: 100,
+						quantifier: 'vw'
+					},
+					height: {
+						value: 50,
+						quantifier: 'px'
+					},
 					margin: 20,
 					padding: '10 20 10 20',
 					borderRadius: 8,
