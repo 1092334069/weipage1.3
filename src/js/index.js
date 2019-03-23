@@ -11,6 +11,7 @@ new Vue({
 	data: {
 		pluginList: [{
 			pluginId: 1,
+			pluginType: 'pannel',
 			style: {
 				shape: {
 					width: {

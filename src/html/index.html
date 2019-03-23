@@ -13,7 +13,11 @@
 		<div id="weipage" v-cloak>
 			<div class="view-page">
 				<div class="view-page-head"></div>
-				<div class="view-page-content"></div>
+				<div class="view-page-content">
+					<template v-for="item in pluginList">
+						<pannel-view v-if="item.pluginType == 'pannel'" :view-data="item"></pannel-view>
+					</template>
+				</div>
 			</div>
 			<div class="edit-page">
 				<ul class="tab-control">
