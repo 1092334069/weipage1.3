@@ -19,7 +19,23 @@
 		methods: {
 			parseStyle() {
 				console.log(this.viewData)
-				return 'width:' + this.viewData.style.shape.width.value + ';height:' + this.viewData.style.shape.height.value + ';backgroundColor:' + this.viewData.style.fill.color
+				return 'width:' + this.parseStyleWidth() + ';height:' + this.parseStyleHeight() + ';backgroundColor:' + this.viewData.style.fill.color
+			},
+			parseStyleWidth() {
+				var option = this.viewData.style.shape.width
+				if (option.quantifier === 'px') {
+					return option.value
+				} else {
+					return option.value * 375 / 100
+				}
+			},
+			parseStyleHeight() {
+				var option = this.viewData.style.shape.height
+				if (option.quantifier === 'px') {
+					return option.value
+				} else {
+					return option.value * 667 / 100
+				}
 			}
 		}
 	}
