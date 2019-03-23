@@ -9,7 +9,8 @@ import '../../plugin'
 new Vue({
 	el: '#weipage',
 	data: {
-		editForm: {
+		pluginList: [{
+			pluginId: 1,
 			style: {
 				shape: {
 					width: {
@@ -41,10 +42,22 @@ new Vue({
 					left: 0
 				}
 			}
+		}],
+		selectPluginId: 1
+	},
+	computed: {
+		editForm() {
+			var editForm = {}
+			for (var i = 0; i < this.pluginList.length; i++) {
+				if (this.selectPluginId === this.pluginList[i].pluginId) {
+					editForm = this.pluginList[i]
+				}
+			}
+			return editForm
 		}
 	},
 	methods: {
-		formChange: function(res) {
+		formChange(res) {
 			var keyList = this.parseKeyList(res.pname, res.name)
 			this.formChangeAction(0, keyList, this.editForm, res.value)
 		},
@@ -61,7 +74,7 @@ new Vue({
 			}
 			return keyList
 		},
-		formChangeAction: function(count, keyList, obj, value) {
+		formChangeAction(count, keyList, obj, value) {
 			if (count > 10000) {
 				return
 			}
