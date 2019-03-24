@@ -2,20 +2,21 @@ var commonMethod = {
 	parseStyle: function() {
 		var width = 'width:' + this.viewData.style.shape.width + ';'
 		var height = 'height:' + this.viewData.style.shape.height + ';'
-		var margin = 'margin:' + this.viewData.style.shape.margin + ';'
-		var padding = 'padding:' + this.viewData.style.shape.padding + ';'
-		var borderRadius = 'borderRadius:' + this.parseBorderRadius() + ';'
+		var margin = 'margin:' + this.parseFourSides(this.viewData.style.shape.margin) + ';'
+		var padding = 'padding:' + this.parseFourSides(this.viewData.style.shape.padding) + ';'
+		var borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.shape.borderRadius) + ';'
 
 		var backgroundColor = 'backgroundColor:' + this.viewData.style.fill.color
 
 		return width + height + margin + padding + borderRadius + backgroundColor
 	},
-	parseBorderRadius: function() {
-		var borderRadius = this.viewData.style.shape.borderRadius
-		if (typeof borderRadius == 'number') {
-			return borderRadius + 'px'
+	parseFourSides: function(value) {
+		if (typeof value == 'number') {
+			return value + 'px'
+		} else if (typeof value === 'object' && value instanceof Array) {
+			return value.join('px ') + 'px'
 		} else {
-			return borderRadius.split(' ').join('px ') + 'px'
+			return 0
 		}
 	}
 }

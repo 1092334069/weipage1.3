@@ -1,7 +1,8 @@
 <template>
 	<div>
-		<v-text v-if="isValueStr" :lable="lable" :value="value" :isReadOnly="isReadOnly" :name="name" @formChange="formChange"></v-text>
-		<v-number v-else :lable="lable" :value="value" :name="name" @formChange="formChange"></v-number>
+		
+		<v-number v-if="isValueNumber" :lable="lable" :value="value" :name="name" @formChange="formChange"></v-number>
+		<v-text v-else :lable="lable" :value="valueStr" :isReadOnly="isReadOnly" :name="name" @formChange="formChange"></v-text>
 		<div class="more-input" :class="{close:subFormValid}" @click="triggerSubForm"></div>
 		<div class="sub-form" v-if="subFormValid">
 			<v-number lable="上" size="s" :lableWidth="lableWidth" :value="formTop" :pname="name" name="top" @formChange="formChange"></v-number>
@@ -16,7 +17,7 @@
 	export default {
 		name: "vFourSides",
 		props: {
-			value: [Number, String],
+			value: [Number, Array],
 			name: {
 				type: String,
 				default: ''
@@ -59,15 +60,10 @@
 				}
 			},
 			computedSubForm: function(data, index) {
-				if (typeof data === 'string' && data !== '') {
-					var dataList = data.split(' ')
-					if (dataList && dataList.length > index) {
-						return parseFloat(dataList[index])
-					} else {
-						return 0
-					}
-				}else if (typeof data === 'number') {
+				if (typeof data === 'number') {
 					return data
+				} else if (typeof this.value === 'object' && this.value instanceof Array && this.value[index]) {
+					return this.value[index]
 				} else {
 					return 0
 				}
@@ -89,7 +85,7 @@
 				if (theSame) {
 					resVal = list[0]
 				} else {
-					resVal = list.join(' ')
+					resVal = list
 				}
 				return {
 					name: pname,
@@ -98,13 +94,18 @@
 			}
 		},
 		computed: {
-			isValueStr() {
+			isValueNumber() {
 				if (typeof this.value === 'number') {
-					return false
-				} else if (this.value.indexOf(' ') >= 0) {
 					return true
 				} else {
 					return false
+				}
+			},
+			valueStr() {
+				if (typeof this.value === 'object' && this.value instanceof Array && this.value.length) {
+					return this.value.join(' ')
+				} else {
+					return ''
 				}
 			},
 			formTop() {

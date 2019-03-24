@@ -17,7 +17,7 @@ new Vue({
 					width: 100,
 					height: 50,
 					margin: 20,
-					padding: '10 20 10 20',
+					padding: [10, 20, 10, 20],
 					borderRadius: 8,
 					transformRotate: 90
 				},
