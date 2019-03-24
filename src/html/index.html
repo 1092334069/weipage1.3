@@ -11,11 +11,12 @@
 	</head>
 	<body>
 		<div id="weipage" v-cloak>
+			<button @click="insertPlugin">新增面板</button>
 			<div class="view-page">
 				<div class="view-page-head"></div>
 				<div class="view-page-content">
 					<template v-for="item in pluginList">
-						<pannel-view v-if="item.pluginType == 'pannel'" :view-data="item"></pannel-view>
+						<panel-view v-if="item.pluginType == 'panel'" :view-data="item"></panel-view>
 					</template>
 				</div>
 			</div>
@@ -24,7 +25,7 @@
 					<li class="current">样式</li>
 					<li>事件</li>
 				</ul>
-				<panel-style-form :form-data="editForm.style" @form-change="formChange"></panel-style-form>
+				<panel-style-form v-if="editForm" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 			</div>		
 		</div>
 	</body>

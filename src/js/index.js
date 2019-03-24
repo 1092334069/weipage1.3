@@ -5,50 +5,27 @@ import '../css/index.css'
 import '../../vueComponent'
 import '../../vueComponents'
 import '../../plugin'
+import { createPlugin } from '../../plugin/pluginAction.js'
 
 new Vue({
 	el: '#weipage',
 	data: {
-		pluginList: [{
-			pluginId: 1,
-			pluginType: 'pannel',
-			style: {
-				shape: {
-					width: 375,
-					height: 50,
-					margin: 0,
-					padding: 0,
-					borderRadius: 0,
-					transformRotate: 0
-				},
-				border: {
-					display: 'none',
-					width: 1,
-					style: 'solid',
-					color: '#e5e5e5'
-				},
-				fill: {
-					color: '#ffffff',
-					image: ''
-				},
-				location: {
-					position: 'relative',
-					top: 0,
-					left: 0
-				}
-			}
-		}],
-		selectPluginId: 1
+		pluginList: [],
+		selectPluginId: 0
 	},
 	computed: {
 		editForm() {
-			var editForm = {}
-			for (var i = 0; i < this.pluginList.length; i++) {
-				if (this.selectPluginId === this.pluginList[i].pluginId) {
-					editForm = this.pluginList[i]
+			if (this.pluginList.length) {
+				var editForm = {}
+				for (var i = 0; i < this.pluginList.length; i++) {
+					if (this.selectPluginId === this.pluginList[i].pluginId) {
+						editForm = this.pluginList[i]
+					}
 				}
+				return editForm
+			} else {
+				return false
 			}
-			return editForm
 		}
 	},
 	methods: {
@@ -85,6 +62,11 @@ new Vue({
 					obj[key] = value
 				}
 			}
+		},
+		insertPlugin() {
+			var plugin = createPlugin('panel')
+			this.selectPluginId = plugin.pluginId
+			this.pluginList.push(plugin)
 		}
 	},
 	created:function(){

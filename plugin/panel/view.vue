@@ -6,7 +6,7 @@
 	import commonMethod from '../commonMethod.js'
 
 	export default {
-		name: "pannelView",
+		name: "panelView",
 		props: {
 			viewData: {
 				type: Object,
