@@ -5,10 +5,13 @@ var commonMethod = {
 		var margin = 'margin:' + this.parseFourSides(this.viewData.style.shape.margin) + ';'
 		var padding = 'padding:' + this.parseFourSides(this.viewData.style.shape.padding) + ';'
 		var borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.shape.borderRadius) + ';'
+		var transformRotate = 'transform:rotate(' + this.viewData.style.shape.transformRotate + 'deg);'
+		var border = 'border:' + this.parseBorder() + ';'
+		var position = this.parsePosition() + ';'
+		var backgroundColor = 'backgroundColor:' + this.viewData.style.fill.color + ';'
+		var backgroundImage = 'backgroundImage:url(' + this.viewData.style.fill.image + ')'
 
-		var backgroundColor = 'backgroundColor:' + this.viewData.style.fill.color
-
-		return width + height + margin + padding + borderRadius + backgroundColor
+		return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
 	},
 	parseFourSides: function(value) {
 		if (typeof value == 'number') {
@@ -18,7 +21,21 @@ var commonMethod = {
 		} else {
 			return 0
 		}
+	},
+	parseBorder: function() {
+		if (this.viewData.style.border.display === 'block') {
+			return this.viewData.style.border.width + 'px ' + this.viewData.style.border.style + ' ' + this.viewData.style.border.color
+		} else {
+			return 'none'
+		}
+	},
+	parsePosition: function() {
+		if (this.viewData.style.location.position === 'relative') {
+			return 'position:relative'
+		} else {
+			return 'position:absolute;top:' + this.viewData.style.location.top + ';left:' + this.viewData.style.location.left
+		}
 	}
-}
+ }
 
 export default commonMethod

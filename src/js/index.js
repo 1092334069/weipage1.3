@@ -14,22 +14,22 @@ new Vue({
 			pluginType: 'pannel',
 			style: {
 				shape: {
-					width: 100,
+					width: 375,
 					height: 50,
-					margin: 20,
-					padding: [10, 20, 10, 20],
-					borderRadius: 8,
-					transformRotate: 90
+					margin: 0,
+					padding: 0,
+					borderRadius: 0,
+					transformRotate: 0
 				},
 				border: {
-					display: 'block',
-					width: 2,
-					style: 'dashed',
-					color: '#ccc'
+					display: 'none',
+					width: 1,
+					style: 'solid',
+					color: '#e5e5e5'
 				},
 				fill: {
-					color: '#138ed4',
-					image: 'http://shop.bizban.cn/src/assets/images/project/homePage/ic_comm.png'
+					color: '#ffffff',
+					image: ''
 				},
 				location: {
 					position: 'relative',

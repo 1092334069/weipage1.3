@@ -23,5 +23,7 @@
 </script>
 
 <style scoped>
-	
+	.pannel{
+		background-size: 100% 100%;
+	}
 </style>
