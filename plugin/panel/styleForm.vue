@@ -6,10 +6,10 @@
 		</div>
 		<div v-if="formValid.shape">
 			<div class="form">
-				<v-number-quantifier lable="宽度" :value="formData.shape.width.value" :quantifier="formData.shape.width.quantifier" name="shape.width" quantifierValue="vw" @formChange="formChange"></v-number-quantifier>
+				<v-number lable="宽度" :value="formData.shape.width" name="shape.width" @formChange="formChange"></v-number>
 			</div>
 			<div class="form">
-				<v-number-quantifier lable="高度" :value="formData.shape.height.value" :quantifier="formData.shape.height.quantifier" name="shape.height" quantifierValue="vh" @formChange="formChange"></v-number-quantifier>
+				<v-number lable="高度" :value="formData.shape.height" name="shape.height" @formChange="formChange"></v-number>
 			</div>
 			<div class="form">
 				<v-four-sides lable="外边距" :value="formData.shape.margin" name="shape.margin" @formChange="formChange"></v-four-sides>
@@ -18,10 +18,10 @@
 				<v-four-sides lable="内边距" :value="formData.shape.padding" name="shape.padding" @formChange="formChange"></v-four-sides>
 			</div>
 			<div class="form">
-				<v-four-sides lable="内边距" :value="formData.shape.borderRadius" name="shape.borderRadius" @formChange="formChange"></v-four-sides>
+				<v-four-sides lable="圆角" :value="formData.shape.borderRadius" name="shape.borderRadius" @formChange="formChange"></v-four-sides>
 			</div>
 			<div class="form">
-				<v-number lable="旋转" type="number" :value="formData.shape.transformRotate" name="shape.transformRotate" @formChange="formChange"></v-number>
+				<v-number lable="旋转" :value="formData.shape.transformRotate" name="shape.transformRotate" @formChange="formChange"></v-number>
 			</div>
 		</div>
 		<div class="form-group" @click="triggerForm('border')">
@@ -37,10 +37,10 @@
 					<v-select lable="样式" :options="borderStyleOptions" :value="formData.border.style" name="border.style" @formChange="formChange"></v-select>
 				</div>
 				<div class="form">
-					<v-number lable="尺寸" type="number" :value="formData.border.width" name="border.width" @formChange="formChange"></v-number>
+					<v-number lable="尺寸" :value="formData.border.width" name="border.width" @formChange="formChange"></v-number>
 				</div>
 				<div class="form">
-					<v-color lable="颜色" type="color" :value="formData.border.color" name="border.color" @formChange="formChange"></v-color>
+					<v-color lable="颜色" :value="formData.border.color" name="border.color" @formChange="formChange"></v-color>
 				</div>
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 		</div>
 		<div v-if="formValid.fill">
 			<div class="form">
-				<v-color lable="颜色" type="color" :value="formData.fill.color" name="fill.color" @formChange="formChange"></v-color>
+				<v-color lable="颜色" :value="formData.fill.color" name="fill.color" @formChange="formChange"></v-color>
 			</div>
 			<div class="form">
 				<v-image lable="图片" :value="formData.fill.image" name="fill.image" @formChange="formChange"></v-image>

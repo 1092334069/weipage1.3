@@ -14,14 +14,8 @@ new Vue({
 			pluginType: 'pannel',
 			style: {
 				shape: {
-					width: {
-						value: 100,
-						quantifier: 'vw'
-					},
-					height: {
-						value: 50,
-						quantifier: 'px'
-					},
+					width: 100,
+					height: 50,
 					margin: 20,
 					padding: '10 20 10 20',
 					borderRadius: 8,
