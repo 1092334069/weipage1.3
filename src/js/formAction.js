@@ -28,6 +28,24 @@ var formAction = {
 				obj[key] = value
 			}
 		}
+	},
+	searchPluginDeep(count, pluginList, pluginId) {
+		if (count > 10000) {
+			return false
+		}
+		count ++
+		for (var i = 0; i < pluginList.length; i++) {
+			if (pluginId === pluginList[i].pluginId) {
+				return pluginList[i]
+			}
+			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
+				var res = formAction.searchPluginDeep(count, pluginList[i].pluginList, pluginId)
+				if (res) {
+					return res
+				}
+			}
+		}
+		return false
 	}
 }
 
@@ -36,15 +54,9 @@ function formUpdate(res, formData){
 	formAction.changePluginData(0, keyList, formData, res.value)
 }
 
-function searchForm(pluginList, pluginId) {
+function searchPlugin(pluginList, pluginId) {
 	if (pluginList.length) {
-		var editForm = {}
-		for (var i = 0; i < pluginList.length; i++) {
-			if (pluginId === pluginList[i].pluginId) {
-				editForm = pluginList[i]
-			}
-		}
-		return editForm
+		return formAction.searchPluginDeep(0, pluginList, pluginId)
 	} else {
 		return false
 	}
@@ -52,5 +64,5 @@ function searchForm(pluginList, pluginId) {
 
 export {
 	formUpdate,
-	searchForm
+	searchPlugin
 }

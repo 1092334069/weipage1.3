@@ -5,7 +5,7 @@ import '../css/index.css'
 import '../../vueComponent'
 import '../../vueComponents'
 import '../../plugin'
-import { formUpdate, searchForm } from './formAction.js'
+import { formUpdate, searchPlugin } from './formAction.js'
 import { createPlugin } from '../../plugin/pluginAction.js'
 
 new Vue({
@@ -16,7 +16,7 @@ new Vue({
 	},
 	computed: {
 		editForm() {
-			return searchForm(this.pluginList, this.selectPluginId)
+			return searchPlugin(this.pluginList, this.selectPluginId)
 		}
 	},
 	methods: {
