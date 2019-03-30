@@ -8,7 +8,7 @@ import '../../plugin'
 import { formUpdate, searchPlugin } from './formAction.js'
 import { createPlugin } from '../../plugin/pluginAction.js'
 
-new Vue({
+var weipage = new Vue({
 	el: '#weipage',
 	data: {
 		pluginList: [],
@@ -32,4 +32,9 @@ new Vue({
 	created:function(){
 		
 	}
+})
+
+
+$('#weipage').on('click', '.plugin', function() {
+	weipage.selectPluginId = $(this).attr('data-id')
 })

@@ -1,5 +1,5 @@
 <template>
-	<div class="pannel" :style="parseStyle()"></div>
+	<div class="pannel plugin" :data-id="viewData.pluginId" :style="parseStyle()"></div>
 </template>
 
 <script>
