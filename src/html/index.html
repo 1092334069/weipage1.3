@@ -16,7 +16,7 @@
 				<div class="view-page-head"></div>
 				<div class="view-page-content">
 					<template v-for="item in pluginList">
-						<panel-view v-if="item.pluginType == 'panel'" :view-data="item"></panel-view>
+						<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
 					</template>
 				</div>
 			</div>

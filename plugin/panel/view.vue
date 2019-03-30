@@ -1,5 +1,5 @@
 <template>
-	<div class="pannel plugin" :data-id="viewData.pluginId" :style="parseStyle()"></div>
+	<div class="pannel plugin" :data-id="viewData.pluginId" :style="parseStyle()" :class="parseClass()"></div>
 </template>
 
 <script>
@@ -13,6 +13,10 @@
 				default: function() {
 					return {}
 				}
+			},
+			selectPluginId: {
+				type: String,
+				default: ''
 			}
 		},
 		data () {

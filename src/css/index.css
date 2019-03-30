@@ -20,6 +20,14 @@ body{
 	overflow-y:auto;
 	position:relative;
 	background-color:#f2f2f2;
+	padding-right:2px;
+}
+.view-page .view-page-content .plugin{
+	cursor:pointer;
+}
+.view-page .view-page-content .plugin.current{
+	box-shadow:1px 1px 1px #138ed4;
+	z-index:2;
 }
 .edit-page{
 	position:absolute;

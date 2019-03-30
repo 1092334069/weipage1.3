@@ -13,6 +13,13 @@ var commonMethod = {
 
 		return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
 	},
+	parseClass: function() {
+		if (this.selectPluginId === this.viewData.pluginId) {
+			return 'current'
+		} else{
+			return ''
+		}
+	},
 	parseFourSides: function(value) {
 		if (typeof value == 'number') {
 			return value + 'px'
