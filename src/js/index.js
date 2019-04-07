@@ -8,6 +8,9 @@ import '../../plugin'
 import { formUpdate, searchPlugin } from './formAction.js'
 import { createPlugin } from '../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
+import { viewAction } from './viewAction.js'
+
+var viewPlugin = viewAction()
 
 var weipage = new Vue({
 	el: '#weipage',
@@ -35,8 +38,15 @@ var weipage = new Vue({
 	}
 })
 
-var dropPlugin = dropAction()
 
-$('#weipage').on('click', '.plugin', function() {
+var dropPlugin = dropAction({
+	callback: function(res) {
+		viewPlugin.buildList()
+		var ret = viewPlugin.operationView(res)
+		console.log(ret)
+	}
+})
+
+$(document).on('click', '.plugin', function() {
 	weipage.selectPluginId = $(this).attr('data-id')
 })

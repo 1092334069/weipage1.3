@@ -31,6 +31,8 @@ body{
 }
 .view-page .view-page-content .plugin.clone{
 	position:fixed !important;
+	cursor:pointer;
+	z-index:100;
 }
 .edit-page{
 	position:absolute;

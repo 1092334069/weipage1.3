@@ -6,8 +6,11 @@ var dropData = {
 	offsetX: 0
 }
 
-var dropPlugin = function() {
-
+var dropPlugin = function(option) {
+	this.option = {}
+	if (option) {
+		this.option = option
+	}
 }
 
 dropPlugin.prototype.init = function() {
@@ -18,31 +21,29 @@ dropPlugin.prototype.bindEvent = function() {
 	var _this = this
 
 	$(document).on('mousedown', '.plugin', function(e) {
-		$dropPlugin = $(this).clone(true)
-		var offset = $(this).offset()
 		_this.mouseDownEvent(e, this)
-		$dropPlugin.css({top: offset.top, left: offset.left}).addClass('clone')
-		$('body').append($dropPlugin)		
 	})
 
 	$(document).on('mousemove', '.plugin', function(e) {
 		if ($dropPlugin) {
-			_this.dropEvent(e, this)
+			_this.dropEvent(e)
 		}
 	})
 
-	$(document).on('mouseup', function(e) {
-		console.log(dropData)
+	$(document).on('mouseup', function() {		
 		if ($dropPlugin) {
-			$('.plugin.clone').remove()
-			$dropPlugin = null
+			_this.mouseUpEvent()
 		}
 	})
 }
 
-dropPlugin.prototype.mouseDownEvent = function(e) {
+dropPlugin.prototype.mouseDownEvent = function(e, _this) {
 	dropData.offsetY = e.offsetY
 	dropData.offsetX = e.offsetX
+	$dropPlugin = $(_this).clone(true)
+	var offset = $(_this).offset()
+	$dropPlugin.css({top: offset.top, left: offset.left}).addClass('clone')
+	$('body').append($dropPlugin)
 }
 
 dropPlugin.prototype.dropEvent = function(e) {
@@ -53,8 +54,26 @@ dropPlugin.prototype.dropEvent = function(e) {
 	$dropPlugin.css({top: top, left: left})
 }
 
-function dropAction() {
-	var plugin = new dropPlugin()
+dropPlugin.prototype.mouseUpEvent = function() {
+	if (this.option.callback) {
+		var offset = $dropPlugin.offset()
+		var width = $dropPlugin.outerWidth(true)
+		var height = $dropPlugin.outerHeight(true)
+		var pluginId = $dropPlugin.attr('data-id')
+		this.option.callback({
+			pluginId: pluginId,
+			left: offset.left,
+			top: offset.top,
+			right: offset.left + width,
+			bottom: offset.top + height
+		})
+	}
+	$('.plugin.clone').remove()
+	$dropPlugin = null
+}
+
+function dropAction(option) {
+	var plugin = new dropPlugin(option)
 	plugin.init()
 	return plugin
 }

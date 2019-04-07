@@ -1,8 +1,8 @@
-var viewAction = function() {
+var viewPlugin = function() {
 	this.coordinateList = []
 }
 
-viewAction.prototype.buildList = function() {
+viewPlugin.prototype.buildList = function() {
 	var coordinateList = []
 	var $pluginList = $('#weipage').find('.plugin')
 	for (var i = 0; i < $pluginList.length; i++) {
@@ -28,18 +28,18 @@ viewAction.prototype.buildList = function() {
 	this.coordinateList = coordinateList
 }
 
-viewAction.prototype.operationView = function(coordinate) {
+viewPlugin.prototype.operationView = function(coordinate) {
 	for (var i = 0; i < this.coordinateList.length; i++) {
 		if (this.coordinateList[i].top <= coordinate.top && this.coordinateList[i].left <= coordinate.left && this.coordinateList[i].bottom >= coordinate.bottom && this.coordinateList[i].right >= coordinate.right) {
 			return {
 				type: 'inside',
-				toPluginId: this.coordinate[i].pluginId,
+				toPluginId: this.coordinateList[i].pluginId,
 				pluginId: coordinate.pluginId
 			}
 		} else if (this.coordinateList[i].parentPluginId === coordinate.parentPluginId && this.coordinateList[i].top < coordinate.top) {
 			return {
 				type: 'before',
-				toPluginId: this.coordinate[i].pluginId,
+				toPluginId: this.coordinateList[i].pluginId,
 				pluginId: coordinate.pluginId
 			}
 		}
@@ -50,9 +50,11 @@ viewAction.prototype.operationView = function(coordinate) {
 	}
 }
 
-export default {
-	viewAction: function() {
-		var plugin = new viewAction()
-		return plugin
-	}
+function viewAction() {
+	var plugin = new viewPlugin()
+	return plugin
+}
+
+export {
+	viewAction
 }
