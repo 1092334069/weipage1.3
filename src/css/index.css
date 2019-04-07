@@ -29,6 +29,9 @@ body{
 	box-shadow:1px 1px 1px #138ed4;
 	z-index:2;
 }
+.view-page .view-page-content .plugin.clone{
+	position:fixed !important;
+}
 .edit-page{
 	position:absolute;
 	right:0;
