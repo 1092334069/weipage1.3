@@ -1,5 +1,9 @@
 <template>
-	<div class="pannel plugin" :data-id="viewData.pluginId" :style="parseStyle()" :class="parseClass()"></div>
+	<div class="pannel plugin" :data-id="viewData.pluginId" :style="parseStyle()" :class="parseClass()">
+		<template v-for="item in viewData.pluginList">
+			<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
+		</template>
+	</div>
 </template>
 
 <script>
