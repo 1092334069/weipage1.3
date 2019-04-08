@@ -29,17 +29,20 @@ var formAction = {
 			}
 		}
 	},
-	searchPluginDeep(count, pluginList, pluginId) {
-		if (count > 10000) {
+	searchPluginDeep(count, pluginList, pluginId, source, callback) {
+		if (count > 10000 || !pluginList) {
 			return false
 		}
 		count ++
 		for (var i = 0; i < pluginList.length; i++) {
 			if (pluginId === pluginList[i].pluginId) {
+				if (callback) {
+					callback(pluginList, i, source)
+				}
 				return pluginList[i]
 			}
 			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
-				var res = formAction.searchPluginDeep(count, pluginList[i].pluginList, pluginId)
+				var res = formAction.searchPluginDeep(count, pluginList[i].pluginList, pluginId, pluginList[i], callback)
 				if (res) {
 					return res
 				}
@@ -49,7 +52,7 @@ var formAction = {
 	}
 }
 
-function formUpdate(res, formData){
+function pluginUpdate(res, formData){
 	var keyList = formAction.parseKeyList(res.pname, res.name)
 	formAction.changePluginData(0, keyList, formData, res.value)
 }
@@ -62,7 +65,37 @@ function searchPlugin(pluginList, pluginId) {
 	}
 }
 
+function pluginMove(pluginList, type, pluginId, moveToPluginId, source) {
+	if (pluginId == moveToPluginId) {
+		return
+	}
+	formAction.searchPluginDeep(0, pluginList, pluginId, source, function(searchPluginList, i){
+		var movePlugin = searchPluginList.splice(i, 1)
+		if (movePlugin && movePlugin.length) {
+			if (type == 'inside') {
+				formAction.searchPluginDeep(0, pluginList, moveToPluginId, source, function(resPluginList, i){
+					resPluginList[i].pluginList.push(movePlugin[0])
+				})
+			} else if (type == 'before') {
+				formAction.searchPluginDeep(0, pluginList, moveToPluginId, source, function(resPluginList, i, origin){
+					var tempList = []
+					for (var j = 0; j < resPluginList.length; j++) {
+						if (i === j) {
+							tempList.push(movePlugin[0])
+						}
+						tempList.push(resPluginList[j])
+					}
+					origin.pluginList = tempList
+				})
+			} else {
+				pluginList.push(movePlugin[0])
+			}
+		}
+	})
+}
+
 export {
-	formUpdate,
-	searchPlugin
+	pluginUpdate,
+	searchPlugin,
+	pluginMove
 }

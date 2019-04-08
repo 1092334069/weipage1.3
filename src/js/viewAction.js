@@ -36,7 +36,7 @@ viewPlugin.prototype.operationView = function(coordinate) {
 				toPluginId: this.coordinateList[i].pluginId,
 				pluginId: coordinate.pluginId
 			}
-		} else if (this.coordinateList[i].parentPluginId === coordinate.parentPluginId && this.coordinateList[i].top < coordinate.top) {
+		} else if (this.coordinateList[i].parentPluginId === coordinate.parentPluginId && this.coordinateList[i].bottom > coordinate.bottom) {
 			return {
 				type: 'before',
 				toPluginId: this.coordinateList[i].pluginId,

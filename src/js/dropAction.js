@@ -1,3 +1,4 @@
+var $sourcePlugin = $('body')
 var $dropPlugin
 var dropData = {
 	clientY: 0,
@@ -21,6 +22,7 @@ dropPlugin.prototype.bindEvent = function() {
 	var _this = this
 
 	$(document).on('mousedown', '.plugin', function(e) {
+		$sourcePlugin = $(this)
 		_this.mouseDownEvent(e, this)
 	})
 
@@ -60,7 +62,13 @@ dropPlugin.prototype.mouseUpEvent = function() {
 		var width = $dropPlugin.outerWidth(true)
 		var height = $dropPlugin.outerHeight(true)
 		var pluginId = $dropPlugin.attr('data-id')
+		var parentPluginId = ''
+		var parentPlugin = $sourcePlugin.parents('.plugin')
+		if (parentPlugin.length) {
+			parentPluginId = parentPlugin.attr('data-id')
+		}
 		this.option.callback({
+			parentPluginId: parentPluginId,
 			pluginId: pluginId,
 			left: offset.left,
 			top: offset.top,
