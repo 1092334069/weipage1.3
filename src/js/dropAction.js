@@ -23,6 +23,7 @@ dropPlugin.prototype.bindEvent = function() {
 
 	$(document).on('mousedown', '.plugin', function(e) {
 		$sourcePlugin = $(this)
+		$(this).addClass('drop')
 		_this.mouseDownEvent(e, this)
 	})
 
@@ -42,22 +43,23 @@ dropPlugin.prototype.bindEvent = function() {
 dropPlugin.prototype.mouseDownEvent = function(e, _this) {
 	dropData.offsetY = e.offsetY
 	dropData.offsetX = e.offsetX
+	dropData.scrollY = $(document).scrollTop()
+	dropData.scrollX = $(document).scrollLeft()
 	$dropPlugin = $(_this).clone(true)
-	var offset = $(_this).offset()
-	$dropPlugin.css({top: offset.top, left: offset.left}).addClass('clone')
+	$dropPlugin.css(this.getCoordinate(e)).addClass('clone')
 	$('body').append($dropPlugin)
+	if (this.option.mouseDownCallback) {
+		var pluginId = $(_this).attr('data-id')
+		this.option.mouseDownCallback(pluginId)
+	}
 }
 
 dropPlugin.prototype.dropEvent = function(e) {
-	dropData.clientY = e.clientY
-	dropData.clientX = e.clientX
-	var top = dropData.clientY - dropData.offsetY
-	var left = dropData.clientX - dropData.offsetX
-	$dropPlugin.css({top: top, left: left})
+	$dropPlugin.css(this.getCoordinate(e))
 }
 
 dropPlugin.prototype.mouseUpEvent = function() {
-	if (this.option.callback) {
+	if (this.option.mouseUpCallback) {
 		var offset = $dropPlugin.offset()
 		var width = $dropPlugin.outerWidth(true)
 		var height = $dropPlugin.outerHeight(true)
@@ -67,7 +69,7 @@ dropPlugin.prototype.mouseUpEvent = function() {
 		if (parentPlugin.length) {
 			parentPluginId = parentPlugin.attr('data-id')
 		}
-		this.option.callback({
+		this.option.mouseUpCallback({
 			parentPluginId: parentPluginId,
 			pluginId: pluginId,
 			left: offset.left,
@@ -76,8 +78,18 @@ dropPlugin.prototype.mouseUpEvent = function() {
 			bottom: offset.top + height
 		})
 	}
+	$sourcePlugin.removeClass('drop')
 	$('.plugin.clone').remove()
 	$dropPlugin = null
+}
+
+dropPlugin.prototype.getCoordinate = function(e) {
+	dropData.clientY = e.clientY
+	dropData.clientX = e.clientX
+	return {
+		top: dropData.clientY - dropData.offsetY + dropData.scrollY - 20,
+		left: dropData.clientX - dropData.offsetX + dropData.scrollX
+	}
 }
 
 function dropAction(option) {

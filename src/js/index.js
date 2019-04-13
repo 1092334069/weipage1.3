@@ -40,13 +40,12 @@ var weipage = new Vue({
 
 
 var dropPlugin = dropAction({
-	callback: function(res) {
+	mouseDownCallback: function(pluginId) {
+		weipage.selectPluginId = pluginId
+	},
+	mouseUpCallback: function(res) {
 		viewPlugin.buildList()
 		var ret = viewPlugin.operationView(res)
 		pluginMove(weipage, ret.type, ret.pluginId, ret.toPluginId)
 	}
-})
-
-$(document).on('click', '.plugin', function() {
-	weipage.selectPluginId = $(this).attr('data-id')
 })
