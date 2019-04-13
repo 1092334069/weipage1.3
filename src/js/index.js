@@ -20,7 +20,7 @@ var weipage = new Vue({
 	},
 	computed: {
 		editForm() {
-			return searchPlugin(this.pluginList, this.selectPluginId)
+			return searchPlugin(this, this.selectPluginId)
 		}
 	},
 	methods: {
@@ -43,7 +43,7 @@ var dropPlugin = dropAction({
 	callback: function(res) {
 		viewPlugin.buildList()
 		var ret = viewPlugin.operationView(res)
-		pluginMove(weipage.pluginList, ret.type, ret.pluginId, ret.toPluginId, weipage)
+		pluginMove(weipage, ret.type, ret.pluginId, ret.toPluginId)
 	}
 })
 

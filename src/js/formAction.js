@@ -29,20 +29,20 @@ var formAction = {
 			}
 		}
 	},
-	searchPluginDeep(count, pluginList, pluginId, source, callback) {
-		if (count > 10000 || !pluginList) {
+	searchPluginDeep(count, source, pluginId, callback) {
+		if (count > 10000 || !source.pluginList) {
 			return false
 		}
 		count ++
-		for (var i = 0; i < pluginList.length; i++) {
-			if (pluginId === pluginList[i].pluginId) {
+		for (var i = 0; i < source.pluginList.length; i++) {
+			if (pluginId === source.pluginList[i].pluginId) {
 				if (callback) {
-					callback(pluginList, i, source)
+					callback(source.pluginList, i, source)
 				}
-				return pluginList[i]
+				return source.pluginList[i]
 			}
-			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
-				var res = formAction.searchPluginDeep(count, pluginList[i].pluginList, pluginId, pluginList[i], callback)
+			if (source.pluginList[i].pluginList && source.pluginList[i].pluginList.length) {
+				var res = formAction.searchPluginDeep(count, source.pluginList[i], pluginId, callback)
 				if (res) {
 					return res
 				}
@@ -57,27 +57,27 @@ function pluginUpdate(res, formData){
 	formAction.changePluginData(0, keyList, formData, res.value)
 }
 
-function searchPlugin(pluginList, pluginId) {
-	if (pluginList.length) {
-		return formAction.searchPluginDeep(0, pluginList, pluginId)
+function searchPlugin(weipage, pluginId) {
+	if (weipage.pluginList.length) {
+		return formAction.searchPluginDeep(0, weipage, pluginId)
 	} else {
 		return false
 	}
 }
 
-function pluginMove(pluginList, type, pluginId, moveToPluginId, source) {
+function pluginMove(weipage, type, pluginId, moveToPluginId) {
 	if (pluginId == moveToPluginId) {
 		return
 	}
-	formAction.searchPluginDeep(0, pluginList, pluginId, source, function(searchPluginList, i){
+	formAction.searchPluginDeep(0, weipage, pluginId, function(searchPluginList, i){
 		var movePlugin = searchPluginList.splice(i, 1)
 		if (movePlugin && movePlugin.length) {
 			if (type == 'inside') {
-				formAction.searchPluginDeep(0, pluginList, moveToPluginId, source, function(resPluginList, i){
+				formAction.searchPluginDeep(0, weipage, moveToPluginId, function(resPluginList, i){
 					resPluginList[i].pluginList.push(movePlugin[0])
 				})
 			} else if (type == 'before') {
-				formAction.searchPluginDeep(0, pluginList, moveToPluginId, source, function(resPluginList, i, origin){
+				formAction.searchPluginDeep(0, weipage, moveToPluginId, function(resPluginList, i, origin){
 					var tempList = []
 					for (var j = 0; j < resPluginList.length; j++) {
 						if (i === j) {
@@ -88,7 +88,7 @@ function pluginMove(pluginList, type, pluginId, moveToPluginId, source) {
 					origin.pluginList = tempList
 				})
 			} else {
-				pluginList.push(movePlugin[0])
+				weipage.pluginList.push(movePlugin[0])
 			}
 		}
 	})
