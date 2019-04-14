@@ -1,6 +1,9 @@
 var pluginConfig = {
 	panel: {
 		pluginType: 'panel',
+		base: {
+			name: '面板'
+		},
 		style: {
 			shape: {
 				width: 375,

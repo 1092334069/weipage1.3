@@ -22,11 +22,19 @@
 			</div>
 			<div class="edit-page" v-if="editForm">
 				<ul class="tab-control">
-					<li class="current">样式</li>
-					<li>事件</li>
+					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">基础</li>
+					<li :class="{current: selectForm == 'style'}" @click="changeFormTab('style')">样式</li>
+					<li :class="{current: selectForm == 'event'}" @click="changeFormTab('event')">事件</li>
+					<li :class="{current: selectForm == 'animation'}" @click="changeFormTab('animation')">动画</li>
+					<li :class="{current: selectForm == 'statistics'}" @click="changeFormTab('statistics')">统计</li>
 				</ul>
 				<div class="remove-plugin" @click="removePlugin(editForm.pluginId)"></div>
-				<panel-style-form :form-data="editForm.style" @form-change="formChange"></panel-style-form>
+				<template v-if="selectForm == 'base'">
+					<panel-base-form :form-data="editForm.base" @form-change="formChange"></panel-base-form>
+				</template>
+				<template v-if="selectForm == 'style'">
+					<panel-style-form :form-data="editForm.style" @form-change="formChange"></panel-style-form>
+				</template>
 			</div>		
 		</div>
 	</body>
