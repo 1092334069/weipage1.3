@@ -5,7 +5,7 @@ import '../css/index.css'
 import '../../vueComponent'
 import '../../vueComponents'
 import '../../plugin'
-import { pluginUpdate, searchPlugin, pluginMove } from './formAction.js'
+import { pluginUpdate, pluginSearch, pluginMove, pluginRemove } from './formAction.js'
 import { createPlugin } from '../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
 import { viewAction } from './viewAction.js'
@@ -20,7 +20,7 @@ var weipage = new Vue({
 	},
 	computed: {
 		editForm() {
-			return searchPlugin(this, this.selectPluginId)
+			return pluginSearch(this, this.selectPluginId)
 		}
 	},
 	methods: {
@@ -31,6 +31,9 @@ var weipage = new Vue({
 			var plugin = createPlugin('panel')
 			this.selectPluginId = plugin.pluginId
 			this.pluginList.push(plugin)
+		},
+		removePlugin(pluginId) {
+			pluginRemove(this, pluginId)
 		}
 	},
 	created:function(){

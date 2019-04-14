@@ -57,7 +57,7 @@ function pluginUpdate(res, formData){
 	formAction.changePluginData(0, keyList, formData, res.value)
 }
 
-function searchPlugin(weipage, pluginId) {
+function pluginSearch(weipage, pluginId) {
 	if (weipage.pluginList.length) {
 		return formAction.searchPluginDeep(0, weipage, pluginId)
 	} else {
@@ -94,8 +94,16 @@ function pluginMove(weipage, type, pluginId, moveToPluginId) {
 	})
 }
 
+function pluginRemove(weipage, pluginId) {
+	console.log(pluginId)
+	formAction.searchPluginDeep(0, weipage, pluginId, function(resPluginList, i) {
+		resPluginList.splice(i, 1)
+	})
+}
+
 export {
 	pluginUpdate,
-	searchPlugin,
-	pluginMove
+	pluginSearch,
+	pluginMove,
+	pluginRemove
 }

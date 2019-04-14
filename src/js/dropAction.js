@@ -25,6 +25,8 @@ dropPlugin.prototype.bindEvent = function() {
 		$sourcePlugin = $(this)
 		$(this).addClass('drop')
 		_this.mouseDownEvent(e, this)
+		e.preventDefault()
+		e.stopPropagation()
 	})
 
 	$(document).on('mousemove', '.plugin', function(e) {

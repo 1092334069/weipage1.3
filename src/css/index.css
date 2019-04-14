@@ -35,7 +35,7 @@ body{
 	z-index:100;
 }
 .view-page .view-page-content .plugin.drop{
-	opacity:0.2;
+	opacity:0.5;
 }
 .edit-page{
 	position:absolute;
@@ -58,4 +58,14 @@ body{
 }
 .edit-page .tab-control li.current{
 	background-color:#f8f8f8;
+}
+.edit-page .remove-plugin{
+	position:absolute;
+	right:12px;
+	top:12px;
+	width:24px;
+	height:24px;
+	background-image:url('../img/icon-close.png');
+	background-size:100% 100%;
+	cursor:pointer;
 }

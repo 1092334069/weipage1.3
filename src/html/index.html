@@ -20,12 +20,13 @@
 					</template>
 				</div>
 			</div>
-			<div class="edit-page">
+			<div class="edit-page" v-if="editForm">
 				<ul class="tab-control">
 					<li class="current">样式</li>
 					<li>事件</li>
 				</ul>
-				<panel-style-form v-if="editForm" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
+				<div class="remove-plugin" @click="removePlugin(editForm.pluginId)"></div>
+				<panel-style-form :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 			</div>		
 		</div>
 	</body>
