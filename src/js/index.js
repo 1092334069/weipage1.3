@@ -28,8 +28,8 @@ var weipage = new Vue({
 		formChange(res) {
 			pluginUpdate(res, this.editForm)
 		},
-		insertPlugin() {
-			var plugin = createPlugin('panel')
+		insertPlugin(pluginType) {
+			var plugin = createPlugin(pluginType)
 			this.selectPluginId = plugin.pluginId
 			this.pluginList.push(plugin)
 		},

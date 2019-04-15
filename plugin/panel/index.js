@@ -1,21 +1,21 @@
-import view from './view.vue'
-import baseForm from './baseForm.vue'
-import styleForm from './styleForm.vue'
+import panelView from './view.vue'
+import panelBaseForm from './baseForm.vue'
+import panelStyleForm from './styleForm.vue'
 
-view.install = function(Vue){
-	Vue.component(view.name, view);
+panelView.install = function(Vue){
+	Vue.component(panelView.name, panelView)
 }
 
-baseForm.install = function(Vue) {
-	Vue.component(baseForm.name, baseForm)
+panelBaseForm.install = function(Vue) {
+	Vue.component(panelBaseForm.name, panelBaseForm)
 }
 
-styleForm.install = function(Vue) {
-	Vue.component(styleForm.name, styleForm)
+panelStyleForm.install = function(Vue) {
+	Vue.component(panelStyleForm.name, panelStyleForm)
 }
 
 export default {
-	view,
-	baseForm,
-	styleForm
+	panelView,
+	panelBaseForm,
+	panelStyleForm
 }

@@ -1,7 +1,8 @@
 import panel from './panel'
+import text from './text'
 
 let result = {}
-let pluginList = [panel]
+let pluginList = [panel,text]
 
 for (let i = 0; i < pluginList.length; i++) {
 	for(let key in pluginList[i]){

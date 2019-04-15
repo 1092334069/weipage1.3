@@ -30,6 +30,12 @@ var pluginConfig = {
 			}
 		},
 		pluginList: []
+	},
+	text: {
+		pluginType: 'text',
+		base: {
+			name: '文本'
+		}
 	}
 }
 

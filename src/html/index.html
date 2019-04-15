@@ -11,12 +11,21 @@
 	</head>
 	<body>
 		<div id="weipage" class="weipage" v-cloak>
-			<button @click="insertPlugin">新增面板</button>
+			<div class="tool-page">
+				<p class="tool-title">工具</p>
+				<ul class="tool-list">
+					<li @click="insertPlugin('panel')">面板</li>
+					<li @click="insertPlugin('text')">文本</li>
+					<li>图片</li>
+					<li>视频</li>
+				</ul>
+			</div>
 			<div class="view-page">
 				<div class="view-page-head"></div>
 				<div class="view-page-content">
 					<template v-for="item in pluginList">
 						<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
+						<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
 					</template>
 				</div>
 			</div>
@@ -30,10 +39,11 @@
 				</ul>
 				<div class="remove-plugin" @click="removePlugin(editForm.pluginId)"></div>
 				<template v-if="selectForm == 'base'">
-					<panel-base-form :form-data="editForm.base" @form-change="formChange"></panel-base-form>
+					<panel-base-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.base" @form-change="formChange"></panel-base-form>
+					<text-base-form v-else-if="editForm.pluginType == 'text'" :form-data="editForm.base" @form-change="formChange"></text-base-form>
 				</template>
 				<template v-if="selectForm == 'style'">
-					<panel-style-form :form-data="editForm.style" @form-change="formChange"></panel-style-form>
+					<panel-style-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 				</template>
 			</div>		
 		</div>
