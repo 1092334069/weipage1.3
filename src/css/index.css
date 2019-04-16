@@ -83,6 +83,47 @@ body{
 	top:12px;
 	width:24px;
 	height:24px;
+	background-image:url('../img/icon-delete.png');
+	background-size:100% 100%;
+	cursor:pointer;
+}
+.plugin-tree-page{
+	position:fixed;
+	z-index:800;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	background-color:rgba(0,0,0,0.5);
+}
+.plugin-tree-page.hidden{
+	display:none;
+}
+.plugin-tree-page .plugin-tree-dialog{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	border-radius:8px;
+	width:600px;
+	height:400px;
+	background-color:#fff;
+}
+.plugin-tree-dialog .dialog-head{
+	height:40px;
+	line-height:40px;
+	background-color:#f2f2f2;
+	font-size:20px;
+	padding:0 20px;
+	position:relative;
+	border-radius:8px 8px 0 0;
+}
+.plugin-tree-dialog .dialog-close{
+	width:24px;
+	height:24px;
+	right:8px;
+	top:8px;
+	position:absolute;
 	background-image:url('../img/icon-close.png');
 	background-size:100% 100%;
 	cursor:pointer;

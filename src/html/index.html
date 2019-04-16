@@ -47,7 +47,16 @@
 				<template v-if="selectForm == 'style'">
 					<panel-style-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 				</template>
-			</div>		
+			</div>
+
+			<div class="plugin-tree-page hidden">
+				<div class="plugin-tree-dialog">
+					<div class="dialog-head">
+						<span>插件树</span>
+						<div class="dialog-close"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
