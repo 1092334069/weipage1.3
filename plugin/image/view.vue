@@ -1,6 +1,6 @@
 <template>
-	<div class="text plugin" :data-id="viewData.pluginId" :style="parseStyle()" :class="parseClass()">
-		<span>{{viewData.base.name}}</span>
+	<div class="image plugin" :data-id="viewData.pluginId" :style="parseStyle()" :class="parseClass()">
+		<img />
 	</div>
 </template>
 
@@ -8,7 +8,7 @@
 	import commonMethod from '../commonMethod.js'
 
 	export default {
-		name: "textView",
+		name: "imageView",
 		props: {
 			viewData: {
 				type: Object,
@@ -29,7 +29,11 @@
 </script>
 
 <style scoped>
-	.text{
+	.image{
 		display:inline-block;
+	}
+	.image img{
+		min-width:10px;
+		min-height:10px;
 	}
 </style>

@@ -36,6 +36,12 @@ var pluginConfig = {
 		base: {
 			name: '文本'
 		}
+	},
+	image: {
+		pluginType: 'image',
+		base: {
+			name: '图片'
+		}
 	}
 }
 
