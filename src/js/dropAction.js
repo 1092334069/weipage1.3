@@ -89,7 +89,7 @@ dropPlugin.prototype.getCoordinate = function(e) {
 	dropData.clientY = e.clientY
 	dropData.clientX = e.clientX
 	return {
-		top: dropData.clientY - dropData.offsetY + dropData.scrollY - 20,
+		top: dropData.clientY - dropData.offsetY + dropData.scrollY,
 		left: dropData.clientX - dropData.offsetX + dropData.scrollX
 	}
 }

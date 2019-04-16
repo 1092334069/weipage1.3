@@ -47,12 +47,12 @@ body{
 	box-shadow:1px 1px 1px #138ed4;
 	z-index:2;
 }
-.view-page .view-page-content .plugin.clone{
+.plugin.clone{
 	position:fixed !important;
 	cursor:pointer;
 	z-index:100;
 }
-.view-page .view-page-content .plugin.drop{
+.plugin.drop{
 	opacity:0.5;
 }
 .edit-page{

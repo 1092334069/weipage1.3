@@ -2,6 +2,7 @@
 	<div class="pannel plugin" :data-id="viewData.pluginId" :style="parseStyle()" :class="parseClass()">
 		<template v-for="item in viewData.pluginList">
 			<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
+			<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
 		</template>
 	</div>
 </template>
