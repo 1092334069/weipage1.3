@@ -30,6 +30,9 @@ var weipage = new Vue({
 		formChange(res) {
 			pluginUpdate(res, this.editForm)
 		},
+		selectPlugin(pluginId) {
+			this.selectPluginId = pluginId
+		},
 		insertPlugin(pluginType) {
 			var plugin = createPlugin(pluginType)
 			this.selectPluginId = plugin.pluginId
@@ -56,7 +59,7 @@ var weipage = new Vue({
 
 var dropPlugin = dropAction({
 	mouseDownCallback: function(pluginId) {
-		weipage.selectPluginId = pluginId
+		weipage.selectPlugin(pluginId)
 	},
 	mouseUpCallback: function(res) {
 		viewPlugin.buildList()

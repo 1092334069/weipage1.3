@@ -56,7 +56,7 @@
 			</div>
 
 			<div id="pluginTreePage" class="plugin-tree-page" :class="{hidden: !pluginTreeIsOpen}">
-				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @close-plugin-tree="closePluginTree"></plugin-tree>
+				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @close-plugin-tree="closePluginTree" @select-plugin="selectPlugin"></plugin-tree>
 			</div>
 		</div>
 	</body>

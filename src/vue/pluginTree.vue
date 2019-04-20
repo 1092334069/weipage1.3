@@ -5,7 +5,7 @@
 			<div class="dialog-close" @click="closePluginTree"></div>
 		</div>
 		<div class="dialog-body">
-			<plugin-tree-list :plugin-list="pluginList" :select-plugin-id="selectPluginId"></plugin-tree-list>
+			<plugin-tree-list :plugin-list="pluginList" :select-plugin-id="selectPluginId" @select-plugin="selectPlugin"></plugin-tree-list>
 		</div>
 	</div>
 </template>
@@ -31,6 +31,9 @@
 		methods: {
 			closePluginTree: function() {
 				this.$emit('close-plugin-tree','')
+			},
+			selectPlugin: function(pluginId) {
+				this.$emit('select-plugin',pluginId)
 			}
 		}
 	}
@@ -50,7 +53,7 @@
 .plugin-tree-dialog .dialog-head{
 	height:40px;
 	line-height:40px;
-	background-color:#f2f2f2;
+	background-color:#ddd;
 	font-size:20px;
 	padding:0 20px;
 	position:relative;
