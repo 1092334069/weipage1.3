@@ -1,23 +1,34 @@
 body{
 	color:#333;
 }
-.tool-page{
+.menu-page{
 	width:100px;
 	text-align:center;
 }
-.tool-page .tool-title{
-	padding:10px;
+.menu-page .menu-title{
+	padding:40px 10px 10px;
 	font-size:16px;
 }
-.tool-page .tool-list{
+.menu-page .tool-list{
 	padding:10px;
 }
-.tool-page .tool-list li{
+.menu-page .tool-list li{
 	margin:10px 0;
 	border-radius:8px;
 	padding:10px 0;
 	cursor:pointer;
 	background-color:#f2f2f2;
+}
+.menu-page .shortcut-list{
+	text-align:center;
+}
+.menu-page .shortcut-list li{
+	margin:10px;
+	cursor:pointer;
+}
+.menu-page .shortcut-list img{
+	width:32px;
+	height:32px;
 }
 .view-page{
 	position:absolute;
@@ -98,33 +109,4 @@ body{
 }
 .plugin-tree-page.hidden{
 	display:none;
-}
-.plugin-tree-page .plugin-tree-dialog{
-	position:absolute;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
-	border-radius:8px;
-	width:600px;
-	height:400px;
-	background-color:#fff;
-}
-.plugin-tree-dialog .dialog-head{
-	height:40px;
-	line-height:40px;
-	background-color:#f2f2f2;
-	font-size:20px;
-	padding:0 20px;
-	position:relative;
-	border-radius:8px 8px 0 0;
-}
-.plugin-tree-dialog .dialog-close{
-	width:24px;
-	height:24px;
-	right:8px;
-	top:8px;
-	position:absolute;
-	background-image:url('../img/icon-close.png');
-	background-size:100% 100%;
-	cursor:pointer;
 }

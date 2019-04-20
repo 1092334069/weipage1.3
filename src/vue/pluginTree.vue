@@ -1,10 +1,11 @@
 <template>
-	<div class="plugin-tree-page hidden">
-		<div class="plugin-tree-dialog">
-			<div class="dialog-head">
-				<span>插件树</span>
-				<div class="dialog-close"></div>
-			</div>
+	<div class="plugin-tree-dialog">
+		<div class="dialog-head">
+			<span>插件树</span>
+			<div class="dialog-close" @click="closePluginTree"></div>
+		</div>
+		<div class="dialog-body">
+			<plugin-tree-list :plugin-list="pluginList" :select-plugin-id="selectPluginId"></plugin-tree-list>
 		</div>
 	</div>
 </template>
@@ -28,11 +29,44 @@
 		    return {}
 		},
 		methods: {
-
+			closePluginTree: function() {
+				this.$emit('close-plugin-tree','')
+			}
 		}
 	}
 </script>
 
 <style scoped>
-
+.plugin-tree-dialog{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50%,-50%);
+	border-radius:8px;
+	width:600px;
+	height:400px;
+	background-color:#fff;
+}
+.plugin-tree-dialog .dialog-head{
+	height:40px;
+	line-height:40px;
+	background-color:#f2f2f2;
+	font-size:20px;
+	padding:0 20px;
+	position:relative;
+	border-radius:8px 8px 0 0;
+}
+.plugin-tree-dialog .dialog-close{
+	width:24px;
+	height:24px;
+	right:8px;
+	top:8px;
+	position:absolute;
+	background-image:url('../img/icon-close.png');
+	background-size:100% 100%;
+	cursor:pointer;
+}
+.plugin-tree-dialog .dialog-body{
+	padding:10px 20px;
+}
 </style>

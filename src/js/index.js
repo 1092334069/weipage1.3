@@ -17,8 +17,9 @@ var weipage = new Vue({
 	el: '#weipage',
 	data: {
 		pluginList: [],
-		selectPluginId: 0,
-		selectForm: 'base'
+		selectPluginId: '',
+		selectForm: 'base',
+		pluginTreeIsOpen: false
 	},
 	computed: {
 		editForm() {
@@ -39,6 +40,12 @@ var weipage = new Vue({
 		},
 		changeFormTab(form) {
 			this.selectForm = form
+		},
+		openPluginTree() {
+			this.pluginTreeIsOpen = true
+		},
+		closePluginTree() {
+			this.pluginTreeIsOpen = false
 		}
 	},
 	created:function(){

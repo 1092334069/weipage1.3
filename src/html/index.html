@@ -11,13 +11,19 @@
 	</head>
 	<body>
 		<div id="weipage" class="weipage" v-cloak>
-			<div class="tool-page">
-				<p class="tool-title">工具</p>
+			<div class="menu-page">
+				<p class="menu-title">工具</p>
 				<ul class="tool-list">
 					<li @click="insertPlugin('panel')">面板</li>
 					<li @click="insertPlugin('text')">文本</li>
 					<li @click="insertPlugin('image')">图片</li>
 					<li>视频</li>
+				</ul>
+				<p class="menu-title">快捷</p>
+				<ul class="shortcut-list">
+					<li @click="openPluginTree">
+						<img src="../img/icon-tree.png" />
+					</li>
 				</ul>
 			</div>
 			<div class="view-page">
@@ -49,7 +55,9 @@
 				</template>
 			</div>
 
-			<plugin-tree></plugin-tree>
+			<div id="pluginTreePage" class="plugin-tree-page" :class="{hidden: !pluginTreeIsOpen}">
+				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @close-plugin-tree="closePluginTree"></plugin-tree>
+			</div>
 		</div>
 	</body>
 </html>
