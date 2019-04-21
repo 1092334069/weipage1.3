@@ -29,14 +29,17 @@ viewPlugin.prototype.buildList = function() {
 }
 
 viewPlugin.prototype.operationView = function(coordinate) {
-	for (var i = 0; i < this.coordinateList.length; i++) {
+	for (var i = this.coordinateList.length - 1; i >= 0; i--) {
 		if (this.coordinateList[i].top <= coordinate.top && this.coordinateList[i].left <= coordinate.left && this.coordinateList[i].bottom >= coordinate.bottom && this.coordinateList[i].right >= coordinate.right) {
 			return {
 				type: 'inside',
 				toPluginId: this.coordinateList[i].pluginId,
 				pluginId: coordinate.pluginId
 			}
-		} else if (this.coordinateList[i].parentPluginId === coordinate.parentPluginId && this.coordinateList[i].bottom > coordinate.bottom) {
+		}
+	}
+	for (var i = 0; i < this.coordinateList.length; i++) {
+		if (this.coordinateList[i].parentPluginId === coordinate.parentPluginId && this.coordinateList[i].bottom > coordinate.bottom) {
 			return {
 				type: 'before',
 				toPluginId: this.coordinateList[i].pluginId,
