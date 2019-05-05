@@ -10,16 +10,10 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var server = app.listen(8090, function () {
+var server = app.listen(8090, '0.0.0.0', function () {
 });
 
-app.post('*', function (req, res) {
-
-    setTimeout(function(){
-     
-        res.json(JSON.parse('{"status":1,"result":0,"codeInfo":{"code":1001},"title":"标题","content":"这里是内容区域","image":{"imageUrl":"./temp/E7A7093C9008A2AFB46D332BA92664DF.png"}}'));  
-                   
-    },2000);               
+app.post('*', function (req, res) {           
 
 });
 

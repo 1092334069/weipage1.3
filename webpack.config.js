@@ -29,7 +29,7 @@ module.exports = {
   output: {
 	    filename: '[name].bundle.js',
 	    path:__dirname + '/dist',
-		publicPath: ''
+		publicPath: '/dist/'
   },  
   devServer: {
     contentBase: __dirname
