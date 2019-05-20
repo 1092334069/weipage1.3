@@ -2,10 +2,12 @@ import 'babel-polyfill'
 
 import '../css/reset.css'
 import '../css/index.css'
+
 import '../../vueComponent'
 import '../../vueComponents'
 import '../../plugin'
 import '../vue'
+
 import { pluginUpdate, pluginSearch, pluginMove, pluginRemove } from './formAction.js'
 import { createPlugin } from '../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'

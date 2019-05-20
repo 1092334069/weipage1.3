@@ -24,7 +24,8 @@ module.exports = {
           collapseWhitespace: true
         }
       }),
-      new webpack.ProvidePlugin({ $: "jquery" })
+      new webpack.ProvidePlugin({ $: "jquery" }),
+      new uglify()
   ],
   output: {
 	    filename: '[name].bundle.js',
