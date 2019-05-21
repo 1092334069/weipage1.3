@@ -2,23 +2,17 @@ var commonMethod = {
 	parseStyle: function() {
 		var width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
 		if (this.viewData.style) {
-			if (this.viewData.style.shape) {
-				width = 'width:' + this.viewData.style.shape.width + ';'
-				height = 'height:' + this.viewData.style.shape.height + ';'
-				margin = 'margin:' + this.parseFourSides(this.viewData.style.shape.margin) + ';'
-				padding = 'padding:' + this.parseFourSides(this.viewData.style.shape.padding) + ';'
-				borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.shape.borderRadius) + ';'
-				transformRotate = 'transform:rotate(' + this.viewData.style.shape.transformRotate + 'deg);'
-			}
-			if (this.viewData.style.border) {
+			if (this.viewData.style) {
+				width = 'width:' + this.viewData.style.width + ';'
+				height = 'height:' + this.viewData.style.height + ';'
+				margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
+				padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
+				borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
+				transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
 				border = 'border:' + this.parseBorder() + ';'
-			}
-			if (this.viewData.style.location) {
 				position = this.parsePosition() + ';'
-			}
-			if (this.viewData.style.fill) {
-				backgroundColor = 'backgroundColor:' + this.viewData.style.fill.color + ';'
-				backgroundImage = 'backgroundImage:url(' + this.viewData.style.fill.image + ')'
+				backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
+				backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
 			}
 			return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
 		} else {
@@ -43,17 +37,17 @@ var commonMethod = {
 		}
 	},
 	parseBorder: function() {
-		if (this.viewData.style.border.display === 'block') {
-			return this.viewData.style.border.width + 'px ' + this.viewData.style.border.style + ' ' + this.viewData.style.border.color
+		if (this.viewData.style.border === 'block') {
+			return this.viewData.style.borderWidth + 'px ' + this.viewData.style.borderStyle + ' ' + this.viewData.style.borderColor
 		} else {
 			return 'none'
 		}
 	},
 	parsePosition: function() {
-		if (this.viewData.style.location.position === 'relative') {
+		if (this.viewData.style.position === 'relative') {
 			return 'position:relative'
 		} else {
-			return 'position:absolute;top:' + this.viewData.style.location.top + ';left:' + this.viewData.style.location.left
+			return 'position:absolute;top:' + this.viewData.style.top + ';left:' + this.viewData.style.left
 		}
 	}
  }

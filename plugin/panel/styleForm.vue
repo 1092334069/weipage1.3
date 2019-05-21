@@ -6,22 +6,22 @@
 		</div>
 		<div v-if="formValid.shape">
 			<div class="form">
-				<v-number lable="宽度" :value="formData.shape.width" name="shape.width" @formChange="formChange"></v-number>
+				<v-number lable="宽度" :value="formData.width" name="width" @formChange="formChange"></v-number>
 			</div>
 			<div class="form">
-				<v-number lable="高度" :value="formData.shape.height" name="shape.height" @formChange="formChange"></v-number>
+				<v-number lable="高度" :value="formData.height" name="height" @formChange="formChange"></v-number>
 			</div>
 			<div class="form">
-				<v-four-sides lable="外边距" :value="formData.shape.margin" name="shape.margin" @formChange="formChange"></v-four-sides>
+				<v-four-sides lable="外边距" :value="formData.margin" name="margin" @formChange="formChange"></v-four-sides>
 			</div>
 			<div class="form">
-				<v-four-sides lable="内边距" :value="formData.shape.padding" name="shape.padding" @formChange="formChange"></v-four-sides>
+				<v-four-sides lable="内边距" :value="formData.padding" name="padding" @formChange="formChange"></v-four-sides>
 			</div>
 			<div class="form">
-				<v-four-sides lable="圆角" :value="formData.shape.borderRadius" name="shape.borderRadius" @formChange="formChange"></v-four-sides>
+				<v-four-sides lable="圆角" :value="formData.borderRadius" name="borderRadius" @formChange="formChange"></v-four-sides>
 			</div>
 			<div class="form">
-				<v-number lable="旋转" :value="formData.shape.transformRotate" name="shape.transformRotate" @formChange="formChange"></v-number>
+				<v-number lable="旋转" :value="formData.transformRotate" name="transformRotate" @formChange="formChange"></v-number>
 			</div>
 		</div>
 		<div class="form-group" @click="triggerForm('border')">
@@ -30,17 +30,17 @@
 		</div>
 		<div v-if="formValid.border">
 			<div class="form">
-				<v-radio lable="显示边框" :options="borderDisplayOptions" :value="formData.border.display" name="border.display" @formChange="formChange"></v-radio>
+				<v-radio lable="显示边框" :options="borderDisplayOptions" :value="formData.border" name="border" @formChange="formChange"></v-radio>
 			</div>
-			<div v-if="formData.border.display==='block'">
+			<div v-if="formData.border==='block'">
 				<div class="form">
-					<v-select lable="样式" :options="borderStyleOptions" :value="formData.border.style" name="border.style" @formChange="formChange"></v-select>
+					<v-select lable="样式" :options="borderStyleOptions" :value="formData.borderStyle" name="borderStyle" @formChange="formChange"></v-select>
 				</div>
 				<div class="form">
-					<v-number lable="尺寸" :value="formData.border.width" name="border.width" @formChange="formChange"></v-number>
+					<v-number lable="尺寸" :value="formData.borderWidth" name="borderWidth" @formChange="formChange"></v-number>
 				</div>
 				<div class="form">
-					<v-color lable="颜色" :value="formData.border.color" name="border.color" @formChange="formChange"></v-color>
+					<v-color lable="颜色" :value="formData.borderColor" name="borderColor" @formChange="formChange"></v-color>
 				</div>
 			</div>
 		</div>
@@ -50,13 +50,13 @@
 		</div>
 		<div v-if="formValid.location">
 			<div class="form">
-				<v-radio lable="是否定位" :options="locationPositionOptions" :value="formData.location.position" name="location.position" @formChange="formChange"></v-radio>
+				<v-radio lable="是否定位" :options="locationPositionOptions" :value="formData.position" name="position" @formChange="formChange"></v-radio>
 			</div>
-			<div class="form" v-if="formData.location.position==='absolute'">
-				<v-number lable="横向" :value="formData.location.left" name="location.left" @formChange="formChange"></v-number>
+			<div class="form" v-if="formData.position==='absolute'">
+				<v-number lable="横向" :value="formData.left" name="left" @formChange="formChange"></v-number>
 			</div>
-			<div class="form" v-if="formData.location.position==='absolute'">
-				<v-number lable="纵向" :value="formData.location.top" name="location.top" @formChange="formChange"></v-number>
+			<div class="form" v-if="formData.position==='absolute'">
+				<v-number lable="纵向" :value="formData.top" name="top" @formChange="formChange"></v-number>
 			</div>
 		</div>
 		<div class="form-group" @click="triggerForm('fill')">
@@ -65,10 +65,10 @@
 		</div>
 		<div v-if="formValid.fill">
 			<div class="form">
-				<v-color lable="颜色" :value="formData.fill.color" name="fill.color" @formChange="formChange"></v-color>
+				<v-color lable="颜色" :value="formData.backgroundColor" name="backgroundColor" @formChange="formChange"></v-color>
 			</div>
 			<div class="form">
-				<v-image lable="图片" :value="formData.fill.image" name="fill.image" @formChange="formChange"></v-image>
+				<v-image lable="图片" :value="formData.backgroundImage" name="backgroundImage" @formChange="formChange"></v-image>
 			</div>
 		</div>
 	</div>

@@ -5,29 +5,21 @@ var pluginConfig = {
 			name: '面板'
 		},
 		style: {
-			shape: {
-				width: 375,
-				height: 50,
-				margin: 0,
-				padding: 0,
-				borderRadius: 0,
-				transformRotate: 0
-			},
-			border: {
-				display: 'none',
-				width: 1,
-				style: 'solid',
-				color: '#e5e5e5'
-			},
-			fill: {
-				color: '#ffffff',
-				image: ''
-			},
-			location: {
-				position: 'relative',
-				top: 0,
-				left: 0
-			}
+			width: 375,
+			height: 50,
+			margin: 0,
+			padding: 0,
+			borderRadius: 0,
+			transformRotate: 0,
+			border: 'none',
+			borderWidth: 1,
+			borderStyle: 'solid',
+			borderColor: '#e5e5e5',
+			backgroundColor: '#ffffff',
+			backgroundImage: '',
+			position: 'relative',
+			top: 0,
+			left: 0
 		},
 		pluginList: []
 	},
