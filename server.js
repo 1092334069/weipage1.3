@@ -21,7 +21,12 @@ function requestAction(req, res) {
 	if (isStatusResource) {
 		res.sendfile(__dirname + pathname)
 	} else if (isApiResource) {
-		
+		httpRequest.apiRequest({
+			method: req.method,
+			headers: req.headers,
+			pathname: pathname,
+			param: param
+		}, res)
 	} else {
 		res.sendfile(__dirname + `/dist${pathname}.html`)
 	}
