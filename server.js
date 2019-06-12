@@ -1,27 +1,32 @@
-const express = require('express');
-const http = require('http'); 
-const bodyParser = require("body-parser"); 
-const querystring = require('querystring');
-const multiparty = require('multiparty');
-const httpRequest = require('./nodeServer/httpRequest.js');
-const httpAction = require('./nodeServer/httpAction.js');
+const express = require('express')
+const http = require('http')
+const bodyParser = require("body-parser")
+const querystring = require('querystring')
+const multiparty = require('multiparty')
+const httpRequest = require('./nodeServer/httpRequest')
+const httpUtil = require('./nodeServer/httpUtil')
 
-const app = express();
+const app = express()
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
 
-var server = app.listen(8090, '0.0.0.0', function () {
-});
+var server = app.listen(8090, '0.0.0.0', function() {})
 
-app.post('*', function (req, res) {           
+function requestAction(req, res) {
+	const pathname = httpUtil.parsePathName(req)
+	const param = httpUtil.parseParam(req)
+	console.log(pathname)
+	const isStatusResource = httpUtil.checkStatusResource(pathname)
+	const isApiResource = httpUtil.checkApiResource(pathname)
+	if (isStatusResource) {
+		res.sendfile(__dirname + pathname)
+	} else if (isApiResource) {
+		
+	} else {
+		res.sendfile(__dirname + `/dist${pathname}.html`)
+	}
+}
 
-});
+app.get('*', requestAction)
 
-app.get("/index",function(req,res){
-   res.sendfile( __dirname+'/dist/index.html');  
-});
-
-app.get("*",function(req,res){
-   let url = httpAction.getRequestUrl(req.url);
-   res.sendfile( __dirname+url);  
-});
+app.post('*', requestAction)
