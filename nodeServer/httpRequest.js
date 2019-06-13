@@ -5,15 +5,15 @@ function apiRequest(parameter, requestResult) {
 		if (parameter.pathname === apiRouter[i].pathname) {
 			apiRouter[i].action(parameter, (res) => {
 				if (res) {
-					requestResult.json(res)
+					requestResult.json(JSON.parse(res))
 				} else {
-					requestResult.json(JSON.parse(JSON.stringify({code: 501, message: '网络异常，请稍后重试' })))
+					requestResult.json({code: 501, message: '网络异常，请稍后重试' })
 				}
 			})
 			return
 		}
 	}
-	requestResult.json(JSON.parse(JSON.stringify({code: 401, message: '没有找到接口' })))
+	requestResult.json({code: 401, message: '没有找到接口' })
 }
 
 module.exports = {

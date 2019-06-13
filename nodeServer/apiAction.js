@@ -11,7 +11,6 @@ function httpGet(parameter, callback) {
 		method: 'GET',
 		headers: parameter.headers
 	}
-	console.log(options)
 	let rqt = http.request(options, (res) => {  
 		let backData = ''
 		res.setEncoding('utf-8');  
