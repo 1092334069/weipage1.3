@@ -15,7 +15,6 @@ var server = app.listen(8090, '0.0.0.0', function() {})
 function requestAction(req, res) {
 	const pathname = httpUtil.parsePathName(req)
 	const param = httpUtil.parseParam(req)
-	console.log(pathname)
 	const isStatusResource = httpUtil.checkStatusResource(pathname)
 	const isApiResource = httpUtil.checkApiResource(pathname)
 	if (isStatusResource) {
