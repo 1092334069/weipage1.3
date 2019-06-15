@@ -3,12 +3,14 @@ const http = require('http')
 const bodyParser = require("body-parser")
 const querystring = require('querystring')
 const multiparty = require('multiparty')
+const cookieParser = require('cookie-parser')
 const httpRequest = require('./nodeServer/httpRequest')
 const httpUtil = require('./nodeServer/httpUtil')
 
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 var server = app.listen(8090, '0.0.0.0', function() {})
 

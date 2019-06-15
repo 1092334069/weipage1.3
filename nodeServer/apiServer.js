@@ -9,24 +9,23 @@ function httpGet(parameter, callback) {
 		port: 9090,
 		path: parameter.pathname + '?' + postData,
 		method: 'GET',
-		headers: parameter.headers
+		headers: {
+			'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8', 
+			'User-Agent': parameter.headers['user-agent']
+		}
 	}
-	let rqt = http.request(options, (res) => {  
+	let rqt = http.request(options, (res) => {
 		let backData = ''
 		res.setEncoding('utf-8');  
 		res.on('data', (chun) => {
-		backData += chun
-			return
+			backData += chun
 		}) 
-		res.on('end', () => {
+		res.on('end', (end) => {
 			callback(backData)
-			return
 		})
-		return
 	})
 	rqt.on('error', (err) => {
 		callback({code: 502, message: '网络异常，请稍后重试' })
-      	return
 	})
 	rqt.end()
 }
@@ -38,23 +37,23 @@ function httpPost(parameter, callback){
 		port: 9090,
 		path: parameter.pathname,
 		method: 'POST',
-		headers: parameter.headers
+		headers: {
+			'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8', 
+			'User-Agent': parameter.headers['user-agent']
+		}
 	}  
 	let rqt = http.request(options, (res) => {  
 	let backData = ''
 		res.setEncoding('utf-8')
 		res.on('data', (chun) => {
-			backData += chun       
-			return
+			backData += chun
 		})
 		res.on('end', (end) => {        
 			callback(backData)
 		})
-		return
 	})
 	rqt.on('error', (err) => {  
 		callback({code: 502, message: '网络异常，请稍后重试' })
-		return
 	})
 	rqt.write(postData)
 	rqt.end()

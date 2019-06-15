@@ -1,5 +1,5 @@
 const statusReg = /\.(js|css|png|jpg|gif)$/
-const apiReg = /^\/api/g
+const apiReg = /^\/api/
 
 function parsePathName(req) {
 	if (req && req._parsedUrl) {
@@ -11,7 +11,16 @@ function parsePathName(req) {
 
 function parseParam(req) {
 	if (req) {
-		return req.query
+		let param = req.query
+		if (req.cookies) {
+			if (req.cookies.userIdStr) {
+				param['userIdStr'] = req.cookies.userIdStr
+			}
+			if (req.cookies.token) {
+				param['token'] = req.cookies.token
+			}
+		}
+		return param
 	} else {
 		return {}
 	}

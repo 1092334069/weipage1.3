@@ -9,7 +9,7 @@ function apiRequest(parameter, requestResult) {
 				} else {
 					requestResult.json({code: 501, message: '网络异常，请稍后重试' })
 				}
-			})
+			}, requestResult)
 			return
 		}
 	}
