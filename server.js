@@ -20,7 +20,7 @@ function requestAction(req, res) {
 	const isStatusResource = httpUtil.checkStatusResource(pathname)
 	const isApiResource = httpUtil.checkApiResource(pathname)
 	if (isStatusResource) {
-		res.sendfile(__dirname + pathname)
+		res.sendFile(__dirname + pathname)
 	} else if (isApiResource) {
 		httpRequest.apiRequest({
 			method: req.method,
@@ -29,7 +29,7 @@ function requestAction(req, res) {
 			param: param
 		}, res)
 	} else {
-		res.sendfile(__dirname + `/dist${pathname}.html`)
+		res.sendFile(__dirname + `/dist${pathname}.html`)
 	}
 }
 

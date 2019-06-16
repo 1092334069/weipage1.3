@@ -1,12 +1,14 @@
 <template>
-	<div class="plugin-tree-dialog">
-		<div class="dialog-head">
-			<span>插件树</span>
-			<div class="dialog-close" @click="closePluginTree"></div>
-		</div>
-		<div class="dialog-body">
-			<plugin-tree-list :plugin-list="pluginList" :select-plugin-id="selectPluginId" @select-plugin="selectPlugin"></plugin-tree-list>
-		</div>
+	<div>
+		<ul class="tree-list">
+			<li v-for="item in pluginList">
+				<div class="tree-item" :class="{current: item.pluginId == selectPluginId}" @click="selectPlugin(item.pluginId)">{{item.base.name}}</div>
+				<div class="tree-child" v-if="item.pluginList && item.pluginList.length">
+					<div v-if="item.pluginId != showPluginId" class="tree-child-more" @click="showChildTree(item.pluginId)"></div>
+					<plugin-tree v-if="showPluginId == item.pluginId" :plugin-list="item.pluginList" :select-plugin-id="selectPluginId" @select-plugin="selectPlugin"></plugin-tree>
+				</div>
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -26,11 +28,13 @@
 			}
 		},
 		data () {
-		    return {}
+		    return {
+		    	showPluginId: ''
+		    }
 		},
 		methods: {
-			closePluginTree: function() {
-				this.$emit('close-plugin-tree','')
+			showChildTree: function(pluginId) {
+				this.showPluginId = pluginId
 			},
 			selectPlugin: function(pluginId) {
 				this.$emit('select-plugin',pluginId)
@@ -40,36 +44,53 @@
 </script>
 
 <style scoped>
-.plugin-tree-dialog{
-	position:absolute;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
-	border-radius:8px;
-	width:600px;
-	height:400px;
-	background-color:#fff;
-}
-.plugin-tree-dialog .dialog-head{
-	height:40px;
-	line-height:40px;
-	background-color:#ddd;
-	font-size:20px;
-	padding:0 20px;
+.tree-list{
 	position:relative;
-	border-radius:8px 8px 0 0;
 }
-.plugin-tree-dialog .dialog-close{
-	width:24px;
-	height:24px;
-	right:8px;
-	top:8px;
+.tree-child .tree-list:before{
+	content:"";
+	width:0;
+	height:0;
+	border-top:10px solid transparent;
+	border-bottom:10px solid transparent;
+	border-right:20px solid #f0f0f0;
 	position:absolute;
-	background-image:url('../img/icon-close.png');
-	background-size:100% 100%;
-	cursor:pointer;
+	top:10px;
+	left:-20px;
 }
-.plugin-tree-dialog .dialog-body{
-	padding:10px 20px;
+.tree-list li{
+	position:relative;
+	padding-bottom:5px;
+}
+.tree-item{
+	padding:10px;
+	height:40px;
+	line-height:20px;
+	width:120px;
+	display:inline-block;
+	background-color:#f0f0f0;
+	cursor:pointer;
+	position:relative;
+}
+.tree-item.current{
+	box-shadow:1px 1px 1px #138ed4;
+	z-index:2;
+}
+.tree-child{
+	position:absolute;
+	left:120px;
+	top:0;
+	padding-left:40px;
+	z-index:3;
+}
+.tree-child .tree-child-more{
+	width:20px;
+	height:20px;
+	background-image:url('../img/icon-more.png');
+	background-size:100% 100%;
+	position:absolute;
+	left:10px;
+	top:10px;
+	cursor:pointer;
 }
 </style>

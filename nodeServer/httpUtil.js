@@ -1,4 +1,4 @@
-const statusReg = /\.(js|css|png|jpg|gif)$/
+const statusReg = /\.(js|css|png|jpg|gif|woff|woff2|ttf)$/
 const apiReg = /^\/api/
 
 function parsePathName(req) {
@@ -10,8 +10,13 @@ function parsePathName(req) {
 }
 
 function parseParam(req) {
+	let param = {}
 	if (req) {
-		let param = req.query
+		if (req.method === 'POST') {
+			param = req.body
+		} else {
+			param = req.query
+		}
 		if (req.cookies) {
 			if (req.cookies.userIdStr) {
 				param['userIdStr'] = req.cookies.userIdStr
@@ -20,10 +25,8 @@ function parseParam(req) {
 				param['token'] = req.cookies.token
 			}
 		}
-		return param
-	} else {
-		return {}
 	}
+	return param
 }
 
 function checkStatusResource(pathname) {

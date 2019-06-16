@@ -39,8 +39,9 @@ body{
 }
 .view-page .view-page-head{
 	height:75px;
-	background-image:url('../img/titlebar.png');
+	background-image:url('../../img/titlebar.png');
 	background-size:100% 100%;
+	cursor:pointer;
 }
 .view-page .view-page-content{
 	width:100%;
@@ -94,19 +95,7 @@ body{
 	top:12px;
 	width:24px;
 	height:24px;
-	background-image:url('../img/icon-delete.png');
+	background-image:url('../../img/icon-delete.png');
 	background-size:100% 100%;
 	cursor:pointer;
-}
-.plugin-tree-page{
-	position:fixed;
-	z-index:800;
-	left:0;
-	right:0;
-	top:0;
-	bottom:0;
-	background-color:rgba(0,0,0,0.5);
-}
-.plugin-tree-page.hidden{
-	display:none;
 }

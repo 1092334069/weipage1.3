@@ -60,7 +60,8 @@ function httpPost(parameter, callback){
 }
 
 function serverRequest(parameter, callback) {
-	if (parameter === 'POST') {
+	console.log(parameter)
+	if (parameter.method === 'POST') {
 		httpPost(parameter, callback)
 	} else {
 		httpGet(parameter, callback)

@@ -6,7 +6,7 @@ const uglify = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: {
-  	index:'./src/js/index.js'
+  	'weipage/index':'./src/js/weipage/index.js'
   },
   devtool: 'inline-source-map',
   plugins: [
@@ -17,9 +17,9 @@ module.exports = {
       }),
       new CleanWebpackPlugin(['/dist']),
       new HtmlWebpackPlugin({
-        filename: "index.html",
-        template: path.resolve(__dirname, ".", "./src/html/index.html"),
-        chunks: ["index"],
+        filename: "weipage/index.html",
+        template: path.resolve(__dirname, ".", "./src/html/weipage/index.html"),
+        chunks: ["weipage/index"],
         minify: {
           collapseWhitespace: true
         }

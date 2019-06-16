@@ -1,13 +1,13 @@
 import pluginTree from './pluginTree.vue'
-import pluginTreeList from './pluginTreeList.vue'
+import weipageForm from './weipageForm.vue'
 
 pluginTree.install = function(Vue) {
 	Vue.component(pluginTree.name, pluginTree)
 }
 
-pluginTreeList.install = function(Vue) {
-	Vue.component(pluginTreeList.name, pluginTreeList)
+weipageForm.install = function(Vue) {
+	Vue.component(weipageForm.name, weipageForm)
 }
 
 Vue.use(pluginTree)
-Vue.use(pluginTreeList)
+Vue.use(weipageForm)

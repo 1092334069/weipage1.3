@@ -7,8 +7,10 @@
 				opacity:0;
 			}
 		</style>
-		<script src="../src/js/jquery-1.12.4.min.js"></script>
-		<script src="../src/js/vue.js"></script>
+		<link rel="stylesheet" href="../../src/css/iview/iview.css">
+		<script src="../../src/js/jquery-1.12.4.min.js"></script>
+		<script src="../../src/js/vue.js"></script>
+		<script src="../../src/js/iview.min.js"></script>
 	</head>
 	<body>
 		<div id="weipage" class="weipage" v-cloak>
@@ -23,12 +25,12 @@
 				<p class="menu-title">快捷</p>
 				<ul class="shortcut-list">
 					<li @click="openPluginTree">
-						<img src="../img/icon-tree.png" />
+						<img src="../../img/icon-tree.png" />
 					</li>
 				</ul>
 			</div>
 			<div class="view-page">
-				<div class="view-page-head"></div>
+				<div class="view-page-head" @click="selectPlugin('')"></div>
 				<div class="view-page-content">
 					<template v-for="item in pluginList">
 						<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
@@ -55,10 +57,25 @@
 					<panel-style-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 				</template>
 			</div>
-
-			<div id="pluginTreePage" class="plugin-tree-page" :class="{hidden: !pluginTreeIsOpen}">
-				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @close-plugin-tree="closePluginTree" @select-plugin="selectPlugin"></plugin-tree>
+			<div class="edit-page" v-else>
+				<ul class="tab-control">
+					<li class="current">微页面</li>
+				</ul>
+				<weipage-form :form-data="weipage" @weipage-change="weipageChange"></weipage-form>
 			</div>
+
+			<Modal
+				v-model="pluginTreeModel"
+				title="插件树">
+				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @select-plugin="selectPlugin"></plugin-tree>
+			</Modal>
+
+			<Modal 
+				v-model="interfaceModel"
+				title="接口列表">
+					<i-table stripe :columns="interfaceTable" :data="interfaceTableData"></i-table>
+			</Modal>
+
 		</div>
 	</body>
 </html>
