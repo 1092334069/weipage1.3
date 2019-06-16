@@ -137,7 +137,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.form-group{
 		padding:10px;
 		background-color:#f2f2f2;

@@ -19,26 +19,43 @@ var weipage = new Vue({
 	el: '#weipage',
 	data() {
 		return {
+			// 	微页面基础
 			weipage: {
 				name: '',
 				describes: '',
 				cover: '',
 				pageName: '',
-				interfaceList: []
+				interfaceList: [],
+				selectInterfaceId: 0
 			},
+
+			// 插件编辑
 			pluginList: [],
 			selectPluginId: '',
 			selectForm: 'base',
+
+			// 插件树
 			pluginTreeModel: false,
+
+			// 接口对话框
 			interfaceModel: false,
 			interfaceTable: [
 				{title: '接口名称', key: 'name'},
 				{title: '接口地址', key: 'url'},
 				{title: '操作', key: 'action', render: (h, params) => {
-					return h('Button', {}, '选取')
+					return h('Button', {
+						on: {
+							click: () => {
+								this.selectInterface(params.row.id)
+							}
+						}
+					}, '选取')
 				}}
 			],
-			interfaceTableData: []
+			interfaceTableData: [],
+
+			// 接口树
+			interfaceTree:[]
 		}
 	},
 	computed: {
@@ -74,10 +91,39 @@ var weipage = new Vue({
 			this.pluginTreeModel = false
 		},
 		openInterfaceModel() {
+			getInterfaceList()
 			this.interfaceModel = true
 		},
 		closeInterfaceModel() {
 			this.interfaceModel = false
+		},
+		selectInterface(interfaceId) {
+			this.closeInterfaceModel()
+			getInterfaceDetail(interfaceId, (res) => {
+				const param = JSON.parse(res.param)
+				const paramList = []
+				for (let i = 0; i < param.length; i++) {
+					let p = param[i]
+					if (param[i].type === 'number') {
+						p['value'] = 0
+					} else {
+						p['value'] = ''
+					}
+					paramList.push(p)
+				}
+				const interfaceDetail = {
+					interfaceId: res.interfaceId,
+					name: res.name,
+					url: res.url,
+					type: res.type,
+					dataType: res.dataType,
+					callbackParam: JSON.parse(res.callbackParam),
+					param: paramList
+				}
+				this.weipage.interfaceList.push(interfaceDetail)
+				this.weipage.selectInterfaceId = res.interfaceId
+				this.interfaceTree.push(interfaceDetail)
+			})
 		}
 	}
 })
@@ -94,8 +140,7 @@ var dropPlugin = dropAction({
 	}
 })
 
-getInterfaceList()
-
+// 获取接口列表
 function getInterfaceList() {
 	$.ajax({
 		url: '/api/interface/getPageList',
@@ -108,6 +153,22 @@ function getInterfaceList() {
 		success: (res) => {
 			if (res && res.code === 200 && res.data) {
 				weipage.interfaceTableData = res.data.list
+			}
+		}
+	})
+}
+
+function getInterfaceDetail(interfaceId, callback) {
+	$.ajax({
+		url: '/api/interface/detail',
+		type: 'get',
+		data: {
+			interfaceId: interfaceId
+		},
+		dataType: 'json',
+		success: (res) => {
+			if (res && res.code === 200 && res.data) {
+				callback(res.data)
 			}
 		}
 	})
