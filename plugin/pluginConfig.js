@@ -2,7 +2,9 @@ var pluginConfig = {
 	panel: {
 		pluginType: 'panel',
 		base: {
-			name: '面板'
+			name: '面板',
+			actionList: [],
+			selectActionIndex: 0
 		},
 		style: {
 			width: 375,

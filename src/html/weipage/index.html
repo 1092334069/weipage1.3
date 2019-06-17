@@ -49,7 +49,7 @@
 				</ul>
 				<div class="remove-plugin" @click="removePlugin(editForm.pluginId)"></div>
 				<template v-if="selectForm == 'base'">
-					<panel-base-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.base" @form-change="formChange"></panel-base-form>
+					<panel-base-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></panel-base-form>
 					<text-base-form v-else-if="editForm.pluginType == 'text'" :form-data="editForm.base" @form-change="formChange"></text-base-form>
 					<image-base-form v-else-if="editForm.pluginType == 'image'" :form-data="editForm.base" @form-change="formChange"></image-base-form>
 				</template>
@@ -74,6 +74,12 @@
 				v-model="interfaceModel"
 				title="接口列表">
 					<i-table stripe :columns="interfaceTable" :data="interfaceTableData"></i-table>
+			</Modal>
+
+			<Modal
+				v-model="interfaceTreeModel"
+				title="接口树">
+				<interface-tree :interface-list="interfaceTree" @select-interface-param="selectInterfaceParam"></interface-tree>
 			</Modal>
 
 		</div>

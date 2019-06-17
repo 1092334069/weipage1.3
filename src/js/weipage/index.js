@@ -55,6 +55,7 @@ var weipage = new Vue({
 			interfaceTableData: [],
 
 			// 接口树
+			interfaceTreeModel: false,
 			interfaceTree:[]
 		}
 	},
@@ -124,6 +125,20 @@ var weipage = new Vue({
 				this.weipage.selectInterfaceId = res.interfaceId
 				this.interfaceTree.push(interfaceDetail)
 			})
+		},
+		openInterfaceTreeModel() {
+			this.interfaceTreeModel = true
+		},
+		closeInterfaceTreeModel() {
+			this.interfaceTreeModel = false
+		},
+		selectInterfaceParam(name) {
+			this.closeInterfaceTreeModel()
+			for (let i = 0; i < this.pluginList.length; i++) {
+				if (this.selectPluginId === this.pluginList[i].pluginId) {
+					this.pluginList[i].base.actionList[this.pluginList[i].base.selectActionIndex].value = name
+				}
+			}
 		}
 	}
 })
