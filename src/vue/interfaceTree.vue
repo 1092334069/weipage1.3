@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="tree">
 		<ul class="tree-list">
 			<li v-for="(item,index) in interfaceList">
 				<div class="tree-item">{{item.name}}</div>
@@ -40,6 +40,9 @@
 </script>
 
 <style scoped>
+.tree{
+	min-height:360px;
+}
 .tree-list{
 	position:relative;
 }
