@@ -11,7 +11,22 @@ import '../../vue'
 import { pluginUpdate, pluginSearch, pluginMove, pluginRemove } from './formAction.js'
 import { createPlugin } from '../../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
+import { interfaceAction } from './interfaceAction.js'
 import { viewAction } from './viewAction.js'
+
+var interfaceTable = [
+	{title: '接口名称', key: 'name'},
+	{title: '接口地址', key: 'url'},
+	{title: '操作', key: 'action', render: (h, params) => {
+		return h('Button', {
+			on: {
+				click: () => {
+					interfacePlugin.selectInterface(params.row.id)
+				}
+			}
+		}, '选取')
+	}}
+]
 
 var viewPlugin = viewAction()
 
@@ -39,19 +54,7 @@ var weipage = new Vue({
 
 			// 接口对话框
 			interfaceModel: false,
-			interfaceTable: [
-				{title: '接口名称', key: 'name'},
-				{title: '接口地址', key: 'url'},
-				{title: '操作', key: 'action', render: (h, params) => {
-					return h('Button', {
-						on: {
-							click: () => {
-								this.selectInterface(params.row.id)
-							}
-						}
-					}, '选取')
-				}}
-			],
+			interfaceTable,
 			interfaceTableData: [],
 
 			// 接口树
@@ -92,39 +95,11 @@ var weipage = new Vue({
 			this.pluginTreeModel = false
 		},
 		openInterfaceModel() {
-			getInterfaceList()
+			interfacePlugin.getInterfaceList()
 			this.interfaceModel = true
 		},
 		closeInterfaceModel() {
 			this.interfaceModel = false
-		},
-		selectInterface(interfaceId) {
-			this.closeInterfaceModel()
-			getInterfaceDetail(interfaceId, (res) => {
-				const param = JSON.parse(res.param)
-				const paramList = []
-				for (let i = 0; i < param.length; i++) {
-					let p = param[i]
-					if (param[i].type === 'number') {
-						p['value'] = 0
-					} else {
-						p['value'] = ''
-					}
-					paramList.push(p)
-				}
-				const interfaceDetail = {
-					interfaceId: res.interfaceId,
-					name: res.name,
-					url: res.url,
-					type: res.type,
-					dataType: res.dataType,
-					callbackParam: JSON.parse(res.callbackParam),
-					param: paramList
-				}
-				this.weipage.interfaceList.push(interfaceDetail)
-				this.weipage.selectInterfaceId = res.interfaceId
-				this.interfaceTree.push(interfaceDetail)
-			})
 		},
 		openInterfaceTreeModel() {
 			this.interfaceTreeModel = true
@@ -134,15 +109,10 @@ var weipage = new Vue({
 		},
 		selectInterfaceParam(name) {
 			this.closeInterfaceTreeModel()
-			for (let i = 0; i < this.pluginList.length; i++) {
-				if (this.selectPluginId === this.pluginList[i].pluginId) {
-					this.pluginList[i].base.actionList[this.pluginList[i].base.selectActionIndex].value = name
-				}
-			}
+			interfacePlugin.selectInterfaceParam(name)
 		}
 	}
 })
-
 
 var dropPlugin = dropAction({
 	mouseDownCallback: (pluginId) => {
@@ -155,36 +125,6 @@ var dropPlugin = dropAction({
 	}
 })
 
-// 获取接口列表
-function getInterfaceList() {
-	$.ajax({
-		url: '/api/interface/getPageList',
-		type: 'get',
-		data: {
-			page: 1,
-			size: 10
-		},
-		dataType: 'json',
-		success: (res) => {
-			if (res && res.code === 200 && res.data) {
-				weipage.interfaceTableData = res.data.list
-			}
-		}
-	})
-}
-
-function getInterfaceDetail(interfaceId, callback) {
-	$.ajax({
-		url: '/api/interface/detail',
-		type: 'get',
-		data: {
-			interfaceId: interfaceId
-		},
-		dataType: 'json',
-		success: (res) => {
-			if (res && res.code === 200 && res.data) {
-				callback(res.data)
-			}
-		}
-	})
-}
+var interfacePlugin = interfaceAction({
+	that: weipage
+})

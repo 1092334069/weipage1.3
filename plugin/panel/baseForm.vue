@@ -9,7 +9,7 @@
 			<div class="add-module" @click="addAction"></div>
 		</div>
 		<hr/>
-		<template v-for="(item,index) in formData.actionList" v-if="formData.selectActionIndex === index">
+		<template v-for="(item,index) in formData.actionList" v-if="formData.selectIndex === index">
 			<div class="form">
 				<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
 			</div>
@@ -92,7 +92,7 @@
 				this.$emit('form-change', res)
 			},
 			parseClass: function(index) {
-				if (index === this.formData.selectActionIndex) {
+				if (index === this.formData.selectIndex) {
 					return 'current'
 				} else {
 					return ''
@@ -100,13 +100,13 @@
 			},
 			selectAction: function(index) {
 				this.formChange({
-					name: 'selectActionIndex',
+					name: 'selectIndex',
 					value: index
 				})
 			},
 			actionChange: function(res) {
 				const actionList = this.formData.actionList
-				actionList[this.formData.selectActionIndex][res.name] = res.value
+				actionList[this.formData.selectIndex][res.name] = res.value
 				this.formChange({
 					name: 'actionList',
 					value: actionList
@@ -124,7 +124,7 @@
 					value: actionList
 				})
 				this.formChange({
-					name: 'selectActionIndex',
+					name: 'selectIndex',
 					value: actionList.length - 1
 				})
 			},

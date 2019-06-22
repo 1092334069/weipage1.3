@@ -1,6 +1,5 @@
 <template>
 	<div>
-		
 		<v-number v-if="isValueNumber" :lable="lable" :value="value" :name="name" @formChange="formChange"></v-number>
 		<v-text v-else :lable="lable" :value="valueStr" :isReadOnly="isReadOnly" :name="name" @formChange="formChange"></v-text>
 		<div class="more-input" :class="{close:subFormValid}" @click="triggerSubForm"></div>

@@ -4,7 +4,7 @@ var pluginConfig = {
 		base: {
 			name: '面板',
 			actionList: [],
-			selectActionIndex: 0
+			selectIndex: 0
 		},
 		style: {
 			width: 375,
