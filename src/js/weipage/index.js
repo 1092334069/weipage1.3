@@ -70,6 +70,7 @@ var weipage = new Vue({
 	methods: {
 		weipageChange(res) {
 			this.weipage[res.name] = res.value
+			console.log(this.weipage)
 		},
 		formChange(res) {
 			pluginUpdate(res, this.editForm)
@@ -78,7 +79,7 @@ var weipage = new Vue({
 			this.selectPluginId = pluginId
 		},
 		insertPlugin(pluginType) {
-			var plugin = createPlugin(pluginType)
+			const plugin = createPlugin(pluginType)
 			this.selectPluginId = plugin.pluginId
 			this.pluginList.push(plugin)
 		},

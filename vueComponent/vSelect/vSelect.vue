@@ -1,6 +1,6 @@
 <template>
 	<div class="vSelect" :style="{paddingLeft:lableWidth}">
-		<span class="lable" :style="{width:lableWidth}">{{lable}}：</span>
+		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
 		<select ref="form" @change="formChange">
 			<option v-for="item in options" :value="item.value" :selected="checkTheSame(item.value, value)">{{item.label}}</option>
 		</select>

@@ -1,6 +1,6 @@
 <template>
 	<div class="vInput" :style="{paddingLeft:lableWidth}">
-		<span class="lable" :style="{width:lableWidth}">{{lable}}：</span>
+		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
 		<input type="text" ref="form" :class="size" :value="value" :readonly="isReadOnly" @input="formChange" />
 	</div>
 </template>
@@ -10,8 +10,7 @@
 		name: "vText",
 		props: {
 			value: {
-				type: String,
-				default: ''
+				type: [String, Number]
 			},
 			name: {
 				type: String,

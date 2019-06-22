@@ -1,6 +1,6 @@
 <template>
 	<div class="vImage" :style="{paddingLeft:lableWidth}">
-		<span class="lable" :style="{width:lableWidth}">{{lable}}：</span>
+		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
 		<div v-if="value!==''" class="upload-btn">
 			<img :src="value" />
 		</div>

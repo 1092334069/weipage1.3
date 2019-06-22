@@ -1,6 +1,6 @@
 <template>
 	<div class="vInput" :style="{paddingLeft:lableWidth}">
-		<span class="lable" :style="{width:lableWidth}">{{lable}}：</span>
+		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
 		<input type="color" ref="form" :value="value" @input="formChange" />
 	</div>
 </template>

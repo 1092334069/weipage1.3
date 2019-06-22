@@ -19,9 +19,8 @@
 		</div>
 		<hr/>
 		<template v-for="itf in formData.interfaceList" v-if="formData.selectInterfaceId === itf.interfaceId">
-			<div class="form" v-for="item in itf.param">
-				<v-number v-if="item.type=='number'" :lable="item.name" :value="item.value" size="l" :name="item.key" @formChange="interfaceChange"></v-number>
-				<v-text v-else :lable="item.name" :value="item.value" size="l" :name="item.key" @formChange="interfaceChange"></v-text>
+			<div class="form size-l" v-for="item in itf.param">
+				<v-input-source :lable="item.name" :value="item.value" :name="item.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></v-input-source>
 			</div>
 		</template>
 	</div>
@@ -40,8 +39,17 @@
 		},
 		data () {
 		    return {
-		    	
-		    }
+				sourceOptions: [{
+					label: '固定值',
+					value: 'static'
+				},{
+					label: '链接参数',
+					value: 'url'
+				},{
+					label: '缓存',
+					value: 'cookie'
+				}]
+			}
 		},
 		methods: {
 			weipageChange: function(res) {
@@ -91,6 +99,9 @@
 		position:relative;
 		width:300px;
 		margin:5px 0;
+	}
+	.form.size-l{
+		width:500px;
 	}
 	.form-list{
 		position:relative;

@@ -63,9 +63,15 @@ interfacePlugin.prototype.selectInterface = function(interfaceId) {
 		for (let i = 0; i < param.length; i++) {
 			let p = param[i]
 			if (param[i].type === 'number') {
-				p['value'] = 0
+				p['value'] = {
+					data: 0,
+					source: 'static'
+				}
 			} else {
-				p['value'] = ''
+				p['value'] = {
+					data: '',
+					source: 'static'
+				}
 			}
 			paramList.push(p)
 		}
@@ -97,7 +103,6 @@ function interfaceAction(option) {
 	if (option) {
 		temp.init(option.that)
 	}
-	console.log(option)
 	return temp
 }
 

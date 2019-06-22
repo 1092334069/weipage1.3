@@ -1,7 +1,8 @@
 import vFourSides from './vFourSides'
+import vInputSource from './vInputSource'
 
 let result = {}
-let pluginList = [vFourSides]
+let pluginList = [vFourSides,vInputSource]
 
 for (let i = 0; i < pluginList.length; i++) {
 	for(let key in pluginList[i]){
