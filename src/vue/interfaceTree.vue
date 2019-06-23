@@ -32,8 +32,9 @@
 			showChildTree: function(index) {
 				this.showIndex = index
 			},
-			selectInterfaceParam: function(name) {
-				this.$emit('select-interface-param', name)
+			selectInterfaceParam: function(option) {
+				option['url'] = this.interfaceList[this.showIndex].url
+				this.$emit('select-interface-param', option)
 			}
 		}
 	}

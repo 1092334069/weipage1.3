@@ -90,10 +90,21 @@ interfacePlugin.prototype.selectInterface = function(interfaceId) {
 	})
 }
 
-interfacePlugin.prototype.selectInterfaceParam = function(name) {
-	for (let i = 0; i < _this.weiPageThis.pluginList.length; i++) {
-		if (_this.weiPageThis.selectPluginId === _this.weiPageThis.pluginList[i].pluginId) {
-			_this.weiPageThis.pluginList[i].base.actionList[_this.weiPageThis.pluginList[i].base.selectIndex].value = name
+interfacePlugin.prototype.selectInterfaceParam = function(option) {
+	if (!option) {
+		return
+	}
+	const result = {
+		name: option.name,
+		url: option.url,
+		keyList: []
+	}
+	for (let i = option.keyList.length - 1; i >= 0; i--) {
+		result.keyList.push(option.keyList[i])
+	}
+	for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
+		if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
+			this.weiPageThis.pluginList[i].base.actionList[this.weiPageThis.pluginList[i].base.selectIndex].value = result
 		}
 	}
 }

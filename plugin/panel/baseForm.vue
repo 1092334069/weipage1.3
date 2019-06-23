@@ -14,13 +14,12 @@
 				<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
 			</div>
 			<div class="form">
-				<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionChange"></v-radio>
+				<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-radio>
 			</div>		
 			<div class="form" v-if="item.type === 'interface'">
 				<div class="action-interface">
 					<span class="lable">响应值：</span>
-					<div class="interface-btn" v-if="item.value" @click="openInterfaceTreeModel">{{item.value}}</div>
-					<div class="interface-btn" v-else @click="openInterfaceTreeModel">点击选择接口参数</div>
+					<div class="interface-btn" @click="openInterfaceTreeModel">{{item.value.name}}</div>
 				</div>
 			</div>
 			<div class="form" v-else>
@@ -44,34 +43,34 @@
 		data () {
 		    return {
 		    	actionKeyList: [{
-		    		label: '宽度',
+		    		label: '样式 宽度',
 		    		value: 'width'
 		    	},{
-		    		label: '高度',
+		    		label: '样式 高度',
 		    		value: 'height'
 		    	},{
-		    		label: '外边距',
+		    		label: '样式 外边距',
 		    		value: 'margin'
 		    	},{
-		    		label: '内边距',
+		    		label: '样式 内边距',
 		    		value: 'padding'
 		    	},{
-		    		label: '圆角',
+		    		label: '样式 圆角',
 		    		value: 'borderRadius'
 		    	},{
-		    		label: '旋转',
+		    		label: '样式 旋转',
 		    		value: 'transformRotate'
 		    	},{
-		    		label: '边框',
+		    		label: '样式 边框',
 		    		value: 'border'
 		    	},{
-		    		label: '定位',
+		    		label: '样式 定位',
 		    		value: 'position'
 		    	},{
-		    		label: '颜色',
+		    		label: '样式 颜色',
 		    		value: 'backgroundColor'
 		    	},{
-		    		label: '图片',
+		    		label: '样式 图片',
 		    		value: 'backgroundImage'
 		    	}],
 		    	actionTypeList: [{
@@ -104,6 +103,18 @@
 					value: index
 				})
 			},
+			actionTypeChange: function(res) {
+				if (res.value === 'interface') {
+					this.formData.actionList[this.formData.selectIndex]['value'] = {
+						name: '点击选择接口参数',
+						url: '',
+						keyList: []
+					}
+				} else {
+					this.formData.actionList[this.formData.selectIndex]['value'] = ''
+				}
+				this.actionChange(res)
+			},
 			actionChange: function(res) {
 				const actionList = this.formData.actionList
 				actionList[this.formData.selectIndex][res.name] = res.value
@@ -117,7 +128,11 @@
 				actionList.push({
 					key: 'width',
 					type: 'interface',
-					value: ''
+					value: {
+						name: '点击选择接口参数',
+						url: '',
+						keyList: []
+					}
 				})
 				this.formChange({
 					name: 'actionList',
@@ -150,7 +165,7 @@
 		padding-left:85px;
 	}
 	.form-list .form-lable{
-		width:80px;
+		width:85px;
 		display: inline-block;
 	    font-size: 14px;
 	    text-align: right;

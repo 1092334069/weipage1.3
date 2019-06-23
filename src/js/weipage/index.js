@@ -108,9 +108,9 @@ var weipage = new Vue({
 		closeInterfaceTreeModel() {
 			this.interfaceTreeModel = false
 		},
-		selectInterfaceParam(name) {
+		selectInterfaceParam(option) {
 			this.closeInterfaceTreeModel()
-			interfacePlugin.selectInterfaceParam(name)
+			interfacePlugin.selectInterfaceParam(option)
 		}
 	}
 })
@@ -129,3 +129,6 @@ var dropPlugin = dropAction({
 var interfacePlugin = interfaceAction({
 	that: weipage
 })
+
+// 进入页面登录，后面删掉代码
+$.ajax({url:'/api/login/phoneCode',type:'get',data:{phone:13651438085,code:788329},dataType:'JSON',success:function(res){console.log(res)}})

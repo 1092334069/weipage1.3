@@ -2,7 +2,7 @@
 	<div>
 		<ul class="tree-list">
 			<li v-for="(item,index) in paramList">
-				<div class="tree-item" :class="{current: index == showIndex}" @click="selectInterfaceParam(item.name)">{{item.name}}</div>
+				<div class="tree-item" :class="{current: index == showIndex}" @click="selectInterfaceParam(item,index)">{{item.name}}</div>
 				<div class="tree-child" v-if="item.child && item.child.length">
 					<div v-if="index != showIndex" class="tree-child-more" @click="showChildTree(index)"></div>
 					<interface-child-tree v-else :param-list="item.child" @select-interface-param="selectInterfaceParam"></interface-child-tree>
@@ -32,8 +32,20 @@
 			showChildTree: function(index) {
 				this.showIndex = index
 			},
-			selectInterfaceParam: function(name) {
-				this.$emit('select-interface-param', name)
+			selectInterfaceParam: function(option, index) {
+				if (typeof index !== 'undefined') {
+					this.showIndex = index
+				}
+				let keyList = []
+				if (option.keyList) {
+					keyList = option.keyList
+				}
+				keyList.push(this.paramList[this.showIndex].key)
+				const r = {
+					keyList,
+					name: option.name
+				}
+				this.$emit('select-interface-param', r)
 			}
 		}
 	}
