@@ -1,24 +1,51 @@
-var commonMethod = {
+const commonMethod = {
 	parseStyle: function() {
-		var width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
+		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
 		if (this.viewData.style) {
-			if (this.viewData.style) {
-				width = 'width:' + this.viewData.style.width + ';'
-				height = 'height:' + this.viewData.style.height + ';'
-				margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
-				padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
-				borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
-				transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
-				border = 'border:' + this.parseBorder() + ';'
-				position = this.parsePosition() + ';'
-				backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
-				backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
-			}
+			width = 'width:' + this.viewData.style.width + ';'
+			height = 'height:' + this.viewData.style.height + ';'
+			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
+			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
+			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
+			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
+			border = 'border:' + this.parseBorder() + ';'
+			position = this.parsePosition() + ';'
+			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
+			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
 			return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
 		} else {
 			return ''
 		}
-		
+	},
+	parsePanelStyle: function() {
+		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
+		if (this.viewData.style && this.viewData.base) {
+			width = 'width:' + this.viewData.style.width + ';'
+			if (this.viewData.base.type === 'list') {
+				height = 'height:' + (2 * this.viewData.style.height) + ';'
+			} else {
+				height = 'height:' + this.viewData.style.height + ';'
+			}
+			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
+			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
+			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
+			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
+			border = 'border:' + this.parseBorder() + ';'
+			position = this.parsePosition()
+			return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
+		} else {
+			return ''
+		}
+	},
+	parsePanelItemStyle: function() {
+		let backgroundColor,backgroundImage
+		if (this.viewData.style) {
+			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
+			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
+			return backgroundColor + backgroundImage
+		} else {
+			return ''
+		}
 	},
 	parseClass: function() {
 		if (this.selectPluginId === this.viewData.pluginId) {

@@ -3,6 +3,9 @@
 		<div class="form">
 			<v-text lable="名称" :value="formData.name" size="l" name="name" @formChange="formChange"></v-text>
 		</div>
+		<div class="form">
+			<v-radio lable="类型" :options="typeList" :value="formData.type" name="type" @formChange="formChange"></v-radio>
+		</div>
 		<div class="form-list">
 			<div class="form-lable">响应：</div>
 			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{index+1}}</div>
@@ -45,48 +48,64 @@
 		},
 		data () {
 		    return {
-		    	actionKeyList: [{
-		    		label: '样式 宽度',
-		    		value: 'width'
-		    	},{
-		    		label: '样式 高度',
-		    		value: 'height'
-		    	},{
-		    		label: '样式 外边距',
-		    		value: 'margin'
-		    	},{
-		    		label: '样式 内边距',
-		    		value: 'padding'
-		    	},{
-		    		label: '样式 圆角',
-		    		value: 'borderRadius'
-		    	},{
-		    		label: '样式 旋转',
-		    		value: 'transformRotate'
-		    	},{
-		    		label: '样式 边框',
-		    		value: 'border'
-		    	},{
-		    		label: '样式 定位',
-		    		value: 'position'
-		    	},{
-		    		label: '样式 颜色',
-		    		value: 'backgroundColor'
-		    	},{
-		    		label: '样式 图片',
-		    		value: 'backgroundImage'
-		    	}],
-		    	actionTypeList: [{
-		    		label: '接口',
-		    		value: 'interface'
-		    	},{
-		    		label: '连接参数',
-		    		value: 'url'
-		    	},{
-		    		label: '缓存',
-		    		value: 'cookie'
-		    	}]
-		    }
+				typeList: [{
+					label: '普通',
+					value: 'normal'
+				},{
+					label: '列表',
+					value: 'list'
+				},{
+					label: '瀑布流',
+					value: 'waterfall'
+				},{
+					label: '轮播',
+					value: 'swiper'
+				},{
+					label: '滑块',
+					value: 'slider'
+				}],
+				actionKeyList: [{
+					label: '样式 宽度',
+					value: 'width'
+				},{
+					label: '样式 高度',
+					value: 'height'
+				},{
+					label: '样式 外边距',
+					value: 'margin'
+				},{
+					label: '样式 内边距',
+					value: 'padding'
+				},{
+					label: '样式 圆角',
+					value: 'borderRadius'
+				},{
+					label: '样式 旋转',
+					value: 'transformRotate'
+				},{
+					label: '样式 边框',
+					value: 'border'
+				},{
+					label: '样式 定位',
+					value: 'position'
+				},{
+					label: '样式 颜色',
+					value: 'backgroundColor'
+				},{
+					label: '样式 图片',
+					value: 'backgroundImage'
+				}],
+				actionTypeList: [{
+					label: '接口',
+					value: 'interface'
+				},{
+					label: '连接参数',
+					value: 'url'
+				},{
+					label: '缓存',
+					value: 'cookie'
+				}]
+			}
 		},
 		methods: {
 			formChange: function(res) {

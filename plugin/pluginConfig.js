@@ -3,6 +3,7 @@ var pluginConfig = {
 		pluginType: 'panel',
 		base: {
 			name: '面板',
+			type: 'normal',
 			actionList: [],
 			selectIndex: 0
 		},
