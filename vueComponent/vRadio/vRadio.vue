@@ -2,7 +2,7 @@
 	<div class="vRadio" :style="{paddingLeft:lableWidth}">
 		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
 		<div v-for="item in options" class="radio-item">
-			<input type="radio" v-if="item.value == value" :value="item.value" :name="name" checked="true" @input="formChange" />
+			<input type="radio" v-if="item.value == value" :value="item.value" :name="name" checked="checked" @input="formChange" />
 			<input type="radio" v-else :value="item.value" :name="name" @input="formChange" />
 			<span>{{item.label}}</span>
 		</div>

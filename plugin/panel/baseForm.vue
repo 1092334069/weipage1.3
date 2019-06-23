@@ -4,7 +4,7 @@
 			<v-text lable="名称" :value="formData.name" size="l" name="name" @formChange="formChange"></v-text>
 		</div>
 		<div class="form">
-			<v-radio lable="类型" :options="typeList" :value="formData.type" name="type" @formChange="formChange"></v-radio>
+			<v-select lable="类型" :options="typeList" :value="formData.type" name="type" @formChange="formChange"></v-select>
 		</div>
 		<div class="form-list">
 			<div class="form-lable">响应：</div>
