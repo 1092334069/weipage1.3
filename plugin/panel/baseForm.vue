@@ -8,24 +8,27 @@
 			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{index+1}}</div>
 			<div class="add-module" @click="addAction"></div>
 		</div>
-		<hr/>
-		<template v-for="(item,index) in formData.actionList" v-if="formData.selectIndex === index">
-			<div class="form">
-				<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
-			</div>
-			<div class="form">
-				<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-radio>
-			</div>		
-			<div class="form" v-if="item.type === 'interface'">
-				<div class="action-interface">
-					<span class="lable">响应值：</span>
-					<div class="interface-btn" @click="openInterfaceTreeModel">{{item.value.name}}</div>
+		<div class="sub-form-list" v-if="formData.actionList && formData.actionList.length">
+			<hr/>
+			<template v-for="(item,index) in formData.actionList" v-if="formData.selectIndex === index">
+				<div class="form">
+					<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
 				</div>
-			</div>
-			<div class="form" v-else>
-				<v-text lable="响应值" :value="item.value" size="l" name="value" @formChange="actionChange"></v-text>
-			</div>
-		</template>
+				<div class="form">
+					<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-radio>
+				</div>		
+				<div class="form" v-if="item.type === 'interface'">
+					<div class="action-interface">
+						<span class="lable">响应值：</span>
+						<div class="interface-btn" @click="openInterfaceTreeModel">{{item.value.name}}</div>
+					</div>
+				</div>
+				<div class="form" v-else>
+					<v-text lable="响应值" :value="item.value" size="l" name="value" @formChange="actionChange"></v-text>
+				</div>
+			</template>
+			<hr/>
+		</div>
 	</div>
 </template>
 
@@ -206,8 +209,12 @@
 		margin:5px 0;
 		padding-left:85px;
 	}
+	.sub-form-list{
+		background-color:#f0f0f0;
+		margin-left:80px;
+	}
 	.action-interface .lable{
-		width:80px;
+		width:85px;
 		display: inline-block;
 	    font-size: 14px;
 	    text-align: right;
@@ -224,5 +231,6 @@
 	    border:1px solid #e5e5e5;
 	    border-radius:4px;
 	    cursor:pointer;
+	    display:inline-block;
 	}
 </style>

@@ -17,12 +17,15 @@
 			<div class="form-item" :class="parseClass(item.interfaceId)" v-for="item in formData.interfaceList" @click="selectInterface(item.interfaceId)">{{item.name}}</div>
 			<div class="add-module" @click="openInterfaceModel"></div>
 		</div>
-		<hr/>
-		<template v-for="itf in formData.interfaceList" v-if="formData.selectInterfaceId === itf.interfaceId">
-			<div class="form size-l" v-for="item in itf.param">
-				<v-input-source :lable="item.name" :value="item.value" :name="item.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></v-input-source>
-			</div>
-		</template>
+		<div class="sub-form-list" v-if="formData.interfaceList && formData.interfaceList.length">
+			<hr/>
+			<template v-for="itf in formData.interfaceList" v-if="formData.selectInterfaceId === itf.interfaceId">
+				<div class="form size-l" v-for="item in itf.param">
+					<v-input-source :lable="item.name" :value="item.value" :name="item.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></v-input-source>
+				</div>
+			</template>
+			<hr/>
+		</div>
 	</div>
 </template>
 
@@ -145,5 +148,9 @@
 		cursor:pointer;
 		display:inline-block;
 		float:left;
+	}
+	.sub-form-list{
+		background-color:#f0f0f0;
+		margin-left:80px;
 	}
 </style>

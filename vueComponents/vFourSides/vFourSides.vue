@@ -145,7 +145,7 @@
 		padding:10px;
 		top:0;
 		right:-105px;
-		width:120px;
+		width:130px;
 		background-color:#f0f0f0;
 		border-radius:5px;
 		z-index:10;
