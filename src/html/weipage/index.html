@@ -56,12 +56,15 @@
 				<template v-if="selectForm == 'style'">
 					<panel-style-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 				</template>
+				<template v-if="selectForm == 'event'">
+					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" @form-change="formChange"></panel-event-form>
+				</template>
 			</div>
 			<div class="edit-page" v-else>
 				<ul class="tab-control">
 					<li class="current">微页面</li>
 				</ul>
-				<weipage-form :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel"></weipage-form>
+				<weipage-form :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface"></weipage-form>
 			</div>
 
 			<Modal

@@ -20,6 +20,7 @@
 		<div class="sub-form-list" v-if="formData.interfaceList && formData.interfaceList.length">
 			<hr/>
 			<template v-for="itf in formData.interfaceList" v-if="formData.selectInterfaceId === itf.interfaceId">
+				<div class="delete-module" @click="deleteInterface"></div>
 				<div class="form size-l" v-for="item in itf.param">
 					<v-input-source :lable="item.name" :value="item.value" :name="item.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></v-input-source>
 				</div>
@@ -89,6 +90,9 @@
 				} else {
 					return ''
 				}
+			},
+			deleteInterface: function() {
+				this.$emit('delete-interface', this.formData.selectInterfaceId)
 			}
 		}
 	}
@@ -152,5 +156,20 @@
 	.sub-form-list{
 		background-color:#f0f0f0;
 		margin-left:80px;
+		position:relative;
+	}
+	.delete-module{
+		width:40px;
+		height:40px;
+		background-image:url('../img/icon-delete.png');
+		background-size:24px 24px;
+		background-repeat:no-repeat;
+		background-position:center;
+		cursor:pointer;
+		display:inline-block;
+		position:absolute;
+		right:0;
+		top:0;
+		z-index:10;
 	}
 </style>

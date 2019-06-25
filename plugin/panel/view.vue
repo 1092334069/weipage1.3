@@ -61,7 +61,7 @@
 		position:relative;
 	}
 	.panel .panel-item.copy{
-		opacity:0.3;
+		opacity:0.2;
 	}
 	.panel .panel-item.list{
 		height:50%;

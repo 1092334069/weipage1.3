@@ -24,6 +24,10 @@ var pluginConfig = {
 			top: 0,
 			left: 0
 		},
+		event: {
+			eventList: [],
+			selectIndex: 0
+		},
 		pluginList: []
 	},
 	text: {

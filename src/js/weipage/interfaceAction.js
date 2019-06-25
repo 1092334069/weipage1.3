@@ -90,6 +90,26 @@ interfacePlugin.prototype.selectInterface = function(interfaceId) {
 	})
 }
 
+interfacePlugin.prototype.deleteInterface = function(interfaceId) {
+	let interfaceList = this.weiPageThis.weipage.interfaceList
+	for (let i = interfaceList.length - 1; i >= 0; i--) {
+		if (interfaceList[i].interfaceId === interfaceId) {
+			interfaceList.splice(i, 1)
+		}
+	}
+	let interfaceTree = this.weiPageThis.interfaceTree
+	for (let i = interfaceTree.length - 1; i >= 0; i--) {
+		if (interfaceTree[i].interfaceId === interfaceId) {
+			interfaceTree.splice(i, 1)
+		}
+	}
+	if (interfaceList.length) {
+		this.weiPageThis.weipage.selectInterfaceId = interfaceList[0].interfaceId
+	} else {
+		this.weiPageThis.weipage.selectInterfaceId = 0
+	}
+}
+
 interfacePlugin.prototype.selectInterfaceParam = function(option) {
 	if (!option) {
 		return

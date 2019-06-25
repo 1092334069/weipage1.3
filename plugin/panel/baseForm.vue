@@ -14,6 +14,7 @@
 		<div class="sub-form-list" v-if="formData.actionList && formData.actionList.length">
 			<hr/>
 			<template v-for="(item,index) in formData.actionList" v-if="formData.selectIndex === index">
+				<div class="delete-module" @click="deleteAction"></div>
 				<div class="form">
 					<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
 				</div>
@@ -65,6 +66,9 @@
 					value: 'slider'
 				}],
 				actionKeyList: [{
+					label: '数据',
+					value: 'data'
+				},{
 					label: '样式 宽度',
 					value: 'width'
 				},{
@@ -148,7 +152,7 @@
 			addAction: function() {
 				const actionList = this.formData.actionList
 				actionList.push({
-					key: 'width',
+					key: 'data',
 					type: 'interface',
 					value: {
 						name: '点击选择接口参数',
@@ -167,6 +171,18 @@
 			},
 			openInterfaceTreeModel: function() {
 				this.$emit('open-interface-tree-model')
+			},
+			deleteAction: function() {
+				const actionList = this.formData.actionList
+				actionList.splice(this.formData.selectIndex, 1)
+				this.formChange({
+					name: 'selectIndex',
+					value: 0
+				})
+				this.formChange({
+					name: 'actionList',
+					value: actionList
+				})
 			}
 		}
 	}
@@ -231,6 +247,7 @@
 	.sub-form-list{
 		background-color:#f0f0f0;
 		margin-left:80px;
+		position:relative;
 	}
 	.action-interface .lable{
 		width:85px;
@@ -251,5 +268,19 @@
 	    border-radius:4px;
 	    cursor:pointer;
 	    display:inline-block;
+	}
+	.delete-module{
+		width:40px;
+		height:40px;
+		background-image:url('../../src/img/icon-delete.png');
+		background-size:24px 24px;
+		background-repeat:no-repeat;
+		background-position:center;
+		cursor:pointer;
+		display:inline-block;
+		position:absolute;
+		right:10px;
+		top:10px;
+		z-index:10;
 	}
 </style>

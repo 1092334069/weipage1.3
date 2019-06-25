@@ -70,7 +70,6 @@ var weipage = new Vue({
 	methods: {
 		weipageChange(res) {
 			this.weipage[res.name] = res.value
-			console.log(this.weipage)
 		},
 		formChange(res) {
 			pluginUpdate(res, this.editForm)
@@ -111,6 +110,9 @@ var weipage = new Vue({
 		selectInterfaceParam(option) {
 			this.closeInterfaceTreeModel()
 			interfacePlugin.selectInterfaceParam(option)
+		},
+		deleteInterface(interfaceId) {
+			interfacePlugin.deleteInterface(interfaceId)
 		}
 	}
 })
