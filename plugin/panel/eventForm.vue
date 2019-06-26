@@ -9,8 +9,24 @@
 			<hr/>
 			<template v-for="(item,index) in formData.eventList" v-if="formData.selectIndex === index">
 				<div class="form">
-					<v-select lable="事件类型" :options="eventTypeList" :value="item.type" name="type" @formChange="eventChange"></v-select>
+					<v-select lable="类型" :options="eventTypeList" :value="item.type" name="type" @formChange="eventTypeChange"></v-select>
 				</div>
+				<template v-if="item.type === 'link'">
+					<div class="form">
+						<v-text lable="链接地址" :value="item.value" size="l" name="value" @formChange="eventChange"></v-text>
+					</div>
+				</template>
+				<template v-if="item.type === 'interface'">
+					<div class="form-list">
+						<span class="form-lable">接口：</span>
+						<div class="form-item" @click="openInterfaceModel">{{item.value.name}}</div>
+					</div>
+					<template v-if="item.value.param && item.value.param.length">
+						<div class="form size-l" v-for="inf in item.value.param">
+							<v-input-source :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></v-input-source>
+						</div>
+					</template>
+				</template>
 			</template>
 			<hr/>
 		</div>
@@ -31,11 +47,24 @@
 		data () {
 			return {
 				eventTypeList: [{
+					label: '跳转链接',
+					value: 'link'
+				},{
 					label: '普通事件',
 					value: 'normal'
 				},{
 					label: '接口事件',
 					value: 'interface'
+				}],
+				sourceOptions: [{
+					label: '固定值',
+					value: 'static'
+				},{
+					label: '链接参数',
+					value: 'url'
+				},{
+					label: '缓存',
+					value: 'cookie'
 				}]
 		    }
 		},
@@ -51,6 +80,9 @@
 					return ''
 				}
 			},
+			openInterfaceModel: function() {
+				this.$emit('open-interface-model','event')
+			},
 			selectEvent: function(index) {
 				this.formChange({
 					name: 'selectIndex',
@@ -60,7 +92,9 @@
 			addEvent: function() {
 				const eventList = this.formData.eventList
 				eventList.push({
-					type: 'normal'
+					type: 'link',
+					key: '',
+					value: ''
 				})
 				this.formChange({
 					name: 'eventList',
@@ -71,6 +105,24 @@
 					value: eventList.length - 1
 				})
 			},
+			eventTypeChange: function(res) {
+				if (res.value === 'interface') {
+					this.formData.eventList[this.formData.selectIndex]['value'] = {
+						name: '点击选择接口'
+					}
+				} else if (res.value === 'normal') {
+					this.formData.eventList[this.formData.selectIndex]['value'] = {
+						name: '点击选择元件',
+						id: 0,
+						keyList: [],
+						options: [],
+						data: ''
+					}
+				} else {
+					this.formData.eventList[this.formData.selectIndex]['value'] = ''
+				}
+				this.eventChange(res)
+			},
 			eventChange: function(res) {
 				const eventList = this.formData.eventList
 				eventList[this.formData.selectIndex][res.name] = res.value
@@ -78,6 +130,20 @@
 					name: 'eventList',
 					value: eventList
 				})
+				console.log(res)
+			},
+			interfaceChange: function(res) {
+				const interfaceInfo = this.formData.eventList[this.formData.selectIndex]['value']
+				for (let i = 0; i < interfaceInfo.param.length; i++) {
+					if (interfaceInfo.param[i].key === res.name) {
+						interfaceInfo.param[i].value = res.value
+					}
+				}
+				const r = {
+					name: 'value',
+					value: interfaceInfo
+				}
+				this.eventChange(r)
 			}
 		}
 	}

@@ -56,6 +56,7 @@ var weipage = new Vue({
 			interfaceModel: false,
 			interfaceTable,
 			interfaceTableData: [],
+			interActionSource: '',
 
 			// 接口树
 			interfaceTreeModel: false,
@@ -94,8 +95,9 @@ var weipage = new Vue({
 		closePluginTree() {
 			this.pluginTreeModel = false
 		},
-		openInterfaceModel() {
+		openInterfaceModel(source) {
 			interfacePlugin.getInterfaceList()
+			this.interActionSource = source
 			this.interfaceModel = true
 		},
 		closeInterfaceModel() {

@@ -57,7 +57,7 @@
 					<panel-style-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 				</template>
 				<template v-if="selectForm == 'event'">
-					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" @form-change="formChange"></panel-event-form>
+					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" @form-change="formChange" @open-interface-model="openInterfaceModel"></panel-event-form>
 				</template>
 			</div>
 			<div class="edit-page" v-else>

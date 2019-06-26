@@ -84,8 +84,22 @@ interfacePlugin.prototype.selectInterface = function(interfaceId) {
 			callbackParam: JSON.parse(res.callbackParam),
 			param: paramList
 		}
-		_this.weiPageThis.weipage.interfaceList.push(interfaceDetail)
-		_this.weiPageThis.weipage.selectInterfaceId = res.interfaceId
+		if (_this.weiPageThis.interActionSource === 'event') {
+			const selectPluginId = _this.weiPageThis.selectPluginId
+			const pluginList = _this.weiPageThis.pluginList
+			let event
+			for (let i = 0; i < pluginList.length; i++) {
+				if (pluginList[i].pluginId === selectPluginId) {
+					event = pluginList[i].event
+				}
+			}
+			if (event) {
+				event.eventList[event.selectIndex].value = interfaceDetail
+			}	
+		} else {
+			_this.weiPageThis.weipage.interfaceList.push(interfaceDetail)
+			_this.weiPageThis.weipage.selectInterfaceId = res.interfaceId
+		}
 		_this.weiPageThis.interfaceTree.push(interfaceDetail)
 	})
 }
