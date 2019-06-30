@@ -160,7 +160,7 @@ function pluginTreeSelectAction(pluginId) {
 				for (let i = 0; i < selectPluginDetail.base.actionList.length; i++){
 					if (selectPluginDetail.base.actionList[i].condition === 'event') {
 						eventOptions.push({
-							label: selectPluginDetail.base.actionList[i].key,
+							label: selectPluginDetail.base.actionList[i].name,
 							value: i
 						})
 					}

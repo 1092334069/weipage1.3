@@ -8,7 +8,7 @@
 		</div>
 		<div class="form-list">
 			<div class="form-lable">响应：</div>
-			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{index+1}}</div>
+			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.actionList" @click="selectAction(index)">{{item.name}}</div>
 			<div class="add-module" @click="addAction"></div>
 		</div>
 		<div class="sub-form-list" v-if="formData.actionList && formData.actionList.length">
@@ -16,13 +16,16 @@
 			<template v-for="(item,index) in formData.actionList" v-if="formData.selectIndex === index">
 				<div class="delete-module" @click="deleteAction"></div>
 				<div class="form">
+					<v-text lable="响应名" :value="item.name" name="name" @formChange="actionChange"></v-text>
+				</div>
+				<div class="form">
 					<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
 				</div>
 				<div class="form">
 					<v-select lable="响应条件" :options="actionConditionList" :value="item.condition" name="condition" @formChange="actionChange"></v-select>
 				</div>
 				<div class="form">
-					<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-radio>
+					<v-select lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-select>
 				</div>	
 				<div class="form" v-if="item.type === 'interface'">
 					<div class="action-interface">
@@ -162,6 +165,7 @@
 			addAction: function() {
 				const actionList = this.formData.actionList
 				actionList.push({
+					name: '响应',
 					key: 'data',
 					condition: 'loading',
 					type: 'interface',
