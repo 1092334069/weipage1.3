@@ -92,9 +92,9 @@ const localInfo = {
         parameter.req.connection.remoteAddress || 
         parameter.req.socket.remoteAddress || 
         parameter.req.connection.socket.remoteAddress
-        callback({
-        	ip: ip
-        })
+        callback(JSON.stringify({
+			ip
+        }))
 	}
 }
 
