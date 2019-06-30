@@ -43,6 +43,8 @@
 </template>
 
 <script>
+	import { getLocalUuid } from '../pluginAction.js'
+
 	export default {
 		name: "panelBaseForm",
 		props: {
@@ -164,7 +166,9 @@
 			},
 			addAction: function() {
 				const actionList = this.formData.actionList
+				const uuid = getLocalUuid()
 				actionList.push({
+					actionId: uuid,
 					name: '响应',
 					key: 'data',
 					condition: 'loading',

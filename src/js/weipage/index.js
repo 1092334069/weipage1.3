@@ -81,8 +81,10 @@ var weipage = new Vue({
 		},
 		insertPlugin(pluginType) {
 			const plugin = createPlugin(pluginType)
-			this.selectPluginId = plugin.pluginId
-			this.pluginList.push(plugin)
+			if (plugin) {
+				this.selectPluginId = plugin.pluginId
+				this.pluginList.push(plugin)
+			}
 		},
 		removePlugin(pluginId) {
 			pluginRemove(this, pluginId)
@@ -161,7 +163,7 @@ function pluginTreeSelectAction(pluginId) {
 					if (selectPluginDetail.base.actionList[i].condition === 'event') {
 						eventOptions.push({
 							label: selectPluginDetail.base.actionList[i].name,
-							value: i
+							value: selectPluginDetail.base.actionList[i].actionId
 						})
 					}
 				}
@@ -171,7 +173,7 @@ function pluginTreeSelectAction(pluginId) {
 						id: pluginId,
 						options: eventOptions,
 						actionName: eventOptions[0].label,
-						actionIndex: eventOptions[0].value
+						actionId: eventOptions[0].value
 					}
 				}
 			}

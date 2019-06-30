@@ -1,17 +1,34 @@
 import pluginConfig from './pluginConfig.js'
 
-function getPluginId() {
-	var uid = 1
-	var timeString = Date.now()
-	return 'p' + timeString + uid
+let localKey = ''
+
+$.ajax({
+	url: '/api/local/getLocalKey',
+	type: 'get',
+	data: '',
+	dataType: 'json',
+	success: function(res) {
+		if (res && res.localKey) {
+			localKey = res.localKey
+		}
+	}
+})
+
+function getLocalUuid() {
+	const timeString = Date.now()
+	return 'p' + localKey + timeString
 }
 
 function createPlugin(pluginType) {
-	var plugin = JSON.parse(JSON.stringify(pluginConfig[pluginType]))
-	plugin['pluginId'] = getPluginId()
+	if (!localKey) {
+		return
+	}
+	const plugin = JSON.parse(JSON.stringify(pluginConfig[pluginType]))
+	plugin['pluginId'] = getLocalUuid()
 	return plugin
 }
 
 export {
+	getLocalUuid,
 	createPlugin
 }

@@ -140,10 +140,10 @@
 				} else if (res.value === 'normal') {
 					this.formData.eventList[this.formData.selectIndex]['value'] = {
 						name: '点击选择元件',
-						id: 0,
+						id: '',
 						options: [],
 						actionName: '',
-						actionIndex: 0
+						actionId: ''
 					}
 				} else {
 					this.formData.eventList[this.formData.selectIndex]['value'] = ''
