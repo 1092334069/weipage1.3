@@ -93,7 +93,7 @@ const localInfo = {
         parameter.req.socket.remoteAddress || 
         parameter.req.connection.socket.remoteAddress
         callback({
-        	ip
+        	ip: ip
         })
 	}
 }
