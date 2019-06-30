@@ -26,7 +26,8 @@ function requestAction(req, res) {
 			method: req.method,
 			headers: req.headers,
 			pathname: pathname,
-			param: param
+			param: param,
+			req: req
 		}, res)
 	} else {
 		res.sendFile(__dirname + `/dist${pathname}.html`)

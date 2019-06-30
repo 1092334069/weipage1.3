@@ -86,11 +86,24 @@ const weipageInfo = {
 	}
 }
 
+const localInfo = {
+	getClientIp: function(parameter, callback) {
+		const ip = parameter.req.headers['x-forwarded-for'] || 
+        parameter.req.connection.remoteAddress || 
+        parameter.req.socket.remoteAddress || 
+        parameter.req.connection.socket.remoteAddress
+        callback({
+        	ip
+        })
+	}
+}
+
 module.exports = {
 	imageInfo,
 	interfaceInfo,
 	loginInfo,
 	phoneInfo,
 	userInfo,
-	weipageInfo
+	weipageInfo,
+	localInfo
 }
