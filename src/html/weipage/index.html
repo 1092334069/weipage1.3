@@ -24,7 +24,7 @@
 				</ul>
 				<p class="menu-title">快捷</p>
 				<ul class="shortcut-list">
-					<li @click="openPluginTree">
+					<li @click="openPluginTreeModel('shortcut')">
 						<img src="../../img/icon-tree.png" />
 					</li>
 				</ul>
@@ -57,7 +57,7 @@
 					<panel-style-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
 				</template>
 				<template v-if="selectForm == 'event'">
-					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" @form-change="formChange" @open-interface-model="openInterfaceModel"></panel-event-form>
+					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" @form-change="formChange" @open-interface-model="openInterfaceModel" @open-plugin-tree-model="openPluginTreeModel"></panel-event-form>
 				</template>
 			</div>
 			<div class="edit-page" v-else>
@@ -70,7 +70,7 @@
 			<Modal
 				v-model="pluginTreeModel"
 				title="插件树">
-				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @select-plugin="selectPlugin"></plugin-tree>
+				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @plugin-tree-select="pluginTreeSelect"></plugin-tree>
 			</Modal>
 
 			<Modal 

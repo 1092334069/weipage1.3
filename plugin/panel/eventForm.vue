@@ -8,6 +8,7 @@
 		<div class="sub-form-list" v-if="formData.eventList && formData.eventList.length">
 			<hr/>
 			<template v-for="(item,index) in formData.eventList" v-if="formData.selectIndex === index">
+				<div class="delete-module" @click="deleteEvent"></div>
 				<div class="form">
 					<v-select lable="类型" :options="eventTypeList" :value="item.type" name="type" @formChange="eventTypeChange"></v-select>
 				</div>
@@ -15,6 +16,17 @@
 					<div class="form">
 						<v-text lable="链接地址" :value="item.value" size="l" name="value" @formChange="eventChange"></v-text>
 					</div>
+				</template>
+				<template v-if="item.type === 'normal'">
+					<div class="form-list">
+						<span class="form-lable">元件：</span>
+						<div class="form-item" @click="openPluginTreeModel">{{item.value.name}}</div>
+					</div>
+					<template v-if="item.value.options && item.value.options.length">
+						<div class="form">
+							<v-select lable="响应" :options="item.value.options" :value="item.value.actionIndex" @formChange="normalEventChange"></v-select>
+						</div>
+					</template>
 				</template>
 				<template v-if="item.type === 'interface'">
 					<div class="form-list">
@@ -50,7 +62,7 @@
 					label: '跳转链接',
 					value: 'link'
 				},{
-					label: '普通事件',
+					label: '本地事件',
 					value: 'normal'
 				},{
 					label: '接口事件',
@@ -81,7 +93,10 @@
 				}
 			},
 			openInterfaceModel: function() {
-				this.$emit('open-interface-model','event')
+				this.$emit('open-interface-model', 'event')
+			},
+			openPluginTreeModel: function() {
+				this.$emit('open-plugin-tree-model', 'event')
 			},
 			selectEvent: function(index) {
 				this.formChange({
@@ -105,6 +120,18 @@
 					value: eventList.length - 1
 				})
 			},
+			deleteEvent: function() {
+				const eventList = this.formData.eventList
+				eventList.splice(this.formData.selectIndex, 1)
+				this.formChange({
+					name: 'selectIndex',
+					value: 0
+				})
+				this.formChange({
+					name: 'eventList',
+					value: eventList
+				})
+			},
 			eventTypeChange: function(res) {
 				if (res.value === 'interface') {
 					this.formData.eventList[this.formData.selectIndex]['value'] = {
@@ -114,9 +141,9 @@
 					this.formData.eventList[this.formData.selectIndex]['value'] = {
 						name: '点击选择元件',
 						id: 0,
-						keyList: [],
 						options: [],
-						data: ''
+						actionName: '',
+						actionIndex: 0
 					}
 				} else {
 					this.formData.eventList[this.formData.selectIndex]['value'] = ''
@@ -130,7 +157,22 @@
 					name: 'eventList',
 					value: eventList
 				})
-				console.log(res)
+			},
+			normalEventChange: function(res) {
+				const v = this.formData.eventList[this.formData.selectIndex]['value']
+				let actionName = ''
+				for (var i = 0; i < v.options.length; i++) {
+					if (v.options.value === res.value) {
+						actionName = v.options.label
+					}
+				}
+				v['actionIndex'] = res.value
+				v['actionName'] = actionName
+				const r = {
+					name: 'value',
+					value: v
+				}
+				this.eventChange(r)
 			},
 			interfaceChange: function(res) {
 				const interfaceInfo = this.formData.eventList[this.formData.selectIndex]['value']
@@ -200,5 +242,20 @@
 	.sub-form-list{
 		background-color:#f0f0f0;
 		margin-left:80px;
+		position:relative;
+	}
+	.delete-module{
+		width:40px;
+		height:40px;
+		background-image:url('../../src/img/icon-delete.png');
+		background-size:24px 24px;
+		background-repeat:no-repeat;
+		background-position:center;
+		cursor:pointer;
+		display:inline-block;
+		position:absolute;
+		right:10px;
+		top:10px;
+		z-index:10;
 	}
 </style>

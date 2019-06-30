@@ -95,7 +95,6 @@ function pluginMove(weipage, type, pluginId, moveToPluginId) {
 }
 
 function pluginRemove(weipage, pluginId) {
-	console.log(pluginId)
 	formAction.searchPluginDeep(0, weipage, pluginId, function(resPluginList, i) {
 		resPluginList.splice(i, 1)
 	})

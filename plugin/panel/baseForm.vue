@@ -19,8 +19,11 @@
 					<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
 				</div>
 				<div class="form">
+					<v-select lable="响应条件" :options="actionConditionList" :value="item.condition" name="condition" @formChange="actionChange"></v-select>
+				</div>
+				<div class="form">
 					<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-radio>
-				</div>		
+				</div>	
 				<div class="form" v-if="item.type === 'interface'">
 					<div class="action-interface">
 						<span class="lable">响应值：</span>
@@ -108,6 +111,13 @@
 				},{
 					label: '缓存',
 					value: 'cookie'
+				}],
+				actionConditionList: [{
+					label: '加载触发',
+					value: 'loading'
+				},{
+					label: '事件触发',
+					value: 'event'
 				}]
 			}
 		},
@@ -153,6 +163,7 @@
 				const actionList = this.formData.actionList
 				actionList.push({
 					key: 'data',
+					condition: 'loading',
 					type: 'interface',
 					value: {
 						name: '点击选择接口参数',
@@ -268,6 +279,7 @@
 	    border-radius:4px;
 	    cursor:pointer;
 	    display:inline-block;
+	    background-color:#fff;
 	}
 	.delete-module{
 		width:40px;

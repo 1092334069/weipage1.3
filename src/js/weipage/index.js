@@ -51,6 +51,7 @@ var weipage = new Vue({
 
 			// 插件树
 			pluginTreeModel: false,
+			pluginSelectSource: '',
 
 			// 接口对话框
 			interfaceModel: false,
@@ -89,11 +90,20 @@ var weipage = new Vue({
 		changeFormTab(form) {
 			this.selectForm = form
 		},
-		openPluginTree() {
+		openPluginTreeModel(source) {
+			this.pluginSelectSource = source
 			this.pluginTreeModel = true
 		},
-		closePluginTree() {
+		closePluginTreeModel() {
 			this.pluginTreeModel = false
+		},
+		pluginTreeSelect(option) {
+			if (this.pluginSelectSource === 'event') {
+				pluginTreeSelectAction(option.pluginId)
+			} else {
+				this.selectPlugin(option.pluginId)
+			}
+			this.closePluginTreeModel()
 		},
 		openInterfaceModel(source) {
 			interfacePlugin.getInterfaceList()
@@ -133,6 +143,41 @@ var dropPlugin = dropAction({
 var interfacePlugin = interfaceAction({
 	that: weipage
 })
+
+function pluginTreeSelectAction(pluginId) {
+	let selectPluginDetail
+	for (let i = 0; i < weipage.pluginList.length; i++) {
+		if (pluginId === weipage.pluginList[i].pluginId) {
+			selectPluginDetail = weipage.pluginList[i]
+		}
+	}
+
+	for (let i = 0; i < weipage.pluginList.length; i++) {
+		const pluginDetail = weipage.pluginList[i]
+		if (weipage.selectPluginId === pluginDetail.pluginId) {
+			if (selectPluginDetail) {
+				const eventOptions = []
+				for (let i = 0; i < selectPluginDetail.base.actionList.length; i++){
+					if (selectPluginDetail.base.actionList[i].condition === 'event') {
+						eventOptions.push({
+							label: selectPluginDetail.base.actionList[i].key,
+							value: i
+						})
+					}
+				}
+				if (eventOptions.length) {
+					pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
+						name: selectPluginDetail.base.name,
+						id: pluginId,
+						options: eventOptions,
+						actionName: eventOptions[0].label,
+						actionIndex: eventOptions[0].value
+					}
+				}
+			}
+		}
+	}
+}
 
 // 进入页面登录，后面删掉代码
 $.ajax({url:'/api/login/phoneCode',type:'get',data:{phone:13651438085,code:788329},dataType:'JSON',success:function(res){console.log(res)}})
