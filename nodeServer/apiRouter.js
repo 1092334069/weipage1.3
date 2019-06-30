@@ -55,8 +55,8 @@ const apiRouter = [{
 	pathname: '/api/weipage/getPageList',
 	action: apiAction.weipageInfo.getPageList
 },{
-	pathname: '/api/local/getClientIp',
-	action: apiAction.localInfo.getClientIp
+	pathname: '/api/local/getLocalKey',
+	action: apiAction.localInfo.getLocalKey
 }]
 
 module.exports = apiRouter

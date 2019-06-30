@@ -1,3 +1,4 @@
+const aesUtil = require('./aesUtil')
 const apiServer = require('./apiServer')
 
 const imageInfo = {
@@ -87,13 +88,13 @@ const weipageInfo = {
 }
 
 const localInfo = {
-	getClientIp: function(parameter, callback) {
+	getLocalKey: function(parameter, callback) {
 		const ip = parameter.req.headers['x-forwarded-for'] || 
         parameter.req.connection.remoteAddress || 
         parameter.req.socket.remoteAddress || 
         parameter.req.connection.socket.remoteAddress
         callback(JSON.stringify({
-			ip
+			localKey: aesUtil.encrypt(ip)
         }))
 	}
 }
