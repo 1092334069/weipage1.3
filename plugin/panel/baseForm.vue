@@ -4,7 +4,7 @@
 			<v-text lable="名称" :value="formData.name" size="l" name="name" @formChange="formChange"></v-text>
 		</div>
 		<div class="form">
-			<v-select lable="类型" :options="typeList" :value="formData.type" name="type" @formChange="formChange"></v-select>
+			<v-radio lable="类型" :options="typeList" :value="formData.type" name="type" @formChange="formChange"></v-radio>
 		</div>
 		<div class="form-list">
 			<div class="form-lable">响应：</div>
@@ -13,7 +13,7 @@
 		</div>
 		<div class="sub-form-list" v-if="formData.actionList && formData.actionList.length">
 			<hr/>
-			<template v-for="(item,index) in formData.actionList" v-if="formData.selectIndex === index">
+			<form v-for="(item,index) in formData.actionList" v-if="formData.selectIndex === index">
 				<div class="delete-module" @click="deleteAction"></div>
 				<div class="form">
 					<v-text lable="响应名" :value="item.name" name="name" @formChange="actionChange"></v-text>
@@ -22,10 +22,10 @@
 					<v-select lable="响应键" :options="actionKeyList" :value="item.key" name="key" @formChange="actionChange"></v-select>
 				</div>
 				<div class="form">
-					<v-select lable="响应条件" :options="actionConditionList" :value="item.condition" name="condition" @formChange="actionChange"></v-select>
+					<v-radio lable="响应条件" :options="actionConditionList" :value="item.condition" name="condition" @formChange="actionChange"></v-radio>
 				</div>
 				<div class="form">
-					<v-select lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-select>
+					<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-radio>
 				</div>	
 				<div class="form" v-if="item.type === 'interface'">
 					<div class="action-interface">
@@ -36,7 +36,7 @@
 				<div class="form" v-else>
 					<v-text lable="响应值" :value="item.value" size="l" name="value" @formChange="actionChange"></v-text>
 				</div>
-			</template>
+			</form>
 			<hr/>
 		</div>
 	</div>

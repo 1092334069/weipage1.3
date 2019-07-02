@@ -10,7 +10,7 @@
 			<template v-for="(item,index) in formData.eventList" v-if="formData.selectIndex === index">
 				<div class="delete-module" @click="deleteEvent"></div>
 				<div class="form">
-					<v-select lable="类型" :options="eventTypeList" :value="item.type" name="type" @formChange="eventTypeChange"></v-select>
+					<v-radio lable="类型" :options="eventTypeList" :value="item.type" name="type" @formChange="eventTypeChange"></v-radio>
 				</div>
 				<template v-if="item.type === 'link'">
 					<div class="form">
