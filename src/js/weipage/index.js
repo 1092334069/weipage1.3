@@ -21,14 +21,12 @@ var interfaceTable = [
 		return h('Button', {
 			on: {
 				click: () => {
-					interfacePlugin.selectInterface(params.row.id)
+					interfaceAction.selectInterface(params.row.id)
 				}
 			}
 		}, '选取')
 	}}
 ]
-
-var viewPlugin = viewAction()
 
 var weipage = new Vue({
 	el: '#weipage',
@@ -108,7 +106,7 @@ var weipage = new Vue({
 			this.closePluginTreeModel()
 		},
 		openInterfaceModel(source) {
-			interfacePlugin.getInterfaceList()
+			interfaceAction.getInterfaceList()
 			this.interActionSource = source
 			this.interfaceModel = true
 		},
@@ -123,28 +121,26 @@ var weipage = new Vue({
 		},
 		selectInterfaceParam(option) {
 			this.closeInterfaceTreeModel()
-			interfacePlugin.selectInterfaceParam(option)
+			interfaceAction.selectInterfaceParam(option)
 		},
 		deleteInterface(interfaceId) {
-			interfacePlugin.deleteInterface(interfaceId)
+			interfaceAction.deleteInterface(interfaceId)
 		}
 	}
 })
 
-var dropPlugin = dropAction({
+dropAction.init({
 	mouseDownCallback: (pluginId) => {
 		weipage.selectPlugin(pluginId)
 	},
 	mouseUpCallback: (res) => {
-		viewPlugin.buildList()
-		var ret = viewPlugin.operationView(res)
+		viewAction.buildList()
+		const ret = viewAction.operationView(res)
 		pluginMove(weipage, ret.type, ret.pluginId, ret.toPluginId)
 	}
 })
 
-var interfacePlugin = interfaceAction({
-	that: weipage
-})
+interfaceAction.init(weipage)
 
 function pluginTreeSelectAction(pluginId) {
 	let selectPluginDetail
@@ -174,6 +170,14 @@ function pluginTreeSelectAction(pluginId) {
 						options: eventOptions,
 						actionName: eventOptions[0].label,
 						actionId: eventOptions[0].value
+					}
+				} else {
+					pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
+						name: selectPluginDetail.base.name,
+						id: pluginId,
+						options: [],
+						actionName: '',
+						actionId: ''
 					}
 				}
 			}

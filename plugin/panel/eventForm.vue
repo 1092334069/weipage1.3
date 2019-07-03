@@ -59,14 +59,14 @@
 		data () {
 			return {
 				eventTypeList: [{
+					label: '接口事件',
+					value: 'interface'
+				},{
 					label: '跳转链接',
 					value: 'link'
 				},{
 					label: '本地事件',
 					value: 'normal'
-				},{
-					label: '接口事件',
-					value: 'interface'
 				}],
 				sourceOptions: [{
 					label: '固定值',
@@ -107,9 +107,11 @@
 			addEvent: function() {
 				const eventList = this.formData.eventList
 				eventList.push({
-					type: 'link',
+					type: 'interface',
 					key: '',
-					value: ''
+					value: {
+						name: '点击选择接口'
+					}
 				})
 				this.formChange({
 					name: 'eventList',

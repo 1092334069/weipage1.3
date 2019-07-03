@@ -1,12 +1,12 @@
-var formAction = {
+const formAction = {
 	parseKeyList(pname, name, value) {
-		var keyList = []
+		const keyList = []
 		if (pname) {
 				keyList.push(pname)
 		}
 		if (name) {
-			var nameList = name.split('.')
-			for (var i = 0; i < nameList.length; i++) {
+			const nameList = name.split('.')
+			for (let i = 0; i < nameList.length; i++) {
 				keyList.push(nameList[i])
 			}
 		}
@@ -20,7 +20,7 @@ var formAction = {
 			return
 		}
 		count ++
-		var key = keyList.splice(0, 1)
+		const key = keyList.splice(0, 1)
 		if (obj.hasOwnProperty(key)) {
 			if (keyList.length) {
 				return formAction.changePluginData(count, keyList, obj[key], value)
@@ -34,7 +34,7 @@ var formAction = {
 			return false
 		}
 		count ++
-		for (var i = 0; i < source.pluginList.length; i++) {
+		for (let i = 0; i < source.pluginList.length; i++) {
 			if (pluginId === source.pluginList[i].pluginId) {
 				if (callback) {
 					callback(source.pluginList, i, source)
@@ -42,7 +42,7 @@ var formAction = {
 				return source.pluginList[i]
 			}
 			if (source.pluginList[i].pluginList && source.pluginList[i].pluginList.length) {
-				var res = formAction.searchPluginDeep(count, source.pluginList[i], pluginId, callback)
+				const res = formAction.searchPluginDeep(count, source.pluginList[i], pluginId, callback)
 				if (res) {
 					return res
 				}
@@ -70,7 +70,7 @@ function pluginMove(weipage, type, pluginId, moveToPluginId) {
 		return
 	}
 	formAction.searchPluginDeep(0, weipage, pluginId, function(searchPluginList, i){
-		var movePlugin = searchPluginList.splice(i, 1)
+		const movePlugin = searchPluginList.splice(i, 1)
 		if (movePlugin && movePlugin.length) {
 			if (type == 'inside') {
 				formAction.searchPluginDeep(0, weipage, moveToPluginId, function(resPluginList, i){
@@ -78,8 +78,8 @@ function pluginMove(weipage, type, pluginId, moveToPluginId) {
 				})
 			} else if (type == 'before') {
 				formAction.searchPluginDeep(0, weipage, moveToPluginId, function(resPluginList, i, origin){
-					var tempList = []
-					for (var j = 0; j < resPluginList.length; j++) {
+					const tempList = []
+					for (let j = 0; j < resPluginList.length; j++) {
 						if (i === j) {
 							tempList.push(movePlugin[0])
 						}
