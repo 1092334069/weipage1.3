@@ -39,6 +39,11 @@
 						</div>
 					</template>
 				</template>
+				<template v-else>
+					<div class="form">
+						<v-radio lable="触发状态" :options="statusOptions" :value="item.status" name="status" @formChange="eventChange"></v-radio>
+					</div>
+				</template>
 			</template>
 			<hr/>
 		</div>
@@ -77,6 +82,13 @@
 				},{
 					label: '缓存',
 					value: 'cookie'
+				}],
+				statusOptions: [{
+					label: '立即触发',
+					value: 'immediately'
+				}, {
+					label: '条件触发',
+					value: 'condition'
 				}]
 		    }
 		},
@@ -111,7 +123,8 @@
 					key: '',
 					value: {
 						name: '点击选择接口'
-					}
+					},
+					status: 'immediately'
 				})
 				this.formChange({
 					name: 'eventList',
