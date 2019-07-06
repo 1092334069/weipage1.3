@@ -9,10 +9,17 @@ import '../../../plugin'
 import '../../vue'
 
 import { pluginUpdate, pluginSearch, pluginMove, pluginRemove } from './formAction.js'
-import { createPlugin } from '../../../plugin/pluginAction.js'
+import { createPlugin, pluginTreeSelect } from '../../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
 import { interfaceAction } from './interfaceAction.js'
 import { viewAction } from './viewAction.js'
+
+// h回调响应
+const callbackAction = {
+	selectInterface: () => {},
+	selectInterfaceParam: () => {},
+	selectPluginTree: () => {}
+}
 
 var interfaceTable = [
 	{title: '接口名称', key: 'name'},
@@ -21,7 +28,7 @@ var interfaceTable = [
 		return h('Button', {
 			on: {
 				click: () => {
-					interfaceAction.selectInterface(params.row.id)
+					callbackAction.selectInterface(params.row.id)
 				}
 			}
 		}, '选取')
@@ -49,13 +56,11 @@ var weipage = new Vue({
 
 			// 插件树
 			pluginTreeModel: false,
-			pluginSelectSource: '',
 
 			// 接口对话框
 			interfaceModel: false,
 			interfaceTable,
 			interfaceTableData: [],
-			interActionSource: '',
 
 			// 接口树
 			interfaceTreeModel: false,
@@ -75,6 +80,7 @@ var weipage = new Vue({
 			pluginUpdate(res, this.editForm)
 		},
 		selectPlugin(pluginId) {
+			this.changeFormTab('base')
 			this.selectPluginId = pluginId
 		},
 		insertPlugin(pluginType) {
@@ -91,37 +97,58 @@ var weipage = new Vue({
 			this.selectForm = form
 		},
 		openPluginTreeModel(source) {
-			this.pluginSelectSource = source
 			this.pluginTreeModel = true
+			if (source === 'event') {
+				callbackAction.selectPluginTree = (option) => {
+					pluginTreeSelect(option.pluginId, this)
+				}
+			} else {
+				callbackAction.selectPluginTree = (option) => {
+					this.selectPlugin(option.pluginId)
+				}
+			}
 		},
 		closePluginTreeModel() {
 			this.pluginTreeModel = false
 		},
 		pluginTreeSelect(option) {
-			if (this.pluginSelectSource === 'event') {
-				pluginTreeSelectAction(option.pluginId)
-			} else {
-				this.selectPlugin(option.pluginId)
-			}
+			callbackAction.selectPluginTree(option)
 			this.closePluginTreeModel()
 		},
 		openInterfaceModel(source) {
 			interfaceAction.getInterfaceList()
-			this.interActionSource = source
 			this.interfaceModel = true
+			if (source === 'event') {
+				callbackAction.selectInterface = (option) => {
+					interfaceAction.eventSelectInterface(option)
+				}
+			} else {
+				callbackAction.selectInterface = (option) => {
+					interfaceAction.weipageSelectInterface(option)
+				}
+			}
 		},
 		closeInterfaceModel() {
 			this.interfaceModel = false
 		},
-		openInterfaceTreeModel() {
+		openInterfaceTreeModel(form) {
 			this.interfaceTreeModel = true
+			if (form === 'base') {
+				callbackAction.selectInterfaceParam = (option) => {
+					interfaceAction.baseSelectInterfaceParam(option)
+				}
+			} else {
+				callbackAction.selectInterfaceParam = (option) => {
+					interfaceAction.eventSelectInterfaceParam(option)
+				}
+			}
 		},
 		closeInterfaceTreeModel() {
 			this.interfaceTreeModel = false
 		},
 		selectInterfaceParam(option) {
 			this.closeInterfaceTreeModel()
-			interfaceAction.selectInterfaceParam(option)
+			callbackAction.selectInterfaceParam(option)
 		},
 		deleteInterface(interfaceId) {
 			interfaceAction.deleteInterface(interfaceId)
@@ -141,49 +168,6 @@ dropAction.init({
 })
 
 interfaceAction.init(weipage)
-
-function pluginTreeSelectAction(pluginId) {
-	let selectPluginDetail
-	for (let i = 0; i < weipage.pluginList.length; i++) {
-		if (pluginId === weipage.pluginList[i].pluginId) {
-			selectPluginDetail = weipage.pluginList[i]
-		}
-	}
-
-	for (let i = 0; i < weipage.pluginList.length; i++) {
-		const pluginDetail = weipage.pluginList[i]
-		if (weipage.selectPluginId === pluginDetail.pluginId) {
-			if (selectPluginDetail) {
-				const eventOptions = []
-				for (let i = 0; i < selectPluginDetail.base.actionList.length; i++){
-					if (selectPluginDetail.base.actionList[i].condition === 'event') {
-						eventOptions.push({
-							label: selectPluginDetail.base.actionList[i].name,
-							value: selectPluginDetail.base.actionList[i].actionId
-						})
-					}
-				}
-				if (eventOptions.length) {
-					pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
-						name: selectPluginDetail.base.name,
-						id: pluginId,
-						options: eventOptions,
-						actionName: eventOptions[0].label,
-						actionId: eventOptions[0].value
-					}
-				} else {
-					pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
-						name: selectPluginDetail.base.name,
-						id: pluginId,
-						options: [],
-						actionName: '',
-						actionId: ''
-					}
-				}
-			}
-		}
-	}
-}
 
 // 进入页面登录，后面删掉代码
 $.ajax({url:'/api/login/phoneCode',type:'get',data:{phone:13651438085,code:788329},dataType:'JSON',success:function(res){console.log(res)}})

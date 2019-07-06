@@ -111,11 +111,11 @@
 					label: '接口',
 					value: 'interface'
 				},{
-					label: '连接参数',
+					label: '链接参数',
 					value: 'url'
 				},{
 					label: '缓存',
-					value: 'cookie'
+					value: 'sessionStorage'
 				}],
 				actionConditionList: [{
 					label: '加载触发',
@@ -189,7 +189,7 @@
 				})
 			},
 			openInterfaceTreeModel: function() {
-				this.$emit('open-interface-tree-model')
+				this.$emit('open-interface-tree-model', 'base')
 			},
 			deleteAction: function() {
 				const actionList = this.formData.actionList
@@ -271,23 +271,23 @@
 	.action-interface .lable{
 		width:85px;
 		display: inline-block;
-	    font-size: 14px;
-	    text-align: right;
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-	    height: 40px;
-	    line-height: 40px;
+		font-size: 14px;
+		text-align: right;
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 40px;
+		line-height: 40px;
 	}
 	.action-interface .interface-btn{
 		height: 36px;
-	    line-height: 36px;
-	    padding:0 10px;
-	    border:1px solid #e5e5e5;
-	    border-radius:4px;
-	    cursor:pointer;
-	    display:inline-block;
-	    background-color:#fff;
+		line-height: 36px;
+		padding:0 10px;
+		border:1px solid #e5e5e5;
+		border-radius:4px;
+		cursor:pointer;
+		display:inline-block;
+		background-color:#fff;
 	}
 	.delete-module{
 		width:40px;

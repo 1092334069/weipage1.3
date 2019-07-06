@@ -28,7 +28,51 @@ function createPlugin(pluginType) {
 	return plugin
 }
 
+function pluginTreeSelect(pluginId, weipage) {
+	let selectPluginDetail
+	for (let i = 0; i < weipage.pluginList.length; i++) {
+		if (pluginId === weipage.pluginList[i].pluginId) {
+			selectPluginDetail = weipage.pluginList[i]
+		}
+	}
+
+	for (let i = 0; i < weipage.pluginList.length; i++) {
+		const pluginDetail = weipage.pluginList[i]
+		if (weipage.selectPluginId === pluginDetail.pluginId) {
+			if (selectPluginDetail) {
+				const eventOptions = []
+				for (let i = 0; i < selectPluginDetail.base.actionList.length; i++){
+					if (selectPluginDetail.base.actionList[i].condition === 'event') {
+						eventOptions.push({
+							label: selectPluginDetail.base.actionList[i].name,
+							value: selectPluginDetail.base.actionList[i].actionId
+						})
+					}
+				}
+				if (eventOptions.length) {
+					pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
+						name: selectPluginDetail.base.name,
+						id: pluginId,
+						options: eventOptions,
+						actionName: eventOptions[0].label,
+						actionId: eventOptions[0].value
+					}
+				} else {
+					pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
+						name: selectPluginDetail.base.name,
+						id: pluginId,
+						options: [],
+						actionName: '',
+						actionId: ''
+					}
+				}
+			}
+		}
+	}
+}
+
 export {
 	getLocalUuid,
-	createPlugin
+	createPlugin,
+	pluginTreeSelect
 }

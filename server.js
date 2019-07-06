@@ -20,7 +20,11 @@ function requestAction(req, res) {
 	const isStatusResource = httpUtil.checkStatusResource(pathname)
 	const isApiResource = httpUtil.checkApiResource(pathname)
 	if (isStatusResource) {
-		res.sendFile(__dirname + pathname)
+		try {
+			res.sendFile(__dirname + pathname)
+		} catch (e) {
+			res.json({code: 404, message: '找不到对应文件'})
+		}
 	} else if (isApiResource) {
 		httpRequest.apiRequest({
 			method: req.method,
@@ -30,7 +34,11 @@ function requestAction(req, res) {
 			req: req
 		}, res)
 	} else {
-		res.sendFile(__dirname + `/dist${pathname}.html`)
+		try {
+			res.sendFile(__dirname + `/dist${pathname}.html`)
+		} catch (e) {
+			res.json({code: 404, message: '找不到对应文件'})
+		}
 	}
 }
 

@@ -39,11 +39,28 @@
 						</div>
 					</template>
 				</template>
-				<template v-else>
+				<form v-else>
 					<div class="form">
-						<v-radio lable="触发状态" :options="statusOptions" :value="item.status" name="status" @formChange="eventChange"></v-radio>
+						<v-radio lable="触发状态" :options="statusAttrOptions" :value="item.status.attr" name="attr" @formChange="statusChange"></v-radio>
 					</div>
-				</template>
+					<template v-if="item.status.attr === 'condition'">
+						<div class="form">
+							<v-radio lable="触发类型" :options="statusTypeOptions" :value="item.status.type" name="type" @formChange="statusTypeChange"></v-radio>
+						</div>
+						<div class="form" v-if="item.status.type === 'interface'">
+							<div class="action-interface">
+								<span class="lable">触发键：</span>
+								<div class="interface-btn" @click="openInterfaceTreeModel">{{item.status.key.name}}</div>
+							</div>
+						</div>
+						<div class="form" v-else>
+							<v-text lable="触发键" :value="item.status.key" name="key" @formChange="statusChange"></v-text>
+						</div>
+						<div class="form">
+							<v-text lable="触发值" :value="item.status.value" name="value" @formChange="statusChange"></v-text>
+						</div>
+					</template>
+				</form>
 			</template>
 			<hr/>
 		</div>
@@ -81,14 +98,24 @@
 					value: 'url'
 				},{
 					label: '缓存',
-					value: 'cookie'
+					value: 'sessionStorage'
 				}],
-				statusOptions: [{
+				statusAttrOptions: [{
 					label: '立即触发',
 					value: 'immediately'
 				}, {
 					label: '条件触发',
 					value: 'condition'
+				}],
+				statusTypeOptions: [{
+					label: '接口',
+					value: 'interface'
+				},{
+					label: '链接参数',
+					value: 'url'
+				},{
+					label: '缓存',
+					value: 'sessionStorage'
 				}]
 		    }
 		},
@@ -124,7 +151,16 @@
 					value: {
 						name: '点击选择接口'
 					},
-					status: 'immediately'
+					status: {
+						attr: 'immediately',
+						type: 'interface',
+						key: {
+							name: '点击选择接口参数',
+							url: '',
+							keyList: []
+						},
+						value: ''
+					}
 				})
 				this.formChange({
 					name: 'eventList',
@@ -201,6 +237,36 @@
 					value: interfaceInfo
 				}
 				this.eventChange(r)
+			},
+			statusChange(res) {
+				const status = this.formData.eventList[this.formData.selectIndex]['status']
+				status[res.name] = res.value
+				const r = {
+					name: 'status',
+					value: status
+				}
+				this.eventChange(r)
+			},
+			statusTypeChange(res) {
+				if (res.value === 'interface') {
+					this.statusChange({
+						name: 'key',
+						value: {
+							name: '点击选择接口参数',
+							url: '',
+							keyList: []
+						}
+					})
+				} else {
+					this.statusChange({
+						name: 'key',
+						value: ''
+					})
+				}
+				this.statusChange(res)
+			},
+			openInterfaceTreeModel: function() {
+				this.$emit('open-interface-tree-model', 'event')
 			}
 		}
 	}
@@ -272,5 +338,31 @@
 		right:10px;
 		top:10px;
 		z-index:10;
+	}
+	.action-interface{
+		position:relative;
+		margin:5px 0;
+		padding-left:85px;
+	}
+	.action-interface .lable{
+		width:85px;
+		display: inline-block;
+		font-size: 14px;
+		text-align: right;
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 40px;
+		line-height: 40px;
+	}
+	.action-interface .interface-btn{
+		height: 36px;
+		line-height: 36px;
+		padding:0 10px;
+		border:1px solid #e5e5e5;
+		border-radius:4px;
+		cursor:pointer;
+		display:inline-block;
+		background-color:#fff;
 	}
 </style>
