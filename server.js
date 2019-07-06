@@ -26,13 +26,17 @@ function requestAction(req, res) {
 			res.json({code: 404, message: '找不到对应文件'})
 		}
 	} else if (isApiResource) {
-		httpRequest.apiRequest({
-			method: req.method,
-			headers: req.headers,
-			pathname: pathname,
-			param: param,
-			req: req
-		}, res)
+		try {
+			httpRequest.apiRequest({
+				method: req.method,
+				headers: req.headers,
+				pathname: pathname,
+				param: param,
+				req: req
+			}, res)
+		} catch (e) {
+			res.json({code: 504, message: 'api请求失败'})
+		}
 	} else {
 		try {
 			res.sendFile(__dirname + `/dist${pathname}.html`)
