@@ -1,9 +1,10 @@
+import common from './common'
 import image from './image'
 import panel from './panel'
 import text from './text'
 
 let result = {}
-let pluginList = [image,panel,text]
+let pluginList = [common,image,panel,text]
 
 for (let i = 0; i < pluginList.length; i++) {
 	for(let key in pluginList[i]){

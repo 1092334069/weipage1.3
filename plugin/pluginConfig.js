@@ -3,6 +3,7 @@ var pluginConfig = {
 		pluginType: 'panel',
 		base: {
 			name: '面板',
+			data: '',
 			type: 'normal',
 			actionList: [],
 			selectIndex: 0
@@ -33,13 +34,29 @@ var pluginConfig = {
 	text: {
 		pluginType: 'text',
 		base: {
-			name: '文本'
+			name: '文本',
+			data: '',
+			actionList: [],
+			selectIndex: 0
+		},
+		style: {
+			fontSize: 12,
+			color: '#333333',
+			lineHeight: 18,
+			fontWeight: 'normal',
+			fontStyle: 'normal'
 		}
 	},
 	image: {
 		pluginType: 'image',
 		base: {
-			name: '图片'
+			name: '图片',
+			data: '',
+			actionList: [],
+			selectIndex: 0
+		},
+		style: {
+			width: 375
 		}
 	}
 }

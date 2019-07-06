@@ -1,5 +1,5 @@
 <template>
-	<div class="panel plugin" :data-id="viewData.pluginId" :style="parsePanelStyle()" :class="parseClass()">
+	<div class="panel plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId" :style="parsePanelStyle()">
 		<template v-if="viewData.base.type == 'normal' || viewData.base.type == 'swiper'">
 			<div class="panel-item" :class="viewData.base.type" :style="parsePanelItemStyle()">
 				<template v-for="item in viewData.pluginList">
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import commonMethod from '../commonMethod.js'
+	import styleView from '../styleView.js'
 
 	export default {
 		name: "panelView",
@@ -45,7 +45,7 @@
 		data () {
 		    return {}
 		},
-		methods: commonMethod
+		methods: styleView
 	}
 </script>
 

@@ -1,18 +1,9 @@
-const commonMethod = {
-	parseStyle: function() {
-		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
+const styleView = {
+	parseImageStyle: function() {
+		let width
 		if (this.viewData.style) {
-			width = 'width:' + this.viewData.style.width + ';'
-			height = 'height:' + this.viewData.style.height + ';'
-			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
-			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
-			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
-			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
-			border = 'border:' + this.parseBorder() + ';'
-			position = this.parsePosition() + ';'
-			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
-			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
-			return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
+			width = 'width:' + this.viewData.style.width
+			return width
 		} else {
 			return ''
 		}
@@ -47,10 +38,16 @@ const commonMethod = {
 			return ''
 		}
 	},
-	parseClass: function() {
-		if (this.selectPluginId === this.viewData.pluginId) {
-			return 'current'
-		} else{
+	parseTextStyle: function() {
+		let fontSize,color,lineHeight,fontWeight,fontStyle
+		if (this.viewData.style) {
+			fontSize = 'fontSize:' + this.viewData.style.fontSize + ';'
+			color = 'color:' + this.viewData.style.color + ';'
+			lineHeight = 'lineHeight:' + this.viewData.style.lineHeight + 'px;'
+			fontWeight = 'fontWeight:' + this.viewData.style.fontWeight + ';'
+			fontStyle = 'fontStyle:' + this.viewData.style.fontStyle
+			return fontSize + color + lineHeight + fontWeight + fontStyle
+		} else {
 			return ''
 		}
 	},
@@ -79,4 +76,4 @@ const commonMethod = {
 	}
  }
 
-export default commonMethod
+export default styleView

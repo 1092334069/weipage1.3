@@ -53,7 +53,7 @@ const formAction = {
 }
 
 function pluginUpdate(res, formData){
-	var keyList = formAction.parseKeyList(res.pname, res.name)
+	const keyList = formAction.parseKeyList(res.pname, res.name)
 	formAction.changePluginData(0, keyList, formData, res.value)
 }
 
@@ -66,7 +66,11 @@ function pluginSearch(weipage, pluginId) {
 }
 
 function pluginMove(weipage, type, pluginId, moveToPluginId) {
-	if (pluginId == moveToPluginId) {
+	if (pluginId === moveToPluginId) {
+		return
+	}
+	const moveToPlugin = pluginSearch(weipage, moveToPluginId)
+	if (moveToPlugin.pluginType !== 'panel' && type === 'inside') {
 		return
 	}
 	formAction.searchPluginDeep(0, weipage, pluginId, function(searchPluginList, i){

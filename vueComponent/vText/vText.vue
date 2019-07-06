@@ -72,14 +72,17 @@
 	.vInput input:hover{
 		border-color:#138ed4;
 	}
-	.vInput .m{
-		width:120px;
-	}
 	.vInput .s{
 		width:60px;
 	}
+	.vInput .m{
+		width:120px;
+	}
 	.vInput .l{
 		width:180px;
+	}
+	.vInput .xl{
+		width:240px;
 	}
 	input[readonly='readonly']{
 		background-color:#f2f2f2;

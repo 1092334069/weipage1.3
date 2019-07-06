@@ -1,20 +1,6 @@
 class InterfaceAction {
 	constructor() {
 		this.weiPageThis = undefined
-
-		this.interfaceTable = [
-			{title: '接口名称', key: 'name'},
-			{title: '接口地址', key: 'url'},
-			{title: '操作', key: 'action', render: (h, params) => {
-				return h('Button', {
-					on: {
-						click: () => {
-							this.selectInterface(params.row.id)
-						}
-					}
-				}, '选取')
-			}}
-		]
 	}
 	init(that) {
 		this.weiPageThis = that

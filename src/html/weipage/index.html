@@ -24,10 +24,9 @@
 					<li>表单</li>
 				</ul>
 				<p class="menu-title">快捷</p>
-				<ul class="shortcut-list">
-					<li @click="openPluginTreeModel('shortcut')">
-						<img src="../../img/icon-tree.png" />
-					</li>
+				<ul class="tool-list">
+					<li @click="openPluginTreeModel('shortcut')">插件树</li>
+					<li>缓存树</li>
 				</ul>
 			</div>
 			<div class="view-page">
@@ -41,21 +40,27 @@
 				</div>
 			</div>
 			<div class="edit-page" v-if="editForm">
-				<ul class="tab-control">
+				<ul class="tab-control" v-if="editForm.pluginType == 'panel'">
 					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">基础</li>
 					<li :class="{current: selectForm == 'style'}" @click="changeFormTab('style')">样式</li>
 					<li :class="{current: selectForm == 'event'}" @click="changeFormTab('event')">事件</li>
 					<li :class="{current: selectForm == 'animation'}" @click="changeFormTab('animation')">动画</li>
 					<li :class="{current: selectForm == 'statistics'}" @click="changeFormTab('statistics')">统计</li>
 				</ul>
+				<ul class="tab-control" v-else>
+					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">基础</li>
+					<li :class="{current: selectForm == 'style'}" @click="changeFormTab('style')">样式</li>
+				</ul>
 				<div class="remove-plugin" @click="removePlugin(editForm.pluginId)"></div>
 				<template v-if="selectForm == 'base'">
 					<panel-base-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></panel-base-form>
-					<text-base-form v-else-if="editForm.pluginType == 'text'" :form-data="editForm.base" @form-change="formChange"></text-base-form>
-					<image-base-form v-else-if="editForm.pluginType == 'image'" :form-data="editForm.base" @form-change="formChange"></image-base-form>
+					<text-base-form v-else-if="editForm.pluginType == 'text'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></text-base-form>
+					<image-base-form v-else-if="editForm.pluginType == 'image'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></image-base-form>
 				</template>
 				<template v-if="selectForm == 'style'">
 					<panel-style-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.style" @form-change="formChange"></panel-style-form>
+					<text-style-form v-else-if="editForm.pluginType == 'text'" :form-data="editForm.style" @form-change="formChange"></text-style-form>
+					<image-style-form v-else-if="editForm.pluginType == 'image'" :form-data="editForm.style" @form-change="formChange"></image-style-form>
 				</template>
 				<template v-if="selectForm == 'event'">
 					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" @form-change="formChange" @open-interface-model="openInterfaceModel" @open-plugin-tree-model="openPluginTreeModel" @open-interface-tree-model="openInterfaceTreeModel"></panel-event-form>
