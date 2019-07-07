@@ -10,7 +10,7 @@
 			<v-image lable="图片" :value="formData.cover" name="cover" @formChange="weipageChange"></v-image>
 		</div>
 		<div class="form">
-			<v-text lable="英文名" :value="formData.pageName" size="l" name="pageName" @formChange="weipageChange"></v-text>
+			<v-text lable="文件名" :value="formData.pageName" size="l" name="pageName" placeholder="请输入字母" @formChange="weipageChange"></v-text>
 		</div>
 		<div class="form-list">
 			<div class="form-lable">接口：</div>

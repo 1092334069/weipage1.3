@@ -69,7 +69,9 @@ var pluginConfig = {
 			data: '',
 			type: 'text',
 			actionList: [],
-			selectIndex: 0
+			selectIndex: 0,
+			optionList: [],
+			optionSelectIndex: 0
 		},
 		style: {
 			width: 375,

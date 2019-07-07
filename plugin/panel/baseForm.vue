@@ -105,15 +105,15 @@
 				res['pname'] = 'base'
 				this.$emit('form-change', res)
 			},
+			selectActionValue: function() {
+				this.$emit('open-interface-tree-model', 'baseAction')
+			},
 			parseClass: function(index) {
 				if (index === this.formData.attrSelectIndex) {
 					return 'current'
 				} else {
 					return ''
 				}
-			},
-			selectActionValue: function() {
-				this.$emit('open-interface-tree-model', 'baseAction')
 			},
 			selectAttrValue: function() {
 				this.$emit('open-interface-tree-model', 'baseAttr')
@@ -137,6 +137,10 @@
 				this.formChange({
 					name: 'attrList',
 					value: attrList
+				})
+				this.formChange({
+					name: 'attrSelectIndex',
+					value: attrList.length - 1
 				})
 			},
 			deleteAttr: function() {

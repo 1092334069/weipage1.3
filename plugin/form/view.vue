@@ -1,6 +1,9 @@
 <template>
 	<div class="form plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId">
-		<input :style="parseFormStyle()" :value="viewData.base.data" />
+		<select v-if="viewData.base.type === 'select'" :style="parseFormStyle()">
+			<option v-for="item in viewData.base.optionList">{{item.label}}</option>
+		</select>
+		<input v-else :style="parseFormStyle()" :value="viewData.base.data" />
 	</div>
 </template>
 
@@ -32,8 +35,13 @@
 	.form{
 		display:inline-block;
 		max-width:100%;
+		margin-bottom:2px;
 	}
 	.form input{
+		border:none;
+		cursor:pointer;
+	}
+	.form select{
 		border:none;
 		cursor:pointer;
 	}
