@@ -129,11 +129,22 @@ class InterfaceAction {
 		return result
 		
 	}
-	baseSelectInterfaceParam(option) {
+	baseActionSelectInterfaceParam(option) {
 		const result = this.selectInterfaceParam(option)
 		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
 			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
 				this.weiPageThis.pluginList[i].base.actionList[this.weiPageThis.pluginList[i].base.selectIndex].value = result
+			}
+		}
+	}
+	baseAttrSelectInterfaceParam(option) {
+		const result = this.selectInterfaceParam(option)
+		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
+			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
+				const attr = this.weiPageThis.pluginList[i].base.attrList[this.weiPageThis.pluginList[i].base.attrSelectIndex]
+				attr.name = result.name
+				attr.url = result.url
+				attr.keyList = result.keyList
 			}
 		}
 	}

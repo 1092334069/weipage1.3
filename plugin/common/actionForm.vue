@@ -24,7 +24,7 @@
 				<div class="form" v-if="item.type === 'interface'">
 					<div class="action-interface">
 						<span class="lable">响应值：</span>
-						<div class="interface-btn" @click="openInterfaceTreeModel">{{item.value.name}}</div>
+						<div class="interface-btn" @click="selectActionValue">{{item.value.name}}</div>
 					</div>
 				</div>
 				<div class="form" v-else>
@@ -137,8 +137,8 @@
 					value: actionList.length - 1
 				})
 			},
-			openInterfaceTreeModel: function() {
-				this.$emit('open-interface-tree-model')
+			selectActionValue: function() {
+				this.$emit('select-action-value')
 			},
 			deleteAction: function() {
 				const actionList = this.formData.actionList

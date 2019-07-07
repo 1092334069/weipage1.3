@@ -1,7 +1,7 @@
 <template>
 	<div class="vInput" :style="{paddingLeft:lableWidth}">
 		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
-		<input type="text" ref="form" :class="size" :value="value" :readonly="isReadOnly" @input="formChange" />
+		<input type="text" ref="form" :class="size" :value="value" :readonly="isReadOnly" :placeholder="placeholder" @input="formChange" />
 	</div>
 </template>
 
@@ -31,6 +31,10 @@
 			isReadOnly: {
 				type: Boolean,
 				default: false
+			},
+			placeholder: {
+				type: String,
+				default: ''
 			}
 		},
 		data () {

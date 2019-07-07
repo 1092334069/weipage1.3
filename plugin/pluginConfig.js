@@ -6,7 +6,9 @@ var pluginConfig = {
 			data: '',
 			type: 'normal',
 			actionList: [],
-			selectIndex: 0
+			selectIndex: 0,
+			attrList: [],
+			attrSelectIndex: 0
 		},
 		style: {
 			width: 375,

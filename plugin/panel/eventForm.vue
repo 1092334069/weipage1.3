@@ -99,6 +99,9 @@
 				},{
 					label: '缓存',
 					value: 'sessionStorage'
+				},{
+					label: '属性',
+					value: 'attr'
 				}],
 				statusAttrOptions: [{
 					label: '立即触发',

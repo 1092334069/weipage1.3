@@ -1,7 +1,7 @@
 <template>
 	<div class="vInput" :style="{paddingLeft:lableWidth}">
 		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
-		<input type="number" ref="form" :class="size" :value="value" @input="formChange" />
+		<input type="number" ref="form" :class="size" :value="value" :placeholder="placeholder" @input="formChange" />
 	</div>
 </template>
 
@@ -32,6 +32,10 @@
 			size: {
 				type: String,
 				default: 'm'
+			},
+			placeholder: {
+				type: String,
+				default: ''
 			}
 		},
 		data () {

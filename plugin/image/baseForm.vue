@@ -6,7 +6,7 @@
 		<div class="form">
 			<v-image lable="图片" :value="formData.data" name="data" @formChange="formChange"></v-image>
 		</div>
-		<action-form :form-data="formData" :action-key-list="actionKeyList" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></action-form>
+		<action-form :form-data="formData" :action-key-list="actionKeyList" @form-change="formChange" @select-action-value="selectActionValue"></action-form>
 	</div>
 </template>
 
@@ -37,8 +37,8 @@
 				res['pname'] = 'base'
 				this.$emit('form-change', res)
 			},
-			openInterfaceTreeModel: function() {
-				this.$emit('open-interface-tree-model', 'base')
+			selectActionValue: function() {
+				this.$emit('open-interface-tree-model', 'baseAction')
 			}
 		}
 	}

@@ -133,9 +133,13 @@ var weipage = new Vue({
 		},
 		openInterfaceTreeModel(form) {
 			this.interfaceTreeModel = true
-			if (form === 'base') {
+			if (form === 'baseAction') {
 				callbackAction.selectInterfaceParam = (option) => {
-					interfaceAction.baseSelectInterfaceParam(option)
+					interfaceAction.baseActionSelectInterfaceParam(option)
+				}
+			} else if (form === 'baseAttr') {
+				callbackAction.selectInterfaceParam = (option) => {
+					interfaceAction.baseAttrSelectInterfaceParam(option)
 				}
 			} else {
 				callbackAction.selectInterfaceParam = (option) => {
