@@ -5,6 +5,8 @@
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
+					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :select-plugin-id="selectPluginId"></image-view>
+					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :select-plugin-id="selectPluginId"></form-view>
 				</template>
 			</div>
 		</template>
@@ -13,12 +15,16 @@
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
+					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :select-plugin-id="selectPluginId"></image-view>
+					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :select-plugin-id="selectPluginId"></form-view>
 				</template>
 			</div>
 			<div class="panel-item copy" :class="viewData.base.type" :style="parsePanelItemStyle()">
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :select-plugin-id="selectPluginId"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :select-plugin-id="selectPluginId"></text-view>
+					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :select-plugin-id="selectPluginId"></image-view>
+					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :select-plugin-id="selectPluginId"></form-view>
 				</template>
 			</div>
 		</template>

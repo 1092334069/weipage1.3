@@ -38,6 +38,7 @@ var pluginConfig = {
 		base: {
 			name: '文本',
 			data: '',
+			key: '',
 			actionList: [],
 			selectIndex: 0
 		},
@@ -59,6 +60,24 @@ var pluginConfig = {
 		},
 		style: {
 			width: 375
+		}
+	},
+	form: {
+		pluginType: 'form',
+		base: {
+			name: '表单',
+			data: '',
+			type: 'text',
+			actionList: [],
+			selectIndex: 0
+		},
+		style: {
+			width: 375,
+			height: 40,
+			fontSize: 14,
+			color: '#333333',
+			backgroundColor: '#ffffff',
+			backgroundImage: ''
 		}
 	}
 }

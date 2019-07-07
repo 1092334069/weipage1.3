@@ -3,7 +3,7 @@ import imageBaseForm from './baseForm.vue'
 import imageStyleForm from './styleForm.vue'
 
 imageView.install = function(Vue){
-	Vue.component(imageView.name, imageView);
+	Vue.component(imageView.name, imageView)
 }
 
 imageBaseForm.install = function(Vue) {

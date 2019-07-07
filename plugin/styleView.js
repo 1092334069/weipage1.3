@@ -1,4 +1,18 @@
 const styleView = {
+	parseFormStyle: function() {
+		let width,height,fontSize,color,backgroundColor,backgroundImage
+		if (this.viewData.style) {
+			width = 'width:' + this.viewData.style.width + ';'
+			height = 'height:' + this.viewData.style.height + ";"
+			fontSize = 'fontSize:' + this.viewData.style.fontSize + ';'
+			color = 'color:' + this.viewData.style.color + ';'
+			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
+			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
+			return width + height + fontSize + color + backgroundColor + backgroundImage
+		} else {
+			return ''
+		}
+	},
 	parseImageStyle: function() {
 		let width
 		if (this.viewData.style) {
