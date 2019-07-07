@@ -23,6 +23,7 @@
 			<div class="form">
 				<v-number lable="旋转" :value="formData.transformRotate" name="transformRotate" @formChange="formChange"></v-number>
 			</div>
+			<v-radio lable="状态" :options="displayOptions" :value="formData.display" name="display" @formChange="formChange"></v-radio>
 		</div>
 		<div class="form-group" @click="triggerForm('border')">
 			<span>边框</span>
@@ -30,7 +31,7 @@
 		</div>
 		<div v-if="formValid.border">
 			<div class="form">
-				<v-radio lable="显示边框" :options="borderDisplayOptions" :value="formData.border" name="border" @formChange="formChange"></v-radio>
+				<v-radio lable="边框状态" :options="borderDisplayOptions" :value="formData.border" name="border" @formChange="formChange"></v-radio>
 			</div>
 			<div v-if="formData.border==='block'">
 				<div class="form">
@@ -87,39 +88,46 @@
 		},
 		data () {
 		    return {
-		    	lableWidth: 30,
-		    	isReadOnly: true,
-		    	formValid: {
-		    		shape: true,
-		    		border: false,
-		    		location: false,
-		    		fill: false
-		    	},
-		    	borderDisplayOptions: [{
-		    		label: '是',
-		    		value: 'block'
-		    	},{
-		    		label: '否',
-		    		value: 'none'
-		    	}],
-		    	borderStyleOptions: [{
-		    		label: '实线',
-		    		value: 'solid'
-		    	},{
-		    		label: '虚线',
-		    		value: 'dashed'
-		    	},{
-		    		label: '点线',
-		    		value: 'dotted'
-		    	}],
-		    	locationPositionOptions: [{
-		    		label: '否',
-		    		value: 'relative'
-		    	},{
-		    		label: '是',
-		    		value: 'absolute'
-		    	}]
-		    }
+				lableWidth: 30,
+				isReadOnly: true,
+				formValid: {
+					shape: true,
+					border: false,
+					location: false,
+					fill: false
+				},
+				displayOptions: [{
+					label: '显示',
+					value: 'block'
+				},{
+					label: '隐藏',
+					value: 'none'
+				}],
+				borderDisplayOptions: [{
+					label: '显示',
+					value: 'block'
+				},{
+					label: '隐藏',
+					value: 'none'
+				}],
+				borderStyleOptions: [{
+					label: '实线',
+					value: 'solid'
+				},{
+					label: '虚线',
+					value: 'dashed'
+				},{
+					label: '点线',
+					value: 'dotted'
+				}],
+				locationPositionOptions: [{
+					label: '否',
+					value: 'relative'
+				},{
+					label: '是',
+					value: 'absolute'
+				}]
+			}
 		},
 		methods: {
 			formChange: function(res) {

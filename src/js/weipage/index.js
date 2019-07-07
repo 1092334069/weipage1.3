@@ -8,8 +8,8 @@ import '../../../vueComponents'
 import '../../../plugin'
 import '../../vue'
 
-import { pluginUpdate, pluginSearch, pluginMove, pluginRemove } from './formAction.js'
-import { createPlugin, pluginTreeSelect } from '../../../plugin/pluginAction.js'
+import { pluginUpdate, pluginSearch, pluginMove, pluginRemove, pluginTreeSelect, formTreeSelect } from './formAction.js'
+import { createPlugin } from '../../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
 import { interfaceAction } from './interfaceAction.js'
 import { viewAction } from './viewAction.js'
@@ -18,7 +18,8 @@ import { viewAction } from './viewAction.js'
 const callbackAction = {
 	selectInterface: () => {},
 	selectInterfaceParam: () => {},
-	selectPluginTree: () => {}
+	selectPluginTree: () => {},
+	selectForm: () => {}
 }
 
 var interfaceTable = [
@@ -64,7 +65,10 @@ var weipage = new Vue({
 
 			// 接口树
 			interfaceTreeModel: false,
-			interfaceTree:[]
+			interfaceTree:[],
+
+			// 表单树
+			formTreeModel: false
 		}
 	},
 	computed: {
@@ -100,7 +104,7 @@ var weipage = new Vue({
 			this.pluginTreeModel = true
 			if (source === 'event') {
 				callbackAction.selectPluginTree = (option) => {
-					pluginTreeSelect(option.pluginId, this)
+					pluginTreeSelect(this, option.pluginId)
 				}
 			} else {
 				callbackAction.selectPluginTree = (option) => {
@@ -156,6 +160,21 @@ var weipage = new Vue({
 		},
 		deleteInterface(interfaceId) {
 			interfaceAction.deleteInterface(interfaceId)
+		},
+		openFormTreeModel(source) {
+			this.formTreeModel = true
+			if (source === 'event') {
+				callbackAction.selectForm = (pluginId) => {
+					formTreeSelect(this, pluginId)
+				}
+			}
+		},
+		closeFormTreeModel() {
+			this.formTreeModel = false
+		},
+		formTreeSelect(pluginId) {
+			this.closeFormTreeModel()
+			callbackAction.selectForm(pluginId)
 		}
 	}
 })

@@ -102,6 +102,9 @@
 				},{
 					label: '属性',
 					value: 'attr'
+				},{
+					label: '表单',
+					value: 'form'
 				}],
 				statusAttrOptions: [{
 					label: '立即触发',

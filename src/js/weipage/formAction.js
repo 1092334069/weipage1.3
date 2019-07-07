@@ -104,9 +104,52 @@ function pluginRemove(weipage, pluginId) {
 	})
 }
 
+function pluginTreeSelect(weipage, pluginId) {
+	let selectPluginDetail = pluginSearch(weipage, pluginId)
+	let pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
+	if (selectPluginDetail) {
+		const eventOptions = []
+		for (let i = 0; i < selectPluginDetail.base.actionList.length; i++){
+			if (selectPluginDetail.base.actionList[i].condition === 'event') {
+				eventOptions.push({
+					label: selectPluginDetail.base.actionList[i].name,
+					value: selectPluginDetail.base.actionList[i].actionId
+				})
+			}
+		}
+		if (eventOptions.length) {
+			pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
+				name: selectPluginDetail.base.name,
+				id: pluginId,
+				options: eventOptions,
+				actionName: eventOptions[0].label,
+				actionId: eventOptions[0].value
+			}
+		} else {
+			pluginDetail.event.eventList[pluginDetail.event.selectIndex].value = {
+				name: selectPluginDetail.base.name,
+				id: pluginId,
+				options: [],
+				actionName: '',
+				actionId: ''
+			}
+		}
+	}
+}
+
+function formTreeSelect(weipage, pluginId) {
+	let selectPluginDetail = pluginSearch(weipage, pluginId)
+	let pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
+	if (selectPluginDetail && selectPluginDetail.base.key) {
+		console.log(selectPluginDetail.base.key)
+	}
+}
+
 export {
 	pluginUpdate,
 	pluginSearch,
 	pluginMove,
-	pluginRemove
+	pluginRemove,
+	pluginTreeSelect,
+	formTreeSelect
 }

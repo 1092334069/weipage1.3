@@ -25,7 +25,8 @@ var pluginConfig = {
 			backgroundImage: '',
 			position: 'relative',
 			top: 0,
-			left: 0
+			left: 0,
+			display: 'block'
 		},
 		event: {
 			eventList: [],
@@ -38,7 +39,6 @@ var pluginConfig = {
 		base: {
 			name: '文本',
 			data: '',
-			key: '',
 			actionList: [],
 			selectIndex: 0
 		},
@@ -68,6 +68,7 @@ var pluginConfig = {
 			name: '表单',
 			data: '',
 			type: 'text',
+			key: '',
 			actionList: [],
 			selectIndex: 0,
 			optionList: [],

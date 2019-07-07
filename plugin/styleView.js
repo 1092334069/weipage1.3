@@ -2,6 +2,9 @@ const styleView = {
 	parseFormStyle: function() {
 		let width,height,fontSize,color,backgroundColor,backgroundImage
 		if (this.viewData.style) {
+			if (this.viewData.style.display === 'none') {
+				return 'display:none'
+			}
 			width = 'width:' + this.viewData.style.width + ';'
 			height = 'height:' + this.viewData.style.height + ";"
 			fontSize = 'fontSize:' + this.viewData.style.fontSize + ';'

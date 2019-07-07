@@ -24,8 +24,8 @@
 				</ul>
 				<p class="menu-title">快捷</p>
 				<ul class="tool-list">
-					<li @click="openPluginTreeModel('shortcut')">插件树</li>
-					<li>表单树</li>
+					<li @click="openPluginTreeModel('')">插件树</li>
+					<li @click="openFormTreeModel('')">表单树</li>
 				</ul>
 			</div>
 			<div class="view-page">
@@ -75,12 +75,6 @@
 				<weipage-form :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface"></weipage-form>
 			</div>
 
-			<Modal
-				v-model="pluginTreeModel"
-				title="插件树">
-				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @plugin-tree-select="pluginTreeSelect"></plugin-tree>
-			</Modal>
-
 			<Modal 
 				v-model="interfaceModel"
 				title="接口列表">
@@ -88,9 +82,21 @@
 			</Modal>
 
 			<Modal
+				v-model="pluginTreeModel"
+				title="插件树">
+				<plugin-tree :plugin-list="pluginList" :select-plugin-id="selectPluginId" @plugin-tree-select="pluginTreeSelect"></plugin-tree>
+			</Modal>
+
+			<Modal
 				v-model="interfaceTreeModel"
 				title="接口树">
 				<interface-tree :interface-list="interfaceTree" @select-interface-param="selectInterfaceParam"></interface-tree>
+			</Modal>
+
+			<Modal
+				v-model="formTreeModel"
+				title="表单树">
+				<form-tree :plugin-list="pluginList" @form-tree-select="formTreeSelect"></form-tree>
 			</Modal>
 
 		</div>
