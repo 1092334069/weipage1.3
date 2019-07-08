@@ -2,7 +2,7 @@
 	<div>
 		<ul class="tree-list">
 			<li v-for="item in pluginList">
-				<div class="tree-item form" v-if="item.pluginType === 'form'" @click="selectPlugin(item.pluginId)">{{item.base.name}}:{{item.base.key}}</div>
+				<div class="tree-item form" v-if="item.pluginType === 'form'" @click="selectPlugin(item.pluginId)">{{item.base.name}}({{item.base.key}})</div>
 				<div class="tree-item other" v-else>{{item.base.name}}</div>
 				<div class="tree-child" v-if="item.pluginList && item.pluginList.length">
 					<div v-if="item.pluginId != showPluginId" class="tree-child-more" @click="showChildTree(item.pluginId)"></div>

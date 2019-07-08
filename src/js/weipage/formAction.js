@@ -105,8 +105,8 @@ function pluginRemove(weipage, pluginId) {
 }
 
 function pluginTreeSelect(weipage, pluginId) {
-	let selectPluginDetail = pluginSearch(weipage, pluginId)
-	let pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
+	const selectPluginDetail = JSON.parse(JSON.stringify(pluginSearch(weipage, pluginId)))
+	const pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
 	if (selectPluginDetail) {
 		const eventOptions = []
 		for (let i = 0; i < selectPluginDetail.base.actionList.length; i++){
@@ -137,11 +137,19 @@ function pluginTreeSelect(weipage, pluginId) {
 	}
 }
 
-function formTreeSelect(weipage, pluginId) {
-	let selectPluginDetail = pluginSearch(weipage, pluginId)
-	let pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
+function formTreeSelect(weipage, pluginId, key) {
+	const selectPluginDetail = JSON.parse(JSON.stringify(pluginSearch(weipage, pluginId)))
+	const pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
 	if (selectPluginDetail && selectPluginDetail.base.key) {
-		console.log(selectPluginDetail.base.key)
+		const eventDetail = pluginDetail.event.eventList[pluginDetail.event.selectIndex]
+		if (eventDetail.value && eventDetail.value.param && eventDetail.value.param.length) {
+			for (let i = 0; i < eventDetail.value.param.length; i++) {
+				console.log(eventDetail.value.param)
+				if (eventDetail.value.param[i].key === key) {
+					eventDetail.value.param[i].value.data = selectPluginDetail.base.key
+				}
+			}
+		}
 	}
 }
 

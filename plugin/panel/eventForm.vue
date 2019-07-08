@@ -35,7 +35,7 @@
 					</div>
 					<template v-if="item.value.param && item.value.param.length">
 						<div class="form size-l" v-for="inf in item.value.param">
-							<v-input-source :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></v-input-source>
+							<v-input-source :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></v-input-source>
 						</div>
 					</template>
 				</template>
@@ -243,6 +243,15 @@
 					value: interfaceInfo
 				}
 				this.eventChange(r)
+			},
+			interfaceSourceChange: function(res) {
+				if (res.value.source === 'form') {
+					this.$emit('open-form-tree-model', {
+						source: 'event',
+						key: res.name
+					})
+				}
+				this.interfaceChange(res)
 			},
 			statusChange(res) {
 				const status = this.formData.eventList[this.formData.selectIndex]['status']

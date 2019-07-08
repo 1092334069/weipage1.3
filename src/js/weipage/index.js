@@ -147,7 +147,7 @@ var weipage = new Vue({
 				}
 			} else {
 				callbackAction.selectInterfaceParam = (option) => {
-					interfaceAction.eventSelectInterfaceParam(option)
+					interfaceAction.eventSelectStatusInterfaceParam(option)
 				}
 			}
 		},
@@ -161,20 +161,21 @@ var weipage = new Vue({
 		deleteInterface(interfaceId) {
 			interfaceAction.deleteInterface(interfaceId)
 		},
-		openFormTreeModel(source) {
+		openFormTreeModel(option) {
+			console.log(option)
 			this.formTreeModel = true
-			if (source === 'event') {
-				callbackAction.selectForm = (pluginId) => {
-					formTreeSelect(this, pluginId)
+			if (option && option.source === 'event') {
+				callbackAction.selectForm = (res) => {
+					formTreeSelect(this, res.pluginId, option.key)
 				}
 			}
 		},
 		closeFormTreeModel() {
 			this.formTreeModel = false
 		},
-		formTreeSelect(pluginId) {
+		formTreeSelect(option) {
 			this.closeFormTreeModel()
-			callbackAction.selectForm(pluginId)
+			callbackAction.selectForm(option)
 		}
 	}
 })

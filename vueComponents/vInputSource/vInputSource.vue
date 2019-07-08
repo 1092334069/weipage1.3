@@ -60,7 +60,7 @@
 						source: res.value
 					}
 				}
-				this.formChange(r)
+				this.$emit('sourceChange', r)
 			}
 		}
 	}

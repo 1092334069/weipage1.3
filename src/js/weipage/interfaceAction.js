@@ -90,7 +90,7 @@ class InterfaceAction {
 				}
 			}
 			if (event) {
-				event.eventList[event.selectIndex].value = interfaceDetail
+				event.eventList[event.selectIndex].value = JSON.parse(JSON.stringify(interfaceDetail))
 			}
 		})
 		
@@ -130,7 +130,7 @@ class InterfaceAction {
 		
 	}
 	baseActionSelectInterfaceParam(option) {
-		const result = this.selectInterfaceParam(option)
+		const result = JSON.parse(JSON.stringify(this.selectInterfaceParam(option)))
 		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
 			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
 				this.weiPageThis.pluginList[i].base.actionList[this.weiPageThis.pluginList[i].base.selectIndex].value = result
@@ -138,7 +138,7 @@ class InterfaceAction {
 		}
 	}
 	baseAttrSelectInterfaceParam(option) {
-		const result = this.selectInterfaceParam(option)
+		const result = JSON.parse(JSON.stringify(this.selectInterfaceParam(option)))
 		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
 			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
 				const attr = this.weiPageThis.pluginList[i].base.attrList[this.weiPageThis.pluginList[i].base.attrSelectIndex]
@@ -148,7 +148,7 @@ class InterfaceAction {
 			}
 		}
 	}
-	eventSelectInterfaceParam(option) {
+	eventSelectStatusInterfaceParam(option) {
 		const result = this.selectInterfaceParam(option)
 		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
 			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
