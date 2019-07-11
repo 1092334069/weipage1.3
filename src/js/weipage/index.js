@@ -47,7 +47,11 @@ var weipage = new Vue({
 				cover: '',
 				pageName: '',
 				interfaceList: [],
-				selectInterfaceId: 0
+				selectInterfaceId: 0,
+				scrollEvent: {
+					scrollEventList: [],
+					selectIndex: 0
+				}
 			},
 
 			// 插件编辑

@@ -3,7 +3,7 @@ import textBaseForm from './baseForm.vue'
 import textStyleForm from './styleForm.vue'
 
 textView.install = function(Vue){
-	Vue.component(textView.name, textView);
+	Vue.component(textView.name, textView)
 }
 
 textBaseForm.install = function(Vue) {

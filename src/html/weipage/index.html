@@ -70,9 +70,12 @@
 			</div>
 			<div class="edit-page" v-else>
 				<ul class="tab-control">
-					<li class="current">微页面</li>
+					<li :class="{current: selectForm == 'base'}" @click="changeFormTab('base')">微页面</li>
+					<li :class="{current: selectForm == 'scroll'}" @click="changeFormTab('scroll')">滚动条</li>
+					<li :class="{current: selectForm == 'count'}" @click="changeFormTab('count')">计数器</li>
+					<li :class="{current: selectForm == 'time'}" @click="changeFormTab('time')">定时器</li>
 				</ul>
-				<weipage-form :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface"></weipage-form>
+				<weipage-base-form :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface"></weipage-base-form>
 			</div>
 
 			<Modal 
