@@ -10,6 +10,9 @@
 			<template v-for="(item,index) in formData.scrollEvent.eventList" v-if="formData.scrollEvent.selectIndex === index">
 				<div class="delete-module" @click="deleteEvent"></div>
 				<div class="form">
+					<v-radio lable="方向" :options="directionOptions" :value="item.direction" name="direction" @formChange="eventChange"></v-radio>
+				</div>
+				<div class="form">
 					<v-radio lable="类型" :options="eventTypeOptions" :value="item.type" name="type" @formChange="eventTypeChange"></v-radio>
 				</div>
 				<template v-if="item.type === 'normal'">
@@ -59,6 +62,13 @@
 					label: '本地事件',
 					value: 'normal'
 				}],
+				directionOptions: [{
+					label: '向下',
+					value: 'bottom'
+				},{
+					label: '向上',
+					value: 'top'
+				}],
 				sourceOptions: [{
 					label: '固定值',
 					value: 'static'
@@ -100,6 +110,7 @@
 				const eventList = this.formData.scrollEvent.eventList
 				eventList.push({
 					type: 'interface',
+					direction: 'bottom',
 					key: '',
 					value: {
 						name: '点击选择接口'
