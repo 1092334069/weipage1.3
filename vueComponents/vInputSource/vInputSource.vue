@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<v-text :lable="lable" :value="value.data" @formChange="changeValue"></v-text>
+		<v-select v-if="type === 'select'" :lable="lable" :options="inputOptions" :value="value.data" @formChange="changeValue"></v-select>
+		<v-text v-else :lable="lable" :value="value.data" @formChange="changeValue"></v-text>
 		<v-select :lableWidth="sourceLableWidth" :options="sourceOptions" :value="value.source" @formChange="changeSource"></v-select>
 	</div>
 </template>
@@ -31,11 +32,21 @@
 				default: function() {
 					return []
 				}
+			},
+			type: {
+				type: String,
+				default: 'text'
+			},
+			inputOptions: {
+				type: Array,
+				default: function() {
+					return []
+				}
 			}
 		},
 		data () {
 		    return {
-		    	sourceLableWidth: 0
+				sourceLableWidth: 0
 		    }
 		},
 		methods: {

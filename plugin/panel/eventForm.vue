@@ -35,7 +35,8 @@
 					</div>
 					<template v-if="item.value.param && item.value.param.length">
 						<div class="form size-l" v-for="inf in item.value.param">
-							<v-input-source :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></v-input-source>
+							<v-input-source v-if="inf.value.source === 'attr'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="attrOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></v-input-source>
+							<v-input-source v-else :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></v-input-source>
 						</div>
 					</template>
 				</template>
@@ -72,6 +73,12 @@
 		name: "panelEventForm",
 		props: {
 			formData: {
+				type: Object,
+				default: function() {
+					return {}
+				}
+			},
+			baseData: {
 				type: Object,
 				default: function() {
 					return {}
@@ -282,6 +289,18 @@
 			},
 			openInterfaceTreeModel: function() {
 				this.$emit('open-interface-tree-model', 'event')
+			}
+		},
+		computed: {
+			attrOptions() {
+				const options = []
+				for (let i = 0; i < this.baseData.attrList.length; i++) {
+					options.push({
+						label: this.baseData.attrList[i].name,
+						value: this.baseData.attrList[i].key
+					})
+				}
+				return options
 			}
 		}
 	}
