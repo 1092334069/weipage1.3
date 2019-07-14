@@ -33,7 +33,8 @@
 					</div>
 					<template v-if="item.value.param && item.value.param.length">
 						<div class="form size-l" v-for="inf in item.value.param">
-							<v-input-source :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></v-input-source>
+							<v-input-source v-if="inf.value.source === 'count'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="countOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></v-input-source>
+							<v-input-source v-else :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></v-input-source>
 						</div>
 					</template>
 				</template>
@@ -81,6 +82,9 @@
 				},{
 					label: '表单',
 					value: 'form'
+				},{
+					label: '计数器',
+					value: 'count'
 				}]
 			}
 		},
@@ -197,6 +201,18 @@
 			},
 			openInterfaceModel: function() {
 				this.$emit('open-interface-model', 'weipageScroll')
+			}
+		},
+		computed: {
+			countOptions() {
+				const options = []
+				for (let i = 0; i < this.formData.countEvent.eventList.length; i++) {
+					options.push({
+						label: this.formData.countEvent.eventList[i].name,
+						value: this.formData.countEvent.eventList[i].countId
+					})
+				}
+				return options
 			}
 		}
 	}

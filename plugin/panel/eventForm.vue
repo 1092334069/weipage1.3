@@ -36,6 +36,7 @@
 					<template v-if="item.value.param && item.value.param.length">
 						<div class="form size-l" v-for="inf in item.value.param">
 							<v-input-source v-if="inf.value.source === 'attr'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="attrOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></v-input-source>
+							<v-input-source v-else-if="inf.value.source === 'count'" :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" type="select" :inputOptions="countOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></v-input-source>
 							<v-input-source v-else :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceSourceChange"></v-input-source>
 						</div>
 					</template>
@@ -83,6 +84,12 @@
 				default: function() {
 					return {}
 				}
+			},
+			weipageData: {
+				type: Object,
+				default: function() {
+					return {}
+				}
 			}
 		},
 		data () {
@@ -112,6 +119,9 @@
 				},{
 					label: '表单',
 					value: 'form'
+				},{
+					label: '计数器',
+					value: 'count'
 				}],
 				statusAttrOptions: [{
 					label: '立即触发',
@@ -298,6 +308,16 @@
 					options.push({
 						label: this.baseData.attrList[i].name,
 						value: this.baseData.attrList[i].key
+					})
+				}
+				return options
+			},
+			countOptions() {
+				const options = []
+				for (let i = 0; i < this.weipageData.countEvent.eventList.length; i++) {
+					options.push({
+						label: this.weipageData.countEvent.eventList[i].name,
+						value: this.weipageData.countEvent.eventList[i].countId
 					})
 				}
 				return options

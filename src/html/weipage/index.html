@@ -65,7 +65,7 @@
 					<form-style-form v-else-if="editForm.pluginType == 'form'" :form-data="editForm.style" @form-change="formChange"></form-style-form>
 				</template>
 				<template v-if="selectForm == 'event'">
-					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" :base-data="editForm.base" @form-change="formChange" @open-interface-model="openInterfaceModel" @open-plugin-tree-model="openPluginTreeModel" @open-interface-tree-model="openInterfaceTreeModel" @open-form-tree-model="openFormTreeModel"></panel-event-form>
+					<panel-event-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.event" :base-data="editForm.base" :weipage-data="weipage" @form-change="formChange" @open-interface-model="openInterfaceModel" @open-plugin-tree-model="openPluginTreeModel" @open-interface-tree-model="openInterfaceTreeModel" @open-form-tree-model="openFormTreeModel"></panel-event-form>
 				</template>
 			</div>
 			<div class="edit-page" v-else>
@@ -77,6 +77,7 @@
 				</ul>
 				<weipage-base-form v-if="selectForm == 'base'" :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface"></weipage-base-form>
 				<weipage-scroll-form v-else-if="selectForm == 'scroll'" :form-data="weipage" @weipage-change="weipageChange" @open-plugin-tree-model="openPluginTreeModel" @open-interface-model="openInterfaceModel"></weipage-scroll-form>
+				<weipage-count-form v-else-if="selectForm == 'count'" :form-data="weipage" @weipage-change="weipageChange"></weipage-count-form>
 			</div>
 
 			<Modal 

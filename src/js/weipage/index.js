@@ -52,6 +52,10 @@ var weipage = new Vue({
 				scrollEvent: {
 					eventList: [],
 					selectIndex: 0
+				},
+				countEvent: {
+					eventList: [],
+					selectIndex: 0
 				}
 			},
 
