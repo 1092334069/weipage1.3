@@ -1,0 +1,92 @@
+.plugin-form .form-list{
+	position:relative;
+	overflow:hidden;
+	margin:5px 0;
+	padding-left:85px;
+}
+.plugin-form .form{
+	position:relative;
+	margin:5px 0;
+}
+.plugin-form .form-list .form-lable{
+	width:80px;
+	display: inline-block;
+	font-size: 14px;
+	text-align: right;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 40px;
+	line-height: 40px;
+}
+.plugin-form .form-item{
+	padding:0 10px;
+	margin-right:10px;
+	border-radius:4px;
+	height:40px;
+	line-height:40px;
+	background-color:#fff;
+	display:inline-block;
+	border:1px solid #fff;
+	float:left;
+	cursor:pointer;
+}
+.plugin-form .form-item.current{
+	border:1px solid #138ed4;
+}
+.plugin-form .add-module{
+	width:40px;
+	height:40px;
+	background-image:url('../../img/icon-add.png');
+	background-size:24px 24px;
+	background-repeat:no-repeat;
+	background-position:center;
+	cursor:pointer;
+	display:inline-block;
+	float:left;
+}
+.plugin-form .sub-form-list{
+	background-color:#f0f0f0;
+	margin-left:80px;
+	position:relative;
+}
+.plugin-form .delete-module{
+	width:40px;
+	height:40px;
+	background-image:url('../../img/icon-delete.png');
+	background-size:24px 24px;
+	background-repeat:no-repeat;
+	background-position:center;
+	cursor:pointer;
+	display:inline-block;
+	position:absolute;
+	right:0;
+	top:0;
+	z-index:10;
+}
+.plugin-form .form-perch{
+	position:relative;
+	margin:5px 0;
+	padding-left:85px;
+}
+.plugin-form .form-perch .lable{
+	width:85px;
+	display: inline-block;
+	font-size: 14px;
+	text-align: right;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 40px;
+	line-height: 40px;
+}
+.plugin-form .form-perch .perch-btn{
+	height: 36px;
+	line-height: 36px;
+	padding:0 10px;
+	border:1px solid #e5e5e5;
+	border-radius:4px;
+	cursor:pointer;
+	display:inline-block;
+	background-color:#fff;
+}

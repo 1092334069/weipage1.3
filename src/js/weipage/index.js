@@ -2,13 +2,14 @@ import 'babel-polyfill'
 
 import '../../css/reset.css'
 import '../../css/weipage/index.css'
+import '../../css/weipage/formList.css'
 
 import '../../../vueComponent'
 import '../../../vueComponents'
 import '../../../plugin'
 import '../../vue'
 
-import { pluginUpdate, pluginSearch, pluginMove, pluginRemove, pluginTreeSelect, formTreeSelect } from './formAction.js'
+import { pluginUpdate, pluginSearch, pluginMove, pluginRemove, eventPluginTreeSelect, weipageScrollPluginTreeSelect, formTreeSelect } from './formAction.js'
 import { createPlugin } from '../../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
 import { interfaceAction } from './interfaceAction.js'
@@ -49,7 +50,7 @@ var weipage = new Vue({
 				interfaceList: [],
 				selectInterfaceId: 0,
 				scrollEvent: {
-					scrollEventList: [],
+					eventList: [],
 					selectIndex: 0
 				}
 			},
@@ -108,7 +109,11 @@ var weipage = new Vue({
 			this.pluginTreeModel = true
 			if (source === 'event') {
 				callbackAction.selectPluginTree = (option) => {
-					pluginTreeSelect(this, option.pluginId)
+					eventPluginTreeSelect(this, option.pluginId)
+				}
+			} else if (source === 'weipageScroll') {
+				callbackAction.selectPluginTree = (option) => {
+					weipageScrollPluginTreeSelect(this, option.pluginId)
 				}
 			} else {
 				callbackAction.selectPluginTree = (option) => {
@@ -129,6 +134,10 @@ var weipage = new Vue({
 			if (source === 'event') {
 				callbackAction.selectInterface = (option) => {
 					interfaceAction.eventSelectInterface(option)
+				}
+			} else if (source === 'weipageScroll') {
+				callbackAction.selectInterface = (option) => {
+					interfaceAction.weipageScrollSelectInterface(option)
 				}
 			} else {
 				callbackAction.selectInterface = (option) => {

@@ -104,7 +104,7 @@ function pluginRemove(weipage, pluginId) {
 	})
 }
 
-function pluginTreeSelect(weipage, pluginId) {
+function eventPluginTreeSelect(weipage, pluginId) {
 	const selectPluginDetail = JSON.parse(JSON.stringify(pluginSearch(weipage, pluginId)))
 	const pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
 	if (selectPluginDetail) {
@@ -137,6 +137,38 @@ function pluginTreeSelect(weipage, pluginId) {
 	}
 }
 
+function weipageScrollPluginTreeSelect(weipage, pluginId) {
+	const selectPluginDetail = JSON.parse(JSON.stringify(pluginSearch(weipage, pluginId)))
+	if (selectPluginDetail) {
+		const eventOptions = []
+		for (let i = 0; i < selectPluginDetail.base.actionList.length; i++){
+			if (selectPluginDetail.base.actionList[i].condition === 'event') {
+				eventOptions.push({
+					label: selectPluginDetail.base.actionList[i].name,
+					value: selectPluginDetail.base.actionList[i].actionId
+				})
+			}
+		}
+		if (eventOptions.length) {
+			weipage.weipage.scrollEvent.eventList[weipage.weipage.scrollEvent.selectIndex].value = {
+				name: selectPluginDetail.base.name,
+				id: pluginId,
+				options: eventOptions,
+				actionName: eventOptions[0].label,
+				actionId: eventOptions[0].value
+			}
+		} else {
+			weipage.weipage.scrollEvent.eventList[weipage.weipage.scrollEvent.selectIndex].value = {
+				name: selectPluginDetail.base.name,
+				id: pluginId,
+				options: [],
+				actionName: '',
+				actionId: ''
+			}
+		}
+	}
+}
+
 function formTreeSelect(weipage, pluginId, key) {
 	const selectPluginDetail = JSON.parse(JSON.stringify(pluginSearch(weipage, pluginId)))
 	const pluginDetail = pluginSearch(weipage, weipage.selectPluginId)
@@ -158,6 +190,7 @@ export {
 	pluginSearch,
 	pluginMove,
 	pluginRemove,
-	pluginTreeSelect,
+	eventPluginTreeSelect,
+	weipageScrollPluginTreeSelect,
 	formTreeSelect
 }

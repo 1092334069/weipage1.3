@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="plugin-form">
 		<div class="form-list">
 			<div class="form-lable">事件列表：</div>
 			<div class="form-item" :class="parseClass(index)" v-for="(item,index) in formData.eventList" @click="selectEvent(index)">{{index+1}}</div>
@@ -10,7 +10,7 @@
 			<template v-for="(item,index) in formData.eventList" v-if="formData.selectIndex === index">
 				<div class="delete-module" @click="deleteEvent"></div>
 				<div class="form">
-					<v-radio lable="类型" :options="eventTypeList" :value="item.type" name="type" @formChange="eventTypeChange"></v-radio>
+					<v-radio lable="类型" :options="eventTypeOptions" :value="item.type" name="type" @formChange="eventTypeChange"></v-radio>
 				</div>
 				<template v-if="item.type === 'link'">
 					<div class="form">
@@ -49,9 +49,9 @@
 							<v-radio lable="触发类型" :options="statusTypeOptions" :value="item.status.type" name="type" @formChange="statusTypeChange"></v-radio>
 						</div>
 						<div class="form" v-if="item.status.type === 'interface'">
-							<div class="action-interface">
+							<div class="form-perch">
 								<span class="lable">触发键：</span>
-								<div class="interface-btn" @click="openInterfaceTreeModel">{{item.status.key.name}}</div>
+								<div class="perch-btn" @click="openInterfaceTreeModel">{{item.status.key.name}}</div>
 							</div>
 						</div>
 						<div class="form" v-else>
@@ -87,7 +87,7 @@
 		},
 		data () {
 			return {
-				eventTypeList: [{
+				eventTypeOptions: [{
 					label: '接口事件',
 					value: 'interface'
 				},{
@@ -306,97 +306,6 @@
 	}
 </script>
 
-<style scoped>
-	.form{
-		position:relative;
-		margin:5px 0;
-	}
-	.form-list{
-		position:relative;
-		overflow:hidden;
-		margin:5px 0;
-		padding-left:85px;
-	}
-	.form-list .form-lable{
-		width:85px;
-		display: inline-block;
-	    font-size: 14px;
-	    text-align: right;
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-	    height: 40px;
-	    line-height: 40px;
-	}
-	.form-item{
-		padding:0 10px;
-		margin-right:10px;
-		border-radius:4px;
-		height:40px;
-		line-height:40px;
-		background-color:#fff;
-		display:inline-block;
-		border:1px solid #fff;
-		float:left;
-		cursor:pointer;
-	}
-	.form-item.current{
-		border:1px solid #138ed4;
-	}
-	.add-module{
-		width:40px;
-		height:40px;
-		background-image:url('../../src/img/icon-add.png');
-		background-size:24px 24px;
-		background-repeat:no-repeat;
-		background-position:center;
-		cursor:pointer;
-		display:inline-block;
-		float:left;
-	}
-	.sub-form-list{
-		background-color:#f0f0f0;
-		margin-left:80px;
-		position:relative;
-	}
-	.delete-module{
-		width:40px;
-		height:40px;
-		background-image:url('../../src/img/icon-delete.png');
-		background-size:24px 24px;
-		background-repeat:no-repeat;
-		background-position:center;
-		cursor:pointer;
-		display:inline-block;
-		position:absolute;
-		right:10px;
-		top:10px;
-		z-index:10;
-	}
-	.action-interface{
-		position:relative;
-		margin:5px 0;
-		padding-left:85px;
-	}
-	.action-interface .lable{
-		width:85px;
-		display: inline-block;
-		font-size: 14px;
-		text-align: right;
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 40px;
-		line-height: 40px;
-	}
-	.action-interface .interface-btn{
-		height: 36px;
-		line-height: 36px;
-		padding:0 10px;
-		border:1px solid #e5e5e5;
-		border-radius:4px;
-		cursor:pointer;
-		display:inline-block;
-		background-color:#fff;
-	}
+<style>
+	
 </style>

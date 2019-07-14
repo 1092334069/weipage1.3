@@ -78,6 +78,12 @@ class InterfaceAction {
 			_this.weiPageThis.weipage.selectInterfaceId = interfaceDetail.interfaceId
 		})
 	}
+	weipageScrollSelectInterface(interfaceId) {
+		const _this = this
+		this.selectInterface(interfaceId, function(interfaceDetail) {
+			_this.weiPageThis.weipage.scrollEvent.eventList[_this.weiPageThis.weipage.scrollEvent.selectIndex].value = JSON.parse(JSON.stringify(interfaceDetail))
+		})
+	}
 	eventSelectInterface(interfaceId) {
 		const _this = this
 		this.selectInterface(interfaceId, function(interfaceDetail) {
@@ -93,7 +99,6 @@ class InterfaceAction {
 				event.eventList[event.selectIndex].value = JSON.parse(JSON.stringify(interfaceDetail))
 			}
 		})
-		
 	}
 	deleteInterface(interfaceId) {
 		let interfaceList = this.weiPageThis.weipage.interfaceList

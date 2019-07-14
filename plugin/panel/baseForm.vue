@@ -1,5 +1,5 @@
 <template>
-	<div class="base-form">
+	<div class="plugin-form">
 		<div class="form">
 			<v-text lable="名称" :value="formData.name" size="l" name="name" @formChange="formChange"></v-text>
 		</div>
@@ -21,9 +21,9 @@
 						<v-text lable="属性键" :value="item.key" name="key" placeholder="请输入字母" @formChange="attrChange"></v-text>
 					</div>
 					<div class="form">
-						<div class="attr-interface">
+						<div class="form-perch">
 							<span class="lable">属性值：</span>
-							<div class="interface-btn" @click="selectAttrValue">{{item.name}}</div>
+							<div class="perch-btn" @click="selectAttrValue">{{item.name}}</div>
 						</div>
 					</div>
 				</template>
@@ -167,97 +167,6 @@
 	}
 </script>
 
-<style scoped>
-	.form{
-		position:relative;
-		margin:5px 0;
-	}
-	.form-list{
-		position:relative;
-		overflow:hidden;
-		margin:5px 0;
-		padding-left:85px;
-	}
-	.form-list .form-lable{
-		width:85px;
-		display: inline-block;
-		font-size: 14px;
-		text-align: right;
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 40px;
-		line-height: 40px;
-	}
-	.form-item{
-		padding:0 10px;
-		margin-right:10px;
-		border-radius:4px;
-		height:40px;
-		line-height:40px;
-		background-color:#fff;
-		display:inline-block;
-		border:1px solid #fff;
-		float:left;
-		cursor:pointer;
-	}
-	.form-item.current{
-		border:1px solid #138ed4;
-	}
-	.add-module{
-		width:40px;
-		height:40px;
-		background-image:url('../../src/img/icon-add.png');
-		background-size:24px 24px;
-		background-repeat:no-repeat;
-		background-position:center;
-		cursor:pointer;
-		display:inline-block;
-		float:left;
-	}
-	.sub-form-list{
-		background-color:#f0f0f0;
-		margin-left:80px;
-		position:relative;
-	}
-	.delete-module{
-		width:40px;
-		height:40px;
-		background-image:url('../../src/img/icon-delete.png');
-		background-size:24px 24px;
-		background-repeat:no-repeat;
-		background-position:center;
-		cursor:pointer;
-		display:inline-block;
-		position:absolute;
-		right:10px;
-		top:10px;
-		z-index:10;
-	}
-	.attr-interface{
-		position:relative;
-		margin:5px 0;
-		padding-left:85px;
-	}
-	.attr-interface .lable{
-		width:85px;
-		display: inline-block;
-		font-size: 14px;
-		text-align: right;
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 40px;
-		line-height: 40px;
-	}
-	.attr-interface .interface-btn{
-		height: 36px;
-		line-height: 36px;
-		padding:0 10px;
-		border:1px solid #e5e5e5;
-		border-radius:4px;
-		cursor:pointer;
-		display:inline-block;
-		background-color:#fff;
-	}
+<style>
+
 </style>
