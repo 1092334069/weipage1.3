@@ -70,7 +70,12 @@ var weipage = new Vue({
 			// 接口对话框
 			interfaceModel: false,
 			interfaceTable,
-			interfaceTableData: [],
+			interfaceTableData: {
+				list: [],
+				total: 0,
+				page: 1,
+				size: 10,
+			},
 
 			// 接口树
 			interfaceTreeModel: false,
@@ -179,7 +184,6 @@ var weipage = new Vue({
 			interfaceAction.deleteInterface(interfaceId)
 		},
 		openFormTreeModel(option) {
-			console.log(option)
 			this.formTreeModel = true
 			if (option && option.source === 'event') {
 				callbackAction.selectForm = (res) => {
@@ -193,6 +197,9 @@ var weipage = new Vue({
 		formTreeSelect(option) {
 			this.closeFormTreeModel()
 			callbackAction.selectForm(option)
+		},
+		changePage(option) {
+			console.log(option)
 		}
 	}
 })

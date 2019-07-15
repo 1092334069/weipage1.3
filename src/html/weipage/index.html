@@ -83,7 +83,10 @@
 			<Modal 
 				v-model="interfaceModel"
 				title="接口列表">
-					<i-table stripe :columns="interfaceTable" :data="interfaceTableData"></i-table>
+					<i-table stripe :columns="interfaceTable" :data="interfaceTableData.list"></i-table>
+					<div class="table-page">
+						<Page :total="interfaceTableData.total" :current="interfaceTableData.page" @on-change="changePage"></Page>
+					</div>
 			</Modal>
 
 			<Modal

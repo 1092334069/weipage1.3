@@ -11,13 +11,14 @@ class InterfaceAction {
 			url: '/api/interface/getPageList',
 			type: 'get',
 			data: {
-				page: 1,
-				size: 10
+				page: _this.weiPageThis.interfaceTableData.page,
+				size: _this.weiPageThis.interfaceTableData.size
 			},
 			dataType: 'json',
 			success: (res) => {
 				if (res && res.code === 200 && res.data) {
-					_this.weiPageThis.interfaceTableData = res.data.list
+					_this.weiPageThis.interfaceTableData.list = res.data.list
+					_this.weiPageThis.interfaceTableData.total = res.data.total
 				}
 			}
 		})
