@@ -1,10 +1,10 @@
 <template>
 	<div class="vImage" :style="{paddingLeft:lableWidth}">
 		<span v-if="lable" class="lable" :style="{width:lableWidth}">{{lable}}：</span>
-		<div v-if="value!==''" class="upload-btn">
+		<div v-if="value!==''" class="upload-btn" @click="selectImage">
 			<img :src="value" />
 		</div>
-		<div v-else class="upload-btn default"></div>
+		<div v-else class="upload-btn default" @click="selectImage"></div>
 	</div>
 </template>
 
@@ -13,6 +13,10 @@
 		name: "vImage",
 		props: {
 			value: {
+				type: String,
+				default: ''
+			},
+			name: {
 				type: String,
 				default: ''
 			},
@@ -28,7 +32,13 @@
 		data () {
 		    return {}
 		},
-		methods: {}		
+		methods: {
+			selectImage: function() {
+				this.$emit('selectImage', {
+					name: this.name
+				})
+			}
+		}		
 	}
 </script>
 

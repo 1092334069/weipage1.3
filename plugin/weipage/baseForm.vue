@@ -7,7 +7,7 @@
 			<v-text lable="描述" :value="formData.describes" size="l" name="describes" @formChange="weipageChange"></v-text>
 		</div>
 		<div class="form">
-			<v-image lable="图片" :value="formData.cover" name="cover" @formChange="weipageChange"></v-image>
+			<v-image lable="图片" :value="formData.cover" name="cover" @formChange="weipageChange" @selectImage="selectImage"></v-image>
 		</div>
 		<div class="form">
 			<v-text lable="文件名" :value="formData.pageName" size="l" name="pageName" placeholder="请输入字母" @formChange="weipageChange"></v-text>
@@ -58,6 +58,9 @@
 		methods: {
 			weipageChange: function(res) {
 				this.$emit('weipage-change', res)
+			},
+			selectImage: function(res) {
+				this.$emit('select-image', res)
 			},
 			openInterfaceModel: function() {
 				this.$emit('open-interface-model','weipage')

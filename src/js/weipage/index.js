@@ -13,6 +13,7 @@ import { pluginUpdate, pluginSearch, pluginMove, pluginRemove, eventPluginTreeSe
 import { createPlugin } from '../../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
 import { interfaceAction } from './interfaceAction.js'
+import { imageAction } from './imageAction.js'
 import { viewAction } from './viewAction.js'
 
 // h回调响应
@@ -71,6 +72,14 @@ var weipage = new Vue({
 			interfaceModel: false,
 			interfaceTable,
 			interfaceTableData: {
+				list: [],
+				total: 0,
+				page: 1,
+				size: 10,
+			},
+
+			imageModel: false,
+			imageTabelData: {
 				list: [],
 				total: 0,
 				page: 1,
@@ -198,8 +207,14 @@ var weipage = new Vue({
 			this.closeFormTreeModel()
 			callbackAction.selectForm(option)
 		},
-		changePage(option) {
+		changeInterfacePage(option) {
+			this.interfaceTableData.page = option
+			interfaceAction.getInterfaceList()
+		},
+		selectImage(option) {
 			console.log(option)
+			imageAction.getImageList()
+			this.imageModel = true
 		}
 	}
 })
@@ -216,6 +231,7 @@ dropAction.init({
 })
 
 interfaceAction.init(weipage)
+imageAction.init(weipage)
 
 // 进入页面登录，后面删掉代码
 $.ajax({url:'/api/login/phoneCode',type:'get',data:{phone:13651438085,code:788329},dataType:'JSON',success:function(res){console.log(res)}})

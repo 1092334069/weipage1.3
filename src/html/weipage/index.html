@@ -75,7 +75,7 @@
 					<li :class="{current: selectForm == 'count'}" @click="changeFormTab('count')">计数器</li>
 					<li :class="{current: selectForm == 'time'}" @click="changeFormTab('time')">定时器</li>
 				</ul>
-				<weipage-base-form v-if="selectForm == 'base'" :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface"></weipage-base-form>
+				<weipage-base-form v-if="selectForm == 'base'" :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface" @select-image="selectImage"></weipage-base-form>
 				<weipage-scroll-form v-else-if="selectForm == 'scroll'" :form-data="weipage" @weipage-change="weipageChange" @open-plugin-tree-model="openPluginTreeModel" @open-interface-model="openInterfaceModel"></weipage-scroll-form>
 				<weipage-count-form v-else-if="selectForm == 'count'" :form-data="weipage" @weipage-change="weipageChange"></weipage-count-form>
 			</div>
@@ -85,8 +85,18 @@
 				title="接口列表">
 					<i-table stripe :columns="interfaceTable" :data="interfaceTableData.list"></i-table>
 					<div class="table-page">
-						<Page :total="interfaceTableData.total" :current="interfaceTableData.page" @on-change="changePage"></Page>
+						<Page :total="interfaceTableData.total" :current="interfaceTableData.page" @on-change="changeInterfacePage"></Page>
 					</div>
+			</Modal>
+
+			<Modal
+				v-model="imageModel"
+				title="图片列表">
+					<ul class="image-model-list">
+						<li v-for="item in imageTabelData.list" class="image-model-item">
+							<img :src="item.url" />
+						</li>
+					</ul>
 			</Modal>
 
 			<Modal
