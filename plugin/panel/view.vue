@@ -57,7 +57,6 @@
 
 <style scoped>
 	.panel{
-		background-size: 100% 100%;
 		overflow:hidden;
 		position:relative;
 	}
@@ -65,6 +64,8 @@
 		width:100%;
 		height:100%;
 		position:relative;
+		background-size:100% auto;
+		background-repeat:no-repeat;
 	}
 	.panel .panel-item.copy{
 		opacity:0.2;

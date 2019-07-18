@@ -21,7 +21,8 @@ const callbackAction = {
 	selectInterface: () => {},
 	selectInterfaceParam: () => {},
 	selectPluginTree: () => {},
-	selectForm: () => {}
+	selectForm: () => {},
+	selectImage: () => {}
 }
 
 var interfaceTable = [
@@ -211,10 +212,35 @@ var weipage = new Vue({
 			this.interfaceTableData.page = option
 			interfaceAction.getInterfaceList()
 		},
-		selectImage(option) {
-			console.log(option)
+		openImageModel: function() {
 			imageAction.getImageList()
 			this.imageModel = true
+		},
+		closeImageModel: function() {
+			this.imageModel = false
+		},
+		weipageImageUpload(res) {
+			callbackAction.selectImage = (url) => {
+				this.weipageChange({
+					name: res.name,
+					value: url
+				})
+			}
+			this.openImageModel()
+		},
+		pluginImageUpload(res) {
+			callbackAction.selectImage = (url) => {
+				this.formChange({
+					pname: res.pname,
+					name: res.name,
+					value: url
+				})
+			}
+			this.openImageModel()
+		},
+		selectImage(url) {
+			callbackAction.selectImage(url)
+			this.closeImageModel()
 		}
 	}
 })

@@ -69,7 +69,7 @@
 				<v-color lable="颜色" :value="formData.backgroundColor" name="backgroundColor" @formChange="formChange"></v-color>
 			</div>
 			<div class="form">
-				<v-image lable="图片" :value="formData.backgroundImage" name="backgroundImage" @formChange="formChange"></v-image>
+				<v-image lable="图片" :value="formData.backgroundImage" name="backgroundImage" @selectImage="selectImage"></v-image>
 			</div>
 		</div>
 	</div>
@@ -133,6 +133,10 @@
 			formChange: function(res) {
 				res['pname'] = 'style'
 				this.$emit('form-change', res)
+			},
+			selectImage: function(res) {
+				res['pname'] = 'style'
+				this.$emit('select-image', res)
 			},
 			triggerForm: function(key) {
 				if (this.formValid[key]) {
