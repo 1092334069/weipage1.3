@@ -99,11 +99,6 @@ body{
 	background-size:100% 100%;
 	cursor:pointer;
 }
-.table-page{
-	margin:auto;
-	padding:16px 0 0;
-	text-align:center;
-}
 .image-model-list{
 	padding:20px 4px;
 	overflow:hidden;

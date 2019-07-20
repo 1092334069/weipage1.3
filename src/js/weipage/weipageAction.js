@@ -58,8 +58,21 @@ class WeipageAction {
 	deleteWeipage() {
 
 	}
-	getWeipageList() {
-
+	getWeipageList(param, callback) {
+		$.ajax({
+			url: '/api/weipage/getPageList',
+			type: 'get',
+			data: {
+				page: param.page,
+				size: param.size
+			},
+			dataType: 'json',
+			success: (res) => {
+				if (res && res.code === 200 && res.data) {
+					callback(res.data)
+				}
+			}
+		})
 	}
 	getWeipageDetail(param, callback) {
 		$.ajax({

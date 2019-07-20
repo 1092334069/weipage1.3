@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>微页面列表</title>
+		<style type="text/css">
+			[v-cloak]{
+				opacity:0;
+			}
+		</style>
+		<link rel="stylesheet" href="../../src/css/iview/iview.css">
+		<script src="../../src/js/jquery-1.12.4.min.js"></script>
+		<script src="../../src/js/vue.js"></script>
+		<script src="../../src/js/iview.min.js"></script>
+	</head>
+	<body>
+		<div id="weipageList" v-cloak>
+			<div class="table-operate">
+				<i-button type="info" @click="insertWeipage">新增</i-button>
+			</div>
+			<div class="table-list">
+				<i-table stripe :columns="weipageTable" :data="list"></i-table>
+				<div class="table-page">
+					<Page :total="total" :current="page" @on-change="pageChange"></Page>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
