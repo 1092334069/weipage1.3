@@ -130,3 +130,14 @@ body{
 	background-size:100% 100%;
 	cursor:pointer;
 }
+.foot-btn-list{
+	position:fixed;
+	left:50%;
+	bottom:50px;
+	transform:translate(-50%,0);
+	display:inline-flex;
+	justify-content:space-around;
+}
+.foot-btn-list li{
+	padding:0 10px;
+}

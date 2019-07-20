@@ -80,6 +80,11 @@
 				<weipage-count-form v-else-if="selectForm == 'count'" :form-data="weipage" @weipage-change="weipageChange"></weipage-count-form>
 			</div>
 
+			<ul class="foot-btn-list">
+				<li><i-button type="info" @click="saveWeipage">保存</i-button></li>
+				<li><i-button type="success" v-if="weipageId">预览</i-button></li>
+			</ul>
+
 			<Modal 
 				v-model="interfaceModel"
 				title="接口列表">

@@ -9,14 +9,16 @@ import '../../../vueComponents'
 import '../../../plugin'
 import '../../vue'
 
+import { commonAction } from '../commonAction.js'
 import { pluginUpdate, pluginSearch, pluginMove, pluginRemove, eventPluginTreeSelect, weipageScrollPluginTreeSelect, formTreeSelect } from './formAction.js'
 import { createPlugin } from '../../../plugin/pluginAction.js'
 import { dropAction } from './dropAction.js'
 import { interfaceAction } from './interfaceAction.js'
 import { imageAction } from './imageAction.js'
 import { viewAction } from './viewAction.js'
+import { weipageAction } from './weipageAction.js'
 
-// h回调响应
+// 回调响应
 const callbackAction = {
 	selectInterface: () => {},
 	selectInterfaceParam: () => {},
@@ -25,6 +27,7 @@ const callbackAction = {
 	selectImage: () => {}
 }
 
+// 	接口对话框列表配置
 var interfaceTable = [
 	{title: '接口名称', key: 'name'},
 	{title: '接口地址', key: 'url'},
@@ -43,6 +46,9 @@ var weipage = new Vue({
 	el: '#weipage',
 	data() {
 		return {
+			// 新增状态为0
+			weipageId: 0,
+
 			// 	微页面基础
 			weipage: {
 				name: '',
@@ -241,10 +247,72 @@ var weipage = new Vue({
 		selectImage(url) {
 			callbackAction.selectImage(url)
 			this.closeImageModel()
+		},
+		saveWeipage() {
+			this.selectPlugin('')
+			const weipageName = this.weipage.name
+			const weipageCover = this.weipage.cover
+			const weipagePageName = this.weipage.pageName
+			if (!weipageName) {
+				this.$Message.warning('请填写微页面名称')
+				return
+			}
+			if (!weipageCover) {
+				this.$Message.warning('请上传微页面封面')
+				return
+			}
+			if (!weipagePageName) {
+				this.$Message.warning('请填写微页面文件名')
+				return
+			}
+			if (this.weipageId) {
+				weipageAction.updateWeipage({
+					weipageId: this.weipageId,
+					name: weipageName,
+					describes: this.weipage.describes,
+					cover: weipageCover,
+					pageName: weipagePageName,
+					data: {
+						weipage: this.weipage,
+						pluginList: this.pluginList,
+						interfaceTree: this.interfaceTree
+					}
+				}, (res) => {
+					this.$Message.success('修改成功')
+				}, (msg) => {
+					if (msg) {
+						this.$Message.error(msg)
+					} else {
+						this.$Message.error('修改失败，请稍后重试')
+					}
+				})
+			} else {
+				weipageAction.insertWeipage({
+					name: weipageName,
+					describes: this.weipage.describes,
+					cover: weipageCover,
+					pageName: weipagePageName,
+					data: {
+						weipage: this.weipage,
+						pluginList: this.pluginList,
+						interfaceTree: this.interfaceTree
+					}
+				}, (res) => {
+					this.weipageId = res.weipageId
+					this.$Message.success('创建成功')
+				}, (msg) => {
+					if (msg) {
+						this.$Message.error(msg)
+					} else {
+						this.$Message.error('创建失败，请稍后重试')
+					}
+				})
+			}
 		}
 	}
 })
 
+// 拖拽初始化
 dropAction.init({
 	mouseDownCallback: (pluginId) => {
 		weipage.selectPlugin(pluginId)
@@ -259,5 +327,20 @@ dropAction.init({
 interfaceAction.init(weipage)
 imageAction.init(weipage)
 
+// weipageId 不为空即为编辑
+const weipageId = commonAction.getQueryString('weipageId')
+if (weipageId) {
+	weipageAction.getWeipageDetail({
+		weipageId
+	}, (res) => {
+		weipage.weipageId = weipageId
+		if (res.data) {
+			weipage.weipage = res.data.weipage
+			weipage.pluginList = res.data.pluginList
+			weipage.interfaceTree = res.data.interfaceTree
+		}
+	})
+}
+
 // 进入页面登录，后面删掉代码
-$.ajax({url:'/api/login/phoneCode',type:'get',data:{phone:13651438085,code:788329},dataType:'JSON',success:function(res){console.log(res)}})
+// $.ajax({url:'/api/login/phoneCode',type:'get',data:{phone:13651438085,code:788329},dataType:'JSON',success:function(res){console.log(res)}})
