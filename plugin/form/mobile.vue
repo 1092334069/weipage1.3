@@ -31,7 +31,7 @@
 	.form{
 		display:inline-block;
 		max-width:100%;
-		margin-bottom:2px;
+		overflow:hidden;
 	}
 	.form input{
 		border:none;

@@ -40,6 +40,13 @@ var weipageList = new Vue({
 						h('Button', {
 							on: {
 								click: () => {
+									window.location.href = `/weipage/view?weipageId=${params.row.id}`
+								}
+							}
+						}, '预览'),
+						h('Button', {
+							on: {
+								click: () => {
 									this.deleteWeipage(params.row.id)
 								}
 							}
