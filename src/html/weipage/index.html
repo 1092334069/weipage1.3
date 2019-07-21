@@ -82,7 +82,7 @@
 
 			<ul class="foot-btn-list">
 				<li><i-button type="info" @click="saveWeipage">保存</i-button></li>
-				<li><i-button type="success" v-if="weipageId">预览</i-button></li>
+				<li><i-button type="success" v-if="weipageId" @click="weipageShowView">预览</i-button></li>
 			</ul>
 
 			<Modal 

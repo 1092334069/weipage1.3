@@ -1,7 +1,7 @@
-import formView from './form/view.vue'
-import imageView from './image/view.vue'
-import panelView from './panel/view.vue'
-import textView from './text/view.vue'
+import formView from './form/mobile.vue'
+import imageView from './image/mobile.vue'
+import panelView from './panel/mobile.vue'
+import textView from './text/mobile.vue'
 
 formView.install = function(Vue){
 	Vue.component(formView.name, formView)

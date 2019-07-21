@@ -308,6 +308,9 @@ var weipage = new Vue({
 					}
 				})
 			}
+		},
+		weipageShowView() {
+			window.location.href = `/weipage/view?weipageId=${this.weipageId}`
 		}
 	}
 })
