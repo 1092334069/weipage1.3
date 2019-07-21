@@ -29,11 +29,22 @@ var weipageList = new Vue({
 					})
 				}},
 				{ title: '操作', key: 'action', render: (h, params) => {
-					return h('a', {
-						attrs: {
-							href: `/weipage/index?weipageId=${params.row.id}`
-						}
-					}, '编辑')
+					return h('div',[
+						h('Button', {
+							on: {
+								click: () => {
+									window.location.href = `/weipage/index?weipageId=${params.row.id}`
+								}
+							}
+						}, '编辑'),
+						h('Button', {
+							on: {
+								click: () => {
+									this.deleteWeipage(params.row.id)
+								}
+							}
+						}, '删除')
+					])
 				}}
 			]
 		}
@@ -54,6 +65,20 @@ var weipageList = new Vue({
 		},
 		insertWeipage() {
 			window.location.href = '/weipage/index'
+		},
+		deleteWeipage(weipageId) {
+			weipageAction.deleteWeipage({
+				weipageId
+			}, (res) => {
+				this.$Message.success('删除成功')
+				this.getWeipageList()
+			}, (msg) => {
+				if (msg) {
+					this.$Message.error(msg)
+				} else {
+					this.$Message.error('删除失败，请稍后重试')
+				}
+			})
 		}
 	}
 })
