@@ -59,6 +59,7 @@
 	.panel{
 		overflow:hidden;
 		position:relative;
+		display:inline-block;
 	}
 	.panel .panel-item{
 		width:100%;

@@ -55,6 +55,7 @@ var weipage = new Vue({
 				describes: '',
 				cover: '',
 				pageName: '',
+				backgroundColor: '',
 				interfaceList: [],
 				selectInterfaceId: 0,
 				scrollEvent: {
@@ -345,5 +346,3 @@ if (weipageId) {
 	})
 }
 
-// 进入页面登录，后面删掉代码
-// $.ajax({url:'/api/login/phoneCode',type:'get',data:{phone:13651438085,code:788329},dataType:'JSON',success:function(res){console.log(res)}})

@@ -5,7 +5,7 @@ class WeipageAction {
 	insertWeipage(param, callback, errorCallback) {
 		$.ajax({
 			url: '/api/weipage/insert',
-			type: 'get',
+			type: 'post',
 			data: {
 				name: param.name,
 				describes: param.describes,
@@ -31,7 +31,7 @@ class WeipageAction {
 	updateWeipage(param, callback, errorCallback) {
 		$.ajax({
 			url: '/api/weipage/update',
-			type: 'get',
+			type: 'post',
 			data: {
 				weipageId: param.weipageId,
 				name: param.name,
@@ -58,6 +58,7 @@ class WeipageAction {
 	deleteWeipage(param, callback, errorCallback) {
 		$.ajax({
 			url: '/api/weipage/delete',
+			type: 'post',
 			data: {
 				weipageId: param.weipageId
 			},

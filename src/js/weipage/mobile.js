@@ -5,6 +5,7 @@ import '../../../plugin/view.js'
 
 import { commonAction } from '../commonAction.js'
 import { weipageAction } from './weipageAction.js'
+import { mobileAction } from './mobileAction.js'
 
 var weipage = new Vue({
 	el: '#weipage',
@@ -20,6 +21,7 @@ var weipage = new Vue({
 			}, (res) => {
 				if (res.data) {
 					this.pluginList = res.data.pluginList
+					mobileAction.doInterfaceList(res.data.weipage.interfaceList)
 				}
 			})
 		}

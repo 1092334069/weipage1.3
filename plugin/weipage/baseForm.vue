@@ -12,6 +12,9 @@
 		<div class="form">
 			<v-text lable="文件名" :value="formData.pageName" size="l" name="pageName" placeholder="请输入字母" @formChange="weipageChange"></v-text>
 		</div>
+		<div class="form">
+			<v-color lable="背景色" :value="formData.backgroundColor" name="backgroundColor" @formChange="weipageChange"></v-color>
+		</div>
 		<div class="form-list">
 			<div class="form-lable">接口：</div>
 			<div class="form-item" :class="parseClass(item.interfaceId)" v-for="item in formData.interfaceList" @click="selectInterface(item.interfaceId)">{{item.name}}</div>
@@ -22,7 +25,7 @@
 			<template v-for="itf in formData.interfaceList" v-if="formData.selectInterfaceId === itf.interfaceId">
 				<div class="delete-module" @click="deleteInterface"></div>
 				<div class="form size-l" v-for="item in itf.param">
-					<v-input-source :lable="item.name" :value="item.value" :name="item.key" :sourceOptions="sourceOptions" @formChange="interfaceChange"></v-input-source>
+					<v-input-source :lable="item.name" :value="item.value" :name="item.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></v-input-source>
 				</div>
 			</template>
 			<hr/>
