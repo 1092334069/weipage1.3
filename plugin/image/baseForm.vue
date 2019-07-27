@@ -25,10 +25,10 @@
 			return {
 				actionKeyList: [{
 					label: '图片',
-					value: 'data'
+					value: 'base.data'
 		    	},{
 		    		label: '样式 宽度',
-		    		value: 'width'
+		    		value: 'style.width'
 		    	}]
 		    }
 		},

@@ -66,37 +66,37 @@
 				}],
 				actionKeyList: [{
 					label: '数据',
-					value: 'data'
+					value: 'base.data'
 				},{
 					label: '样式 宽度',
-					value: 'width'
+					value: 'style.width'
 				},{
 					label: '样式 高度',
-					value: 'height'
+					value: 'style.height'
 				},{
 					label: '样式 外边距',
-					value: 'margin'
+					value: 'style.margin'
 				},{
 					label: '样式 内边距',
-					value: 'padding'
+					value: 'style.padding'
 				},{
 					label: '样式 圆角',
-					value: 'borderRadius'
+					value: 'style.borderRadius'
 				},{
 					label: '样式 旋转',
-					value: 'transformRotate'
+					value: 'style.transformRotate'
 				},{
 					label: '样式 边框',
-					value: 'border'
+					value: 'style.border'
 				},{
 					label: '样式 定位',
-					value: 'position'
+					value: 'style.position'
 				},{
 					label: '样式 颜色',
-					value: 'backgroundColor'
+					value: 'style.backgroundColor'
 				},{
 					label: '样式 图片',
-					value: 'backgroundImage'
+					value: 'style.backgroundImage'
 				}]
 			}
 		},
