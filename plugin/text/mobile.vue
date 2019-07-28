@@ -1,12 +1,11 @@
 <template>
 	<div class="text plugin" :data-id="viewData.pluginId" :style="parseTextStyle()">
-		<span v-if="viewData.base.data">{{viewData.base.data}}</span>
-		<span v-else>{{viewData.base.name}}</span>
+		<span v-if="parseBaseData()">{{parseBaseData()}}</span>
 	</div>
 </template>
 
 <script>
-	import styleView from '../styleView.js'
+	import mobileMethods from '../mobileMethods.js'
 
 	export default {
 		name: "textView",
@@ -16,12 +15,18 @@
 				default: function() {
 					return {}
 				}
+			},
+			viewDataIndexList: {
+				type: Array,
+				default: function() {
+					return []
+				}
 			}
 		},
 		data () {
 		    return {}
 		},
-		methods: styleView
+		methods: mobileMethods
 	}
 </script>
 

@@ -35,6 +35,7 @@ var weipage = new Vue({
 					const actionData = mobileAction.parseActionDataValue(actionItem.action.type, actionItem.action.value)
 					const actionKeyList = actionItem.action.key.split('.')
 					if (actionKeyList && actionKeyList.length > 1) {
+						console.log(actionData)
 						if (actionKeyList[0] === 'base') {
 							actionItem.plugin.base[actionKeyList[1]] = actionData
 						} else if (actionKeyList[0] === 'style') {

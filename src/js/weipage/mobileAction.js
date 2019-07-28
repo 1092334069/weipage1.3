@@ -123,7 +123,19 @@ class MobileAction {
 		try {
 			let data = JSON.parse(JSON.stringify(this.getInterfaceData(url)))
 			for (let i = 0; i < keyList.length; i++) {
-				data = data[keyList[i]]
+				if (typeof data[keyList[i]] === 'undefined') {
+					if (Array.isArray(data)) {
+						let list = []
+						for (let j = 0; j < data.length; j++) {
+							list.push(data[j][keyList[i]])
+						}
+						data = list
+					} else {
+						data = ''
+					}
+				} else {
+					data = data[keyList[i]]
+				}
 			}
 			return data
 		} catch (e) {

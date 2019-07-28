@@ -119,7 +119,7 @@
 				actionList.push({
 					actionId: uuid,
 					name: '响应',
-					key: 'data',
+					key: 'base.data',
 					condition: 'loading',
 					type: 'interface',
 					value: {

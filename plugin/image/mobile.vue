@@ -1,11 +1,11 @@
 <template>
 	<div class="image plugin" :data-id="viewData.pluginId" :style="parseImageStyle()">
-		<img v-if="viewData.base.data" :src="viewData.base.data" />
+		<img v-if="parseBaseData()" :src="parseBaseData()" />
 	</div>
 </template>
 
 <script>
-	import styleView from '../styleView.js'
+	import mobileMethods from '../mobileMethods.js'
 
 	export default {
 		name: "imageView",
@@ -15,12 +15,18 @@
 				default: function() {
 					return {}
 				}
+			},
+			viewDataIndexList: {
+				type: Array,
+				default: function() {
+					return []
+				}
 			}
 		},
 		data () {
 		    return {}
 		},
-		methods: styleView
+		methods: mobileMethods
 	}
 </script>
 

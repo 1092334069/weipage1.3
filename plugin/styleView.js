@@ -55,6 +55,24 @@ const styleView = {
 			return ''
 		}
 	},
+	parseMobilePanel: function() {
+		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
+		if (this.viewData.style && this.viewData.base) {
+			width = 'width:' + this.viewData.style.width + ';'
+			height = 'height:' + this.viewData.style.height + ';'
+			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
+			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
+			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
+			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
+			border = 'border:' + this.parseBorder() + ';'
+			position = this.parsePosition() + ";"
+			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
+			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
+			return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
+		} else {
+			return ''
+		}
+	},
 	parseTextStyle: function() {
 		let fontSize,color,lineHeight,fontWeight,fontStyle
 		if (this.viewData.style) {

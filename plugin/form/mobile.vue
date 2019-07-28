@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import styleView from '../styleView.js'
+	import mobileMethods from '../mobileMethods.js'
 
 	export default {
 		name: "formView",
@@ -18,12 +18,18 @@
 				default: function() {
 					return {}
 				}
+			},
+			viewDataIndexList: {
+				type: Array,
+				default: function() {
+					return []
+				}
 			}
 		},
 		data () {
 		    return {}
 		},
-		methods: styleView
+		methods: mobileMethods
 	}
 </script>
 

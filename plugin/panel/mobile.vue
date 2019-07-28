@@ -1,30 +1,22 @@
 <template>
-	<div class="panel plugin" :data-id="viewData.pluginId" :style="parsePanelStyle()">
-		<template v-if="viewData.base.type == 'normal' || viewData.base.type == 'swiper'">
-			<div class="panel-item" :class="viewData.base.type" :style="parsePanelItemStyle()">
+	<div class="panel plugin" :data-id="viewData.pluginId">
+		<template v-if="viewData.base.type == 'normal'">
+			<div class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
 				<template v-for="item in viewData.pluginList">
-					<panel-view v-if="item.pluginType == 'panel'" :view-data="item"></panel-view>
-					<text-view v-else-if="item.pluginType == 'text'" :view-data="item"></text-view>
-					<image-view v-else-if="item.pluginType == 'image'" :view-data="item"></image-view>
-					<form-view v-else-if="item.pluginType == 'form'" :view-data="item"></form-view>
+					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="viewDataIndexList"></panel-view>
+					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="viewDataIndexList"></text-view>
+					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :view-data-index-list="viewDataIndexList"></image-view>
+					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :view-data-index-list="viewDataIndexList"></form-view>
 				</template>
 			</div>
 		</template>
-		<template v-else>
-			<div class="panel-item" :class="viewData.base.type" :style="parsePanelItemStyle()">
+		<template v-else-if="viewData.base.data && viewData.base.data.length">
+			<div v-for="(temp,index) in viewData.base.data" class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
 				<template v-for="item in viewData.pluginList">
-					<panel-view v-if="item.pluginType == 'panel'" :view-data="item"></panel-view>
-					<text-view v-else-if="item.pluginType == 'text'" :view-data="item"></text-view>
-					<image-view v-else-if="item.pluginType == 'image'" :view-data="item"></image-view>
-					<form-view v-else-if="item.pluginType == 'form'" :view-data="item"></form-view>
-				</template>
-			</div>
-			<div class="panel-item copy" :class="viewData.base.type" :style="parsePanelItemStyle()">
-				<template v-for="item in viewData.pluginList">
-					<panel-view v-if="item.pluginType == 'panel'" :view-data="item"></panel-view>
-					<text-view v-else-if="item.pluginType == 'text'" :view-data="item"></text-view>
-					<image-view v-else-if="item.pluginType == 'image'" :view-data="item"></image-view>
-					<form-view v-else-if="item.pluginType == 'form'" :view-data="item"></form-view>
+					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></panel-view>
+					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></text-view>
+					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></image-view>
+					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></form-view>
 				</template>
 			</div>
 		</template>
@@ -32,7 +24,7 @@
 </template>
 
 <script>
-	import styleView from '../styleView.js'
+	import mobileMethods from '../mobileMethods.js'
 
 	export default {
 		name: "panelView",
@@ -42,12 +34,18 @@
 				default: function() {
 					return {}
 				}
+			},
+			viewDataIndexList: {
+				type: Array,
+				default: function() {
+					return []
+				}
 			}
 		},
 		data () {
 		    return {}
 		},
-		methods: styleView
+		methods: mobileMethods
 	}
 </script>
 
@@ -63,16 +61,6 @@
 		position:relative;
 		background-size:100% auto;
 		background-repeat:no-repeat;
-	}
-	.panel .panel-item.copy{
-		opacity:0.2;
-	}
-	.panel .panel-item.list{
-		height:50%;
-	}
-	.panel .panel-item.waterfall{
-		width:50%;
-		float:left;
 	}
 	.panel .panel-item.slider{
 		width:66%;
