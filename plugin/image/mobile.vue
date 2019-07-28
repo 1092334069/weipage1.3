@@ -37,4 +37,10 @@
 	.image img{
 		width:100%;
 	}
+	.panel-item.list .image{
+		height:100%;
+	}
+	.panel-item.list .image img{
+		height:100%;
+	}
 </style>

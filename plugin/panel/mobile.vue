@@ -62,22 +62,4 @@
 		background-size:100% auto;
 		background-repeat:no-repeat;
 	}
-	.panel .panel-item.slider{
-		width:66%;
-	}
-	.panel .panel-item.slider.copy{
-		position:absolute;
-		left:66%;
-		top:0;
-		bottom:0;
-	}
-	.panel .panel-item.swiper:after{
-		content: '. . .';
-		color:#fff;
-		position:absolute;
-		left:50%;
-		bottom:10px;
-		font-size:50px;
-    	transform:translate(-50%,0);
-	}
 </style>
