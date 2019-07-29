@@ -20,10 +20,19 @@ class DropAction {
 	bindEvent() {
 		const _this = this
 
-		$(document).on('mousedown', '.plugin', function(e) {
-			$sourcePlugin = $(this)
-			$(this).addClass('drop')
-			_this.mouseDownEvent(e, this)
+		$(document).on('click', '.plugin', function(e) {
+			if (_this.option.mouseDownCallback) {
+				const pluginId = $(this).attr('data-id')
+				_this.option.mouseDownCallback(pluginId)
+			}
+			e.preventDefault()
+			e.stopPropagation()
+		})
+
+		$(document).on('mousedown', '.plugin .drop-icon', function(e) {
+			$sourcePlugin = $(this).closest('.plugin')
+			$(this).closest('.plugin').addClass('drop')
+			_this.mouseDownEvent(e, $(this).closest('.plugin'))
 			e.preventDefault()
 			e.stopPropagation()
 		})
@@ -41,17 +50,13 @@ class DropAction {
 		})
 	}
 	mouseDownEvent(e, _this) {
-		dropData.offsetY = e.offsetY
-		dropData.offsetX = e.offsetX
+		dropData.offsetY = 7
+		dropData.offsetX = $(_this).width() - 7
 		dropData.scrollY = $(document).scrollTop()
 		dropData.scrollX = $(document).scrollLeft()
 		$dropPlugin = $(_this).clone(true)
 		$dropPlugin.css(this.getCoordinate(e)).addClass('clone')
 		$('body').append($dropPlugin)
-		if (this.option.mouseDownCallback) {
-			const pluginId = $(_this).attr('data-id')
-			this.option.mouseDownCallback(pluginId)
-		}
 	}
 	dropEvent(e) {
 		$dropPlugin.css(this.getCoordinate(e))

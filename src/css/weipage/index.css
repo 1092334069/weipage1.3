@@ -136,3 +136,9 @@ body{
 .foot-btn-list li{
 	padding:0 10px;
 }
+.plugin .drop-icon{
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:pointer;
+}

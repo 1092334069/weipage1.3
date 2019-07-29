@@ -2,6 +2,7 @@
 	<div class="text plugin" :class="{current: selectPluginId === viewData.pluginId}" :data-id="viewData.pluginId" :style="parseTextStyle()">
 		<span v-if="viewData.base.data">{{viewData.base.data}}</span>
 		<span v-else>{{viewData.base.name}}</span>
+		<Icon class="drop-icon" v-if="selectPluginId === viewData.pluginId" type="md-move" />
 	</div>
 </template>
 
