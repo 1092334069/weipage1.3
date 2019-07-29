@@ -37,6 +37,7 @@
 		display:inline-block;
 		max-width:100%;
 		margin-bottom:2px;
+		position:relative;
 	}
 	.form input{
 		border:none;

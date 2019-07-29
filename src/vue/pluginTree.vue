@@ -2,10 +2,10 @@
 	<div>
 		<ul class="tree-list">
 			<li v-for="item in pluginList">
-				<div class="tree-item" :class="{current: item.pluginId == selectPluginId}" @click="selectPlugin(item.pluginId)">{{item.base.name}}</div>
+				<div class="tree-item" :class="{current: item.pluginId == selectPluginId}" @click="pluginTreeSelect(item.pluginId)">{{item.base.name}}</div>
 				<div class="tree-child" v-if="item.pluginList && item.pluginList.length">
 					<div v-if="item.pluginId != showPluginId" class="tree-child-more" @click="showChildTree(item.pluginId)"></div>
-					<plugin-tree v-if="showPluginId == item.pluginId" :plugin-list="item.pluginList" :select-plugin-id="selectPluginId" @select-plugin="selectPlugin"></plugin-tree>
+					<plugin-tree v-if="showPluginId == item.pluginId" :plugin-list="item.pluginList" :select-plugin-id="selectPluginId" @plugin-tree-select="pluginTreeSelect"></plugin-tree>
 				</div>
 			</li>
 		</ul>
@@ -36,10 +36,8 @@
 			showChildTree: function(pluginId) {
 				this.showPluginId = pluginId
 			},
-			selectPlugin: function(pluginId) {
-				this.$emit('plugin-tree-select', {
-					pluginId: pluginId
-				})
+			pluginTreeSelect: function(pluginId) {
+				this.$emit('plugin-tree-select', pluginId)
 			}
 		}
 	}

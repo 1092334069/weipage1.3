@@ -134,24 +134,24 @@ var weipage = new Vue({
 		openPluginTreeModel(source) {
 			this.pluginTreeModel = true
 			if (source === 'event') {
-				callbackAction.selectPluginTree = (option) => {
-					eventPluginTreeSelect(this, option.pluginId)
+				callbackAction.selectPluginTree = (pluginId) => {
+					eventPluginTreeSelect(this, pluginId)
 				}
 			} else if (source === 'weipageScroll') {
-				callbackAction.selectPluginTree = (option) => {
-					weipageScrollPluginTreeSelect(this, option.pluginId)
+				callbackAction.selectPluginTree = (pluginId) => {
+					weipageScrollPluginTreeSelect(this, pluginId)
 				}
 			} else {
-				callbackAction.selectPluginTree = (option) => {
-					this.selectPlugin(option.pluginId)
+				callbackAction.selectPluginTree = (pluginId) => {
+					this.selectPlugin(pluginId)
 				}
 			}
 		},
 		closePluginTreeModel() {
 			this.pluginTreeModel = false
 		},
-		pluginTreeSelect(option) {
-			callbackAction.selectPluginTree(option)
+		pluginTreeSelect(pluginId) {
+			callbackAction.selectPluginTree(pluginId)
 			this.closePluginTreeModel()
 		},
 		openInterfaceModel(source) {

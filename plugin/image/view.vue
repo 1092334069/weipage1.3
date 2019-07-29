@@ -33,6 +33,7 @@
 <style scoped>
 	.image{
 		display:inline-block;
+		position:relative;
 	}
 	.image img{
 		width:100%;
