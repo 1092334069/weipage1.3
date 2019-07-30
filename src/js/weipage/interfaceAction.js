@@ -85,16 +85,12 @@ class InterfaceAction {
 			_this.weiPageThis.weipage.scrollEvent.eventList[_this.weiPageThis.weipage.scrollEvent.selectIndex].value = JSON.parse(JSON.stringify(interfaceDetail))
 		})
 	}
-	eventSelectInterface(interfaceId) {
+	eventSelectInterface(plugin, interfaceId) {
 		const _this = this
 		this.selectInterface(interfaceId, function(interfaceDetail) {
-			const selectPluginId = _this.weiPageThis.selectPluginId
-			const pluginList = _this.weiPageThis.pluginList
 			let event
-			for (let i = 0; i < pluginList.length; i++) {
-				if (pluginList[i].pluginId === selectPluginId) {
-					event = pluginList[i].event
-				}
+			if (plugin) {
+				event = plugin.event
 			}
 			if (event) {
 				event.eventList[event.selectIndex].value = JSON.parse(JSON.stringify(interfaceDetail))
@@ -135,31 +131,25 @@ class InterfaceAction {
 		return result
 		
 	}
-	baseActionSelectInterfaceParam(option) {
+	baseActionSelectInterfaceParam(plugin, option) {
 		const result = JSON.parse(JSON.stringify(this.selectInterfaceParam(option)))
-		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
-			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
-				this.weiPageThis.pluginList[i].base.actionList[this.weiPageThis.pluginList[i].base.selectIndex].value = result
-			}
+		if (plugin) {
+			plugin.base.actionList[plugin.base.selectIndex].value = result
 		}
 	}
-	baseAttrSelectInterfaceParam(option) {
+	baseAttrSelectInterfaceParam(plugin, option) {
 		const result = JSON.parse(JSON.stringify(this.selectInterfaceParam(option)))
-		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
-			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
-				const attr = this.weiPageThis.pluginList[i].base.attrList[this.weiPageThis.pluginList[i].base.attrSelectIndex]
-				attr.name = result.name
-				attr.url = result.url
-				attr.keyList = result.keyList
-			}
+		if (plugin) {
+			const attr = plugin.base.attrList[plugin.base.attrSelectIndex]
+			attr.name = result.name
+			attr.url = result.url
+			attr.keyList = result.keyList
 		}
 	}
-	eventSelectStatusInterfaceParam(option) {
+	eventSelectStatusInterfaceParam(plugin, option) {
 		const result = this.selectInterfaceParam(option)
-		for (let i = 0; i < this.weiPageThis.pluginList.length; i++) {
-			if (this.weiPageThis.selectPluginId === this.weiPageThis.pluginList[i].pluginId) {
-				this.weiPageThis.pluginList[i].event.eventList[this.weiPageThis.pluginList[i].event.selectIndex].status.key = result
-			}
+		if (plugin) {
+			plugin.event.eventList[plugin.event.selectIndex].status.key = result
 		}
 	}
 }

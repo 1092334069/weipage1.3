@@ -125,6 +125,9 @@ var weipage = new Vue({
 				this.pluginList.push(plugin)
 			}
 		},
+		getSelectPlugin() {
+			return pluginSearch(this, this.selectPluginId)
+		},
 		removePlugin(pluginId) {
 			pluginRemove(this, pluginId)
 		},
@@ -158,8 +161,8 @@ var weipage = new Vue({
 			interfaceAction.getInterfaceList()
 			this.interfaceModel = true
 			if (source === 'event') {
-				callbackAction.selectInterface = (option) => {
-					interfaceAction.eventSelectInterface(option)
+				callbackAction.selectInterface = (interfaceId) => {
+					interfaceAction.eventSelectInterface(this.getSelectPlugin(), interfaceId)
 				}
 			} else if (source === 'weipageScroll') {
 				callbackAction.selectInterface = (option) => {
@@ -178,15 +181,15 @@ var weipage = new Vue({
 			this.interfaceTreeModel = true
 			if (form === 'baseAction') {
 				callbackAction.selectInterfaceParam = (option) => {
-					interfaceAction.baseActionSelectInterfaceParam(option)
+					interfaceAction.baseActionSelectInterfaceParam(this.getSelectPlugin(), option)
 				}
 			} else if (form === 'baseAttr') {
 				callbackAction.selectInterfaceParam = (option) => {
-					interfaceAction.baseAttrSelectInterfaceParam(option)
+					interfaceAction.baseAttrSelectInterfaceParam(this.getSelectPlugin(), option)
 				}
 			} else {
 				callbackAction.selectInterfaceParam = (option) => {
-					interfaceAction.eventSelectStatusInterfaceParam(option)
+					interfaceAction.eventSelectStatusInterfaceParam(this.getSelectPlugin(),option)
 				}
 			}
 		},
