@@ -328,6 +328,17 @@ dropAction.init({
 		viewAction.buildList()
 		const ret = viewAction.operationView(res)
 		pluginMove(weipage, ret.type, ret.pluginId, ret.toPluginId)
+	},
+	resizeCallback: (res) => {
+		if (res) {
+			const plugin = weipage.getSelectPlugin()
+			if (res.width && res.width > 0) {
+				plugin.style.width = res.width
+			}
+			if (res.height && res.height > 0) {
+				plugin.style.height = res.height
+			}
+		}
 	}
 })
 

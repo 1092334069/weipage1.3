@@ -1,10 +1,13 @@
 let $sourcePlugin = $('body')
 let $dropPlugin
+let $resizePlugin
 const dropData = {
 	clientY: 0,
 	clientX: 0,
 	offsetY: 0,
-	offsetX: 0
+	offsetX: 0,
+	offsetTop: 0,
+	offsetLeft: 0,
 }
 
 class DropAction {
@@ -32,24 +35,36 @@ class DropAction {
 		$(document).on('mousedown', '.plugin .drop-icon', function(e) {
 			$sourcePlugin = $(this).closest('.plugin')
 			$(this).closest('.plugin').addClass('drop')
-			_this.mouseDownEvent(e, $(this).closest('.plugin'))
+			_this.mouseDownDropEvent(e, $(this).closest('.plugin'))
 			e.preventDefault()
 			e.stopPropagation()
 		})
 
-		$(document).on('mousemove', '.plugin', function(e) {
+		$(document).on('mousedown', '.plugin .resize-icon', function(e) {
+			_this.mouseDownResizeEvent(this)
+			e.preventDefault()
+			e.stopPropagation()
+		})
+
+		$(document).on('mousemove', function(e) {
 			if ($dropPlugin) {
-				_this.dropEvent(e)
+				_this.mouseMoveDropEvent(e)
+			}
+			if ($resizePlugin) {
+				_this.mouseMoveResizeEvent(e)
 			}
 		})
 
 		$(document).on('mouseup', function() {		
 			if ($dropPlugin) {
-				_this.mouseUpEvent()
+				_this.mouseUpDropEvent()
+			}
+			if ($resizePlugin) {
+				_this.mouseUpResizeEvent()
 			}
 		})
 	}
-	mouseDownEvent(e, _this) {
+	mouseDownDropEvent(e, _this) {
 		dropData.offsetY = 7
 		dropData.offsetX = $(_this).width() - 7
 		dropData.scrollY = $(document).scrollTop()
@@ -58,10 +73,28 @@ class DropAction {
 		$dropPlugin.css(this.getCoordinate(e)).addClass('clone')
 		$('body').append($dropPlugin)
 	}
-	dropEvent(e) {
+	mouseDownResizeEvent(_this) {
+		const $this = $(_this)
+		const $documnet = $(document)
+		dropData.offsetY = $this.height() - 21
+		dropData.offsetX = $this.width() - 21
+		dropData.scrollY = $documnet.scrollTop()
+		dropData.scrollX = $documnet.scrollLeft()
+		dropData.offsetTop = $this.closest('.plugin').offset().top
+		dropData.offsetLeft = $this.closest('.plugin').offset().left
+		$resizePlugin = $(_this)
+	}
+	mouseMoveDropEvent(e) {
 		$dropPlugin.css(this.getCoordinate(e))
 	}
-	mouseUpEvent() {
+	mouseMoveResizeEvent(e) {
+		const r = this.getCoordinate(e)
+		this.option.resizeCallback({
+			width: r.left - dropData.offsetLeft,
+			height: r.top - dropData.offsetTop
+		})
+	}
+	mouseUpDropEvent() {
 		if (this.option.mouseUpCallback) {
 			const offset = $dropPlugin.offset()
 			const width = $dropPlugin.outerWidth(true)
@@ -84,6 +117,9 @@ class DropAction {
 		$sourcePlugin.removeClass('drop')
 		$('.plugin.clone').remove()
 		$dropPlugin = null
+	}
+	mouseUpResizeEvent() {
+		$resizePlugin = null
 	}
 	getCoordinate(e) {
 		dropData.clientY = e.clientY

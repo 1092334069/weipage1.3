@@ -140,5 +140,12 @@ body{
 	position:absolute;
 	top:0;
 	right:0;
-	cursor:pointer;
+	cursor:move;
+}
+.plugin .resize-icon{
+	position:absolute;
+	bottom:0;
+	right:0;
+	transform:rotate(90deg);
+	cursor:se-resize;
 }
