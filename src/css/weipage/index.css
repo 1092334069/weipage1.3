@@ -132,6 +132,7 @@ body{
 	transform:translate(-50%,0);
 	display:inline-flex;
 	justify-content:space-around;
+	z-index:100;
 }
 .foot-btn-list li{
 	padding:0 10px;

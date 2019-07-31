@@ -26,7 +26,7 @@ const styleView = {
 		}
 	},
 	parsePanelStyle: function() {
-		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
+		let width,height,margin,padding,borderRadius,transformRotate,border,position
 		if (this.viewData.style && this.viewData.base) {
 			width = 'width:' + this.viewData.style.width + ';'
 			if (this.viewData.base.type === 'list') {
@@ -40,7 +40,8 @@ const styleView = {
 			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
 			border = 'border:' + this.parseBorder() + ';'
 			position = this.parsePosition()
-			return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
+			console.log(position)
+			return width + height + margin + padding + borderRadius + transformRotate + border + position
 		} else {
 			return ''
 		}
@@ -106,7 +107,7 @@ const styleView = {
 		if (this.viewData.style.position === 'relative') {
 			return 'position:relative'
 		} else {
-			return 'position:absolute;top:' + this.viewData.style.top + ';left:' + this.viewData.style.left
+			return 'position:absolute;top:' + this.viewData.style.top + 'px;left:' + this.viewData.style.left + 'px'
 		}
 	}
  }
