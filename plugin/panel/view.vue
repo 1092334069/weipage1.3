@@ -29,8 +29,8 @@
 			</div>
 		</template>
 		<template v-if="selectPluginId === viewData.pluginId">
-			<Icon class="drop-icon" type="md-move" />
-			<Icon class="resize-icon" type="md-resize" />
+			<Icon size="12" class="drop-icon" type="md-move" />
+			<Icon size="12" class="resize-icon" type="md-resize" />
 		</template>
 	</div>
 </template>

@@ -52,7 +52,6 @@
 <style scoped>
 	.panel{
 		overflow:hidden;
-		position:relative;
 		display:inline-block;
 	}
 	.panel .panel-item{

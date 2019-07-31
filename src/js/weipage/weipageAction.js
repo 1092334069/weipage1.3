@@ -42,7 +42,7 @@ class WeipageAction {
 			},
 			dataType: 'json',
 			success: (res) => {
-				if (res && res.code === 200 && res.data) {
+				if (res && res.code === 200) {
 					callback(res.data)
 				} else if (res) {
 					errorCallback(res.message)

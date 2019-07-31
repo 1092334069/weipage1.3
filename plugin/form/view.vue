@@ -4,7 +4,7 @@
 			<option v-for="item in viewData.base.optionList">{{item.label}}</option>
 		</select>
 		<input v-else :style="parseFormStyle()" :value="viewData.base.data" />
-		<Icon class="drop-icon" v-if="selectPluginId === viewData.pluginId" type="md-move" />
+		<Icon size="12" class="drop-icon" v-if="selectPluginId === viewData.pluginId" type="md-move" />
 	</div>
 </template>
 

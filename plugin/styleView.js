@@ -26,7 +26,7 @@ const styleView = {
 		}
 	},
 	parsePanelStyle: function() {
-		let width,height,margin,padding,borderRadius,transformRotate,border,position
+		let width,height,position
 		if (this.viewData.style && this.viewData.base) {
 			width = 'width:' + this.viewData.style.width + ';'
 			if (this.viewData.base.type === 'list') {
@@ -34,24 +34,23 @@ const styleView = {
 			} else {
 				height = 'height:' + this.viewData.style.height + ';'
 			}
-			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
-			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
-			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
-			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
-			border = 'border:' + this.parseBorder() + ';'
 			position = this.parsePosition()
-			console.log(position)
-			return width + height + margin + padding + borderRadius + transformRotate + border + position
+			return width + height + position
 		} else {
 			return ''
 		}
 	},
 	parsePanelItemStyle: function() {
-		let backgroundColor,backgroundImage
+		let margin,padding,borderRadius,transformRotate,border,backgroundColor,backgroundImage
 		if (this.viewData.style) {
+			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
+			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
+			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
+			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
+			border = 'border:' + this.parseBorder() + ';'
 			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
 			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
-			return backgroundColor + backgroundImage
+			return margin + padding + borderRadius + transformRotate + border + backgroundColor + backgroundImage
 		} else {
 			return ''
 		}
