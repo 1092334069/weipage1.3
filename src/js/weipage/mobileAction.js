@@ -5,11 +5,28 @@ class MobileAction {
 		this.eventDataList = []
 	}
 	// 获取链接参数
-	getQueryString(name) {
+	getQueryParam(name) {
 		const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i")
         const r = window.location.search.substr(1).match(reg)
         if (r != null) return unescape(r[2])
         return ''
+	}
+	// 获取缓存参数
+	getSessionStorageParam(key) {
+		if (typeof sessionStorage[key] === 'number' || typeof sessionStorage[key] === 'string' || typeof sessionStorage[key] === 'object') {
+			return sessionStorage[key]
+		} else {
+			return ''
+		}
+	}
+	// 获取表单参数
+	getFormParam(name) {
+		const selector = $(`.form-input[name='${name}']`)
+		if (selector.length) {
+			return selector.val()
+		} else {
+			return ''
+		}
 	}
 	// 执行接口列表
 	doInterfaceList(interfaceList, resCallback) {
@@ -26,7 +43,7 @@ class MobileAction {
 	}
 	// 执行接口响应
 	doInterfaceListAction(count, list, resCallback) {
-		if (count > 100000) {
+		if (count > 100000 || !list || !list.length) {
 			return
 		}
 		const _this = this
@@ -56,6 +73,78 @@ class MobileAction {
 			})
 		}
 	}
+	// 执行响应
+	doAction(actionItem){
+		const actionData = this.parseActionDataValue(actionItem.action.type, actionItem.action.value)
+		const actionKeyList = actionItem.action.key.split('.')
+		if (actionKeyList && actionKeyList.length > 1) {
+			if (actionKeyList[0] === 'base') {
+				actionItem.plugin.base[actionKeyList[1]] = actionData
+			} else if (actionKeyList[0] === 'style') {
+				actionItem.plugin.style[actionKeyList[1]] = actionData
+			}
+		}
+	}
+	// 执行对应id的响应
+	doActionById(actionId) {
+		for (let i = 0; i < this.actionDataList.length; i++) {
+			const actionItem = this.actionDataList[i]
+			if (actionItem.action && actionItem.actionId === actionId) {
+				this.doAction(actionItem)
+			}
+		}
+	}
+	// 执行加载响应
+	doLoadingAction() {
+		for (let i = 0; i < this.actionDataList.length; i++) {
+			const actionItem = this.actionDataList[i]
+			if (actionItem.action && actionItem.action.condition === 'loading') {
+				this.doAction(actionItem)
+			}
+		}
+	}
+	// 执行事件列表
+	doEventList(count, eventList) {
+		if (count > 100000 || !eventList || !eventList.length) {
+			return
+		}
+		for (let i = eventList.length - 1; i >= 0; i--) {
+			const item = eventList.splice(i, 1)
+			let event = {}
+			if (item && item.length) {
+				event = item[0]
+			}
+			if (event.type && event.value && event.type === 'interface') {
+				const interfaceList = []
+				interfaceList.push({
+					url: event.value.url,
+					type: event.value.type,
+					param: event.value.param,
+					dataType: event.value.dataType
+				})
+				this.doInterfaceListAction(0, interfaceList, () => {
+					this.doEventList(count += 1, eventList)
+				})
+			} else {
+				this.doEventList(count += 1, eventList)
+			}
+		}
+	}
+	// 执行事件列表
+	doPluginEvent(pluginId) {
+		for (let i = 0; i < this.eventDataList.length; i++) {
+			if (this.eventDataList[i].pluginId === pluginId) {
+				const eventList = []
+				if (this.eventDataList[i].eventList && this.eventDataList[i].eventList.length) {
+					for (let j = this.eventDataList[i].eventList.length - 1; j >= 0; j--) {
+						eventList.push(this.eventDataList[i].eventList[j])
+					}
+				}
+				this.doEventList(0, eventList)
+				break
+			}
+		}
+	}
 	// 解析请求参数
 	parseAJaxData(param) {
 		const data = {}
@@ -69,9 +158,11 @@ class MobileAction {
 		if (value.source === 'static') {
 			return value.data
 		} else if (value.source === 'url') {
-			return this.getQueryString(value.data)
-		} else if (value.source === 'cookie') {
-			return ''
+			return this.getQueryParam(value.data)
+		} else if (value.source === 'sessionStorage') {
+			return this.getSessionStorageParam(value.data)
+		} else if (value.source === 'form') {
+			return this.getFormParam(value.data)
 		} else {
 			return ''
 		}
@@ -85,10 +176,17 @@ class MobileAction {
 			if (pluginList[i].base && pluginList[i].base.actionList && pluginList[i].base.actionList.length) {
 				for (let j = 0; j < pluginList[i].base.actionList.length; j++) {
 					this.actionDataList.push({
+						actionId: pluginList[i].base.actionList[j].actionId,
 						action: pluginList[i].base.actionList[j],
 						plugin: pluginList[i]
 					})
 				}
+			}
+			if (pluginList[i].event && pluginList[i].event.eventList && pluginList[i].event.eventList.length) {
+				this.eventDataList.push({
+					pluginId: pluginList[i].pluginId,
+					eventList: pluginList[i].event.eventList
+				})
 			}
 			if (pluginList[i].pluginList && pluginList[i].pluginList.length) {
 				this.parseConfigurationDataList(count += 1, pluginList[i].pluginList)

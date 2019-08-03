@@ -1,9 +1,9 @@
 <template>
-	<div class="panel plugin" :data-id="viewData.pluginId">
+	<div class="panel plugin" :data-id="viewData.pluginId" @click="doEvent(viewData.pluginId)">
 		<template v-if="viewData.base.type == 'normal'">
 			<div class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
 				<template v-for="item in viewData.pluginList">
-					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="viewDataIndexList"></panel-view>
+					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="viewDataIndexList" @do-event="doEvent"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="viewDataIndexList"></text-view>
 					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :view-data-index-list="viewDataIndexList"></image-view>
 					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :view-data-index-list="viewDataIndexList"></form-view>
@@ -13,7 +13,7 @@
 		<template v-else-if="viewData.base.data && viewData.base.data.length">
 			<div v-for="(temp,index) in viewData.base.data" class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
 				<template v-for="item in viewData.pluginList">
-					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></panel-view>
+					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" @do-event="doEvent"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></text-view>
 					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></image-view>
 					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></form-view>
@@ -25,6 +25,15 @@
 
 <script>
 	import mobileMethods from '../mobileMethods.js'
+
+	const mothodObj = {}
+	for (const key in mobileMethods) {
+		mothodObj[key] = mobileMethods[key]
+	}
+
+	mothodObj['doEvent'] = function(pluginId) {
+		this.$emit('do-event', pluginId)
+	}
 
 	export default {
 		name: "panelView",
@@ -45,7 +54,7 @@
 		data () {
 		    return {}
 		},
-		methods: mobileMethods
+		methods: mothodObj
 	}
 </script>
 
