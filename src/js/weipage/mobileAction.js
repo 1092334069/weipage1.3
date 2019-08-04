@@ -28,50 +28,35 @@ class MobileAction {
 			return ''
 		}
 	}
-	// 执行接口列表
-	doInterfaceList(interfaceList, resCallback) {
-		let list = []
-		for (let i = interfaceList.length - 1; i >= 0; i--) {
-			list.push({
-				url: interfaceList[i].url,
-				type: interfaceList[i].type,
-				param: interfaceList[i].param,
-				dataType: interfaceList[i].dataType
-			})
-		}
-		this.doInterfaceListAction(0, list, resCallback)
-	}
 	// 执行接口响应
 	doInterfaceListAction(count, list, resCallback) {
 		if (count > 100000 || !list || !list.length) {
 			return
 		}
 		const _this = this
-		for (let i = list.length - 1; i >= 0; i--) {
-			const item = list.splice(i, 1)
-			let param = {}
-			if (item && item.length) {
-				param = item[0]
-			}
-			$.ajax({
-				url: param.url,
-				type: param.type,
-				data: this.parseAJaxData(param.param),
-				dataType: param.dataType,
-				success: function(res) {
-					if (res) {
-						_this.setInterfaceData(param.url, res)
-					}
-				},
-				complete: function() {
-					if (list.length) {
-						_this.doInterfaceListAction(count += 1, list, resCallback)
-					} else {
-						resCallback()
-					}
-				}
-			})
+		const item = list.splice(0, 1)
+		let param = {}
+		if (item && item.length) {
+			param = item[0]
 		}
+		$.ajax({
+			url: param.url,
+			type: param.type,
+			data: this.parseAJaxData(param.param),
+			dataType: param.dataType,
+			success: function(res) {
+				if (res) {
+					_this.setInterfaceData(param.url, res)
+				}
+			},
+			complete: function() {
+				if (list.length) {
+					_this.doInterfaceListAction(count += 1, list, resCallback)
+				} else {
+					resCallback()
+				}
+			}
+		})
 	}
 	// 执行响应
 	doAction(actionItem){
@@ -108,13 +93,13 @@ class MobileAction {
 		if (count > 100000 || !eventList || !eventList.length) {
 			return
 		}
-		for (let i = eventList.length - 1; i >= 0; i--) {
-			const item = eventList.splice(i, 1)
-			let event = {}
-			if (item && item.length) {
-				event = item[0]
-			}
-			if (event.type && event.value && event.type === 'interface') {
+		const item = eventList.splice(0, 1)
+		let event = {}
+		if (item && item.length) {
+			event = item[0]
+		}
+		if (event.type && event.value) {
+			if (event.type === 'interface') {
 				const interfaceList = []
 				interfaceList.push({
 					url: event.value.url,
@@ -125,23 +110,20 @@ class MobileAction {
 				this.doInterfaceListAction(0, interfaceList, () => {
 					this.doEventList(count += 1, eventList)
 				})
+			} else if (event.type === 'normal') {
+				this.doActionById(event.value.actionId)
 			} else {
 				this.doEventList(count += 1, eventList)
 			}
+		} else {
+			this.doEventList(count += 1, eventList)
 		}
 	}
 	// 执行事件列表
 	doPluginEvent(pluginId) {
 		for (let i = 0; i < this.eventDataList.length; i++) {
 			if (this.eventDataList[i].pluginId === pluginId) {
-				const eventList = []
-				if (this.eventDataList[i].eventList && this.eventDataList[i].eventList.length) {
-					for (let j = this.eventDataList[i].eventList.length - 1; j >= 0; j--) {
-						eventList.push(this.eventDataList[i].eventList[j])
-					}
-				}
-				this.doEventList(0, eventList)
-				break
+				this.doEventList(0, this.eventDataList[i].eventList)
 			}
 		}
 	}
@@ -208,10 +190,12 @@ class MobileAction {
 	}
 	// 获取接口数据
 	getInterfaceData(url) {
+		const interfaceDataList = JSON.parse(JSON.stringify(this.interfaceDataList))
 		let data = {}
-		for (let i = 0; i < this.interfaceDataList.length; i++) {
-			if (url === this.interfaceDataList[i].url) {
-				data = this.interfaceDataList[i].data
+		for (let i = 0; i < interfaceDataList.length; i++) {
+			if (interfaceDataList[i].url == url) {
+				data = interfaceDataList[i].data
+				break
 			}
 		}
 		return data
