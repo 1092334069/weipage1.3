@@ -66,37 +66,59 @@
 				}],
 				actionKeyList: [{
 					label: '数据',
-					value: 'base.data'
+					value: 'base.data',
+					type: 'text'
 				},{
 					label: '样式 宽度',
-					value: 'style.width'
+					value: 'style.width',
+					type: 'number'
 				},{
 					label: '样式 高度',
-					value: 'style.height'
+					value: 'style.height',
+					type: 'number'
 				},{
 					label: '样式 外边距',
-					value: 'style.margin'
+					value: 'style.margin',
+					type: 'fourSides'
 				},{
 					label: '样式 内边距',
-					value: 'style.padding'
+					value: 'style.padding',
+					type: 'fourSides'
 				},{
 					label: '样式 圆角',
-					value: 'style.borderRadius'
+					value: 'style.borderRadius',
+					type: 'fourSides'
 				},{
 					label: '样式 旋转',
-					value: 'style.transformRotate'
+					value: 'style.transformRotate',
+					type: 'number'
+				},{
+					label: '样式 状态',
+					value: 'style.display',
+					type: 'select',
+					options: [{
+						label: '显示',
+						value: 'block'
+					},{
+						label: '隐藏',
+						value: 'none'
+					}]
 				},{
 					label: '样式 边框',
-					value: 'style.border'
+					value: 'style.border',
+					type: 'text'
 				},{
 					label: '样式 定位',
-					value: 'style.position'
+					value: 'style.position',
+					type: 'text'
 				},{
 					label: '样式 颜色',
-					value: 'style.backgroundColor'
+					value: 'style.backgroundColor',
+					type: 'color'
 				},{
 					label: '样式 图片',
-					value: 'style.backgroundImage'
+					value: 'style.backgroundImage',
+					type: 'image'
 				}]
 			}
 		},

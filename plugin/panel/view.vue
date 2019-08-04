@@ -63,6 +63,8 @@
 	.panel{
 		overflow:hidden;
 		position:relative;
+	}
+	.panel .panel{
 		display:inline-block;
 	}
 	.panel .panel-item{

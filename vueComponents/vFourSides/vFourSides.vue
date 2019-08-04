@@ -4,10 +4,10 @@
 		<v-text v-else :lable="lable" :value="valueStr" :isReadOnly="isReadOnly" :name="name" @formChange="formChange"></v-text>
 		<div class="more-input" :class="{close:subFormValid}" @click="triggerSubForm"></div>
 		<div class="sub-form" v-if="subFormValid">
-			<v-number lable="上" size="s" :lableWidth="lableWidth" :value="formTop" :pname="name" name="top" @formChange="formChange"></v-number>
-			<v-number lable="右" size="s" :lableWidth="lableWidth" :value="formRight" :pname="name" name="right" @formChange="formChange"></v-number>
-			<v-number lable="下" size="s" :lableWidth="lableWidth" :value="formBottom" :pname="name" name="bottom" @formChange="formChange"></v-number>
-			<v-number lable="左" size="s" :lableWidth="lableWidth" :value="formLeft" :pname="name" name="left" @formChange="formChange"></v-number>
+			<v-number lable="上" size="ss" :lableWidth="lableWidth" :value="formTop" :pname="name" name="top" @formChange="formChange"></v-number>
+			<v-number lable="右" size="ss" :lableWidth="lableWidth" :value="formRight" :pname="name" name="right" @formChange="formChange"></v-number>
+			<v-number lable="下" size="ss" :lableWidth="lableWidth" :value="formBottom" :pname="name" name="bottom" @formChange="formChange"></v-number>
+			<v-number lable="左" size="ss" :lableWidth="lableWidth" :value="formLeft" :pname="name" name="left" @formChange="formChange"></v-number>
 		</div>
 	</div>
 </template>
@@ -16,7 +16,7 @@
 	export default {
 		name: "vFourSides",
 		props: {
-			value: [Number, Array],
+			value: [Number, Array, String],
 			name: {
 				type: String,
 				default: ''
@@ -144,7 +144,7 @@
 		position:absolute;
 		padding:10px;
 		top:0;
-		right:-105px;
+		right:-85px;
 		width:130px;
 		background-color:#f0f0f0;
 		border-radius:5px;

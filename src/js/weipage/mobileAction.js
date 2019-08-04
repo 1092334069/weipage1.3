@@ -112,6 +112,7 @@ class MobileAction {
 				})
 			} else if (event.type === 'normal') {
 				this.doActionById(event.value.actionId)
+				this.doEventList(count += 1, eventList)
 			} else {
 				this.doEventList(count += 1, eventList)
 			}
@@ -124,6 +125,7 @@ class MobileAction {
 		for (let i = 0; i < this.eventDataList.length; i++) {
 			if (this.eventDataList[i].pluginId === pluginId) {
 				this.doEventList(0, this.eventDataList[i].eventList)
+				break
 			}
 		}
 	}

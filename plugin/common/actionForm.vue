@@ -20,8 +20,16 @@
 				</div>
 				<div class="form">
 					<v-radio lable="响应类型" :options="actionTypeList" :value="item.type" name="type" @formChange="actionTypeChange"></v-radio>
-				</div>	
-				<div class="form" v-if="item.type === 'interface'">
+				</div>
+				<div class="form form-short" v-if="item.type === 'static'">
+					<v-number v-if="actionKeyType === 'number'" lable="响应值" :value="item.value" name="value" @formChange="actionChange"></v-number>
+					<v-color v-else-if="actionKeyType === 'color'" lable="响应值" :value="item.value" name="value" @formChange="actionChange"></v-color>
+					<v-image v-else-if="actionKeyType === 'image'" lable="响应值" :value="item.value" name="value" @formChange="actionChange" @selectImage="selectImage"></v-image>
+					<v-select v-else-if="actionKeyType === 'select'" lable="响应值" :options="actionValueOptions":value="item.value" name="value" @formChange="actionChange"></v-select>
+					<v-four-sides v-else-if="actionKeyType === 'fourSides'" lable="响应值" :value="item.value" name="value" @formChange="actionChange"></v-four-sides>
+					<v-text v-else lable="响应值" :value="item.value" name="value" @formChange="actionChange"></v-text>
+				</div>
+				<div class="form" v-else-if="item.type === 'interface'">
 					<div class="action-interface">
 						<span class="lable">响应值：</span>
 						<div class="interface-btn" @click="selectActionValue">{{item.value.name}}</div>
@@ -61,6 +69,9 @@
 					label: '接口',
 					value: 'interface'
 				},{
+					label: '固定值',
+					value: 'static'
+				},{
 					label: '链接参数',
 					value: 'url'
 				},{
@@ -76,9 +87,32 @@
 				}]
 			}
 		},
+		computed: {
+			actionValueOptions: function() {
+				let r = []
+				for (let i = 0; i < this.actionKeyList.length; i++) {
+					if (this.actionKeyList[i].value === this.formData.actionList[this.formData.selectIndex].key) {
+						r = this.actionKeyList[i].options
+					}
+				}
+				return r
+			},
+			actionKeyType: function() {
+				let r = ''
+				for (let i = 0; i < this.actionKeyList.length; i++) {
+					if (this.actionKeyList[i].value === this.formData.actionList[this.formData.selectIndex].key) {
+						r = this.actionKeyList[i].type
+					}
+				}
+				return r
+			}
+		},
 		methods: {
 			formChange: function(res) {
 				this.$emit('form-change', res)
+			},
+			selectImage: function(res) {
+
 			},
 			parseClass: function(index) {
 				if (index === this.formData.selectIndex) {
@@ -160,6 +194,9 @@
 	.form{
 		position:relative;
 		margin:5px 0;
+	}
+	.form-short{
+		width:300px;
 	}
 	.form-list{
 		position:relative;

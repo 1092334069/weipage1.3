@@ -10,7 +10,7 @@
 		name: "vNumber",
 		props: {
 			value: {
-				type: Number,
+				type: [Number,String],
 				default: 0
 			},
 			pname: {
@@ -78,13 +78,16 @@
 	.vInput input:hover{
 		border-color:#138ed4;
 	}
+	.vInput .l{
+		width:180px;
+	}
 	.vInput .m{
 		width:120px;
 	}
 	.vInput .s{
 		width:60px;
 	}
-	.vInput .l{
-		width:180px;
+	.vInput .ss{
+		width:40px;
 	}
 </style>

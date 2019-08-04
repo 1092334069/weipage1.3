@@ -31,6 +31,9 @@ const styleView = {
 		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
 		const viewStyle = this.getViewStyleData()
 		if (viewStyle) {
+			if (this.getViewStyleData('display') === 'none') {
+				return 'display:none'
+			}
 			width = 'width:' + this.getViewStyleData('width') + ';'
 			height = 'height:' + this.getViewStyleData('height') + ';'
 			margin = 'margin:' + this.parseFourSides(this.getViewStyleData('margin')) + ';'

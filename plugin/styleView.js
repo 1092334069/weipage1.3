@@ -28,6 +28,9 @@ const styleView = {
 	parsePanelStyle: function() {
 		let width,height,position
 		if (this.viewData.style && this.viewData.base) {
+			if (this.viewData.style.display === 'none') {
+				return 'display:none'
+			}
 			width = 'width:' + this.viewData.style.width + ';'
 			if (this.viewData.base.type === 'list') {
 				height = 'height:' + (2 * this.viewData.style.height) + ';'

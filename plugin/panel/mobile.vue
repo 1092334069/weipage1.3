@@ -61,6 +61,8 @@
 <style scoped>
 	.panel{
 		overflow:hidden;
+	}
+	.panel .panel{
 		display:inline-block;
 	}
 	.panel .panel-item{
