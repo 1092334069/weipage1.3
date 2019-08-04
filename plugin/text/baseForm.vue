@@ -25,19 +25,24 @@
 			return {
 				actionKeyList:[{
 					label: '值',
-					value: 'base.data'
+					value: 'base.data',
+					type: 'text'
 				},{
 					label: '样式 字体大小',
-					value: 'style.fontSize'
+					value: 'style.fontSize',
+					type: 'number'
 				},{
 					label: '样式 颜色',
-					value: 'style.color'
+					value: 'style.color',
+					type: 'color'
 				},{
 					label: '样式 行高',
-					value: 'style.lineHeight'
+					value: 'style.lineHeight',
+					type: 'number'
 				},{
 					label: '样式 字体宽度',
-					value: 'style.fontWeight'
+					value: 'style.fontWeight',
+					type: 'number'
 				}]
 			}
 		},

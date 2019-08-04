@@ -6,7 +6,7 @@
 		<div class="form">
 			<v-radio lable="类型" :options="typeList" :value="formData.type" name="type" @formChange="formChange"></v-radio>
 		</div>
-		<action-form :form-data="formData" :action-key-list="actionKeyList" @form-change="formChange" @select-action-value="selectActionValue"></action-form>
+		<action-form :form-data="formData" :action-key-list="actionKeyList" @form-change="formChange" @select-action-value="selectActionValue" @select-image="actionSelectImage"></action-form>
 		<form>
 			<div class="form-list">
 				<div class="form-lable">属性：</div>
@@ -126,6 +126,9 @@
 			formChange: function(res) {
 				res['pname'] = 'base'
 				this.$emit('form-change', res)
+			},
+			actionSelectImage: function(res) {
+				this.$emit('action-select-image', res)
 			},
 			selectActionValue: function() {
 				this.$emit('open-interface-tree-model', 'baseAction')

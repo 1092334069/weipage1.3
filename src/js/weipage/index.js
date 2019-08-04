@@ -248,6 +248,22 @@ var weipage = new Vue({
 			}
 			this.openImageModel()
 		},
+		pluginActionImageUpload(res) {
+			callbackAction.selectImage = (url) => {
+				const plugin = this.getSelectPlugin()
+				for (let i = 0; i < plugin.base.actionList.length; i++) {
+					if (i === plugin.base.selectIndex) {
+						plugin.base.actionList[i].value = url
+					}
+				}
+				this.formChange({
+					pname: 'base',
+					name: 'actionList',
+					value: plugin.base.actionList
+				})
+			}
+			this.openImageModel()
+		},
 		selectImage(url) {
 			callbackAction.selectImage(url)
 			this.closeImageModel()

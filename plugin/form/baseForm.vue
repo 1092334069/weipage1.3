@@ -49,19 +49,24 @@
 			return {
 				actionKeyList: [{
 					label: '数据',
-					value: 'data'
+					value: 'data',
+					type: 'text'
 				},{
 					label: '样式 宽度',
-					value: 'width'
+					value: 'width',
+					type: 'number'
 				},{
 					label: '样式 高度',
-					value: 'height'
+					value: 'height',
+					type: 'number'
 				},{
 					label: '样式 字体大小',
-					value: 'fontSize'
+					value: 'fontSize',
+					type: 'number'
 				},{
 					label: '样式 文字颜色',
-					value: 'color'
+					value: 'color',
+					type: 'color'
 				}],
 				typeOptions: [{
 					label: '文本',

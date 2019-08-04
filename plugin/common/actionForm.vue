@@ -112,7 +112,7 @@
 				this.$emit('form-change', res)
 			},
 			selectImage: function(res) {
-
+				this.$emit('select-image', res)
 			},
 			parseClass: function(index) {
 				if (index === this.formData.selectIndex) {

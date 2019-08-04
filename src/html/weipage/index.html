@@ -53,9 +53,9 @@
 				</ul>
 				<div class="remove-plugin" @click="removePlugin(editForm.pluginId)"></div>
 				<template v-if="selectForm == 'base'">
-					<panel-base-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></panel-base-form>
+					<panel-base-form v-if="editForm.pluginType == 'panel'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel" @action-select-image="pluginActionImageUpload"></panel-base-form>
 					<text-base-form v-else-if="editForm.pluginType == 'text'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></text-base-form>
-					<image-base-form v-else-if="editForm.pluginType == 'image'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel" @select-image="pluginImageUpload"></image-base-form>
+					<image-base-form v-else-if="editForm.pluginType == 'image'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel" @select-image="pluginImageUpload" @action-select-image="pluginActionImageUpload"></image-base-form>
 					<form-base-form v-else-if="editForm.pluginType == 'form'" :form-data="editForm.base" @form-change="formChange" @open-interface-tree-model="openInterfaceTreeModel"></form-base-form>
 				</template>
 				<template v-if="selectForm == 'style'">
