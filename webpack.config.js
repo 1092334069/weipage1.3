@@ -20,6 +20,14 @@ module.exports = {
       }),
       new CleanWebpackPlugin(['/dist']),
       new HtmlWebpackPlugin({
+        filename: "login.html",
+        template: path.resolve(__dirname, ".", "./src/html/login.html"),
+        chunks: [""],
+        minify: {
+          collapseWhitespace: true
+        }
+      }),
+      new HtmlWebpackPlugin({
         filename: "weipage/index.html",
         template: path.resolve(__dirname, ".", "./src/html/weipage/index.html"),
         chunks: ["weipage/index"],
