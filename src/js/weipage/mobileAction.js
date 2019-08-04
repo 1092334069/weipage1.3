@@ -114,7 +114,11 @@ class MobileAction {
 				this.doActionById(event.value.actionId)
 				this.doEventList(count += 1, eventList)
 			} else if (event.type === 'link') {
-				window.location.href = event.value
+				if (window.parent.pageReload) {
+					window.parent.pageReload(event.value)
+				} else {
+					window.location.href = event.value
+				}
 			} else {
 				this.doEventList(count += 1, eventList)
 			}
