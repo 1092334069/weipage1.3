@@ -1,5 +1,5 @@
 <template>
-	<div class="panel plugin" :data-id="viewData.pluginId" @click="doEvent(viewData.pluginId)">
+	<div class="panel plugin" :data-id="viewData.pluginId" @click.stop="doEvent({pluginId:viewData.pluginId, indexList:indexList})">
 		<template v-if="viewData.base.type == 'normal'">
 			<div class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
 				<template v-for="item in viewData.pluginList">
@@ -13,10 +13,10 @@
 		<template v-else-if="viewData.base.data && viewData.base.data.length">
 			<div v-for="(temp,index) in viewData.base.data" class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
 				<template v-for="item in viewData.pluginList">
-					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" @do-event="doEvent"></panel-view>
-					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></text-view>
-					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></image-view>
-					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)"></form-view>
+					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)" @do-event="doEvent"></panel-view>
+					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)"></text-view>
+					<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)"></image-view>
+					<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)"></form-view>
 				</template>
 			</div>
 		</template>
@@ -25,15 +25,6 @@
 
 <script>
 	import mobileMethods from '../mobileMethods.js'
-
-	const mothodObj = {}
-	for (const key in mobileMethods) {
-		mothodObj[key] = mobileMethods[key]
-	}
-
-	mothodObj['doEvent'] = function(pluginId) {
-		this.$emit('do-event', pluginId)
-	}
 
 	export default {
 		name: "panelView",
@@ -49,12 +40,18 @@
 				default: function() {
 					return []
 				}
+			},
+			indexList: {
+				type: Array,
+				default: function() {
+					return []
+				}
 			}
 		},
 		data () {
 		    return {}
 		},
-		methods: mothodObj
+		methods: mobileMethods
 	}
 </script>
 

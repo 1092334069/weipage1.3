@@ -3,6 +3,7 @@ class MobileAction {
 		this.interfaceDataList = []
 		this.actionDataList = []
 		this.eventDataList = []
+		this.pluginAttrDataList = []
 	}
 	// 获取链接参数
 	getQueryParam(name) {
@@ -47,6 +48,7 @@ class MobileAction {
 			success: function(res) {
 				if (res) {
 					_this.setInterfaceData(param.url, res)
+					_this.doPluginAttr(param.url)
 				}
 			},
 			complete: function() {
@@ -127,13 +129,22 @@ class MobileAction {
 		}
 	}
 	// 执行事件列表
-	doPluginEvent(pluginId) {
+	doPluginEvent(pluginId, indexList) {
 		for (let i = 0; i < this.eventDataList.length; i++) {
 			if (this.eventDataList[i].pluginId === pluginId) {
 				this.doEventList(0, this.eventDataList[i].eventList)
 				break
 			}
 		}
+	}
+	// 执行插件属性
+	doPluginAttr(url) {
+		for (let i = 0; i < this.pluginAttrDataList.length; i++) {
+			if (url === this.pluginAttrDataList[i].url) {
+				this.pluginAttrDataList[i].value = this.getInterfaceKeyData(url, this.pluginAttrDataList[i].keyList)
+			}
+		}
+		console.log(this.pluginAttrDataList)
 	}
 	// 解析请求参数
 	parseAJaxData(param) {
@@ -169,6 +180,17 @@ class MobileAction {
 						actionId: pluginList[i].base.actionList[j].actionId,
 						action: pluginList[i].base.actionList[j],
 						plugin: pluginList[i]
+					})
+				}
+			}
+			if (pluginList[i].base && pluginList[i].base.attrList && pluginList[i].base.attrList.length) {
+				for (let j = 0; j < pluginList[i].base.attrList.length; j++) {
+					this.pluginAttrDataList.push({
+						pluginId: pluginList[i].pluginId,
+						key: pluginList[i].base.attrList[j].key,
+						value: '',
+						url: pluginList[i].base.attrList[j].url,
+						keyList: pluginList[i].base.attrList[j].keyList
 					})
 				}
 			}

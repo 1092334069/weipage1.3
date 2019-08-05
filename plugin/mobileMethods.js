@@ -91,6 +91,11 @@ const styleView = {
 		list.push(index)
 		return list
 	},
+	parseIndexList: function(index) {
+		const list = JSON.parse(JSON.stringify(this.indexList))
+		list.push(index)
+		return list
+	},
 	parseBaseData: function() {
 		if (this.viewDataIndexList && this.viewDataIndexList.length && this.viewData.base) {
 			let v = JSON.parse(JSON.stringify(this.viewData.base.data))
@@ -123,6 +128,12 @@ const styleView = {
 				return this.viewData.style
 			}
 		}
+	},
+	doEvent: function(option) {
+		this.$emit('do-event', {
+			pluginId: option.pluginId,
+			indexList: option.indexList
+		})
 	}
  }
 

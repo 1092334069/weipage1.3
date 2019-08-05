@@ -28,11 +28,9 @@ var weipage = new Vue({
 				}
 			})
 		},
-		doPluginEvent(pluginId){
-			mobileAction.doPluginEvent(pluginId)
-		},
-		doEventAction(actionId) {
-
+		doPluginEvent(option){
+			console.log(option)
+			mobileAction.doPluginEvent(option.pluginId, option.indexList)
 		}
 	}
 })
