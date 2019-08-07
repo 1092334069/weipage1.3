@@ -1,7 +1,7 @@
 <template>
-	<div class="panel plugin" :data-id="viewData.pluginId" @click.stop="doEvent({pluginId:viewData.pluginId, indexList:indexList})">
+	<div class="panel plugin" :data-id="viewData.pluginId">
 		<template v-if="viewData.base.type == 'normal'">
-			<div class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
+			<div class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()" @click="doEvent(parseEventOption(-1))">
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="viewDataIndexList" @do-event="doEvent"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="viewDataIndexList"></text-view>
@@ -11,7 +11,7 @@
 			</div>
 		</template>
 		<template v-else-if="viewData.base.data && viewData.base.data.length">
-			<div v-for="(temp,index) in viewData.base.data" class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()">
+			<div v-for="(temp,index) in viewData.base.data" class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()" @click="doEvent(parseEventOption(index))">
 				<template v-for="item in viewData.pluginList">
 					<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)" @do-event="doEvent"></panel-view>
 					<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)"></text-view>

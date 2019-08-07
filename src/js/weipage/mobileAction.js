@@ -29,8 +29,25 @@ class MobileAction {
 			return ''
 		}
 	}
+	// 获取插件属性
+	getPluginAttr(pluginOption) {
+		let v = ''
+		if (this.pluginAttrDataList.length) {
+			for (let i = 0; i < this.pluginAttrDataList.length; i++) {
+				if (this.pluginAttrDataList[i].pluginId === pluginOption.pluginId) {
+					v = this.pluginAttrDataList[i].value
+					for (let j = 0; j < pluginOption.indexList.length; j++) {
+						if (Array.isArray(v)) {
+							v = v[pluginOption.indexList[j]]
+						}
+					}
+				}
+			}
+		}
+		return v ? v : ''
+	}
 	// 执行接口响应
-	doInterfaceListAction(count, list, resCallback) {
+	doInterfaceListAction(count, list, pluginOption, resCallback) {
 		if (count > 100000 || !list || !list.length) {
 			return
 		}
@@ -43,7 +60,7 @@ class MobileAction {
 		$.ajax({
 			url: param.url,
 			type: param.type,
-			data: this.parseAJaxData(param.param),
+			data: this.parseAJaxData(param.param, pluginOption),
 			dataType: param.dataType,
 			success: function(res) {
 				if (res) {
@@ -53,7 +70,7 @@ class MobileAction {
 			},
 			complete: function() {
 				if (list.length) {
-					_this.doInterfaceListAction(count += 1, list, resCallback)
+					_this.doInterfaceListAction(count += 1, list, pluginOption, resCallback)
 				} else {
 					resCallback()
 				}
@@ -91,7 +108,7 @@ class MobileAction {
 		}
 	}
 	// 执行事件列表
-	doEventList(count, eventList) {
+	doEventList(count, eventList, pluginOption) {
 		if (count > 100000 || !eventList || !eventList.length) {
 			return
 		}
@@ -109,12 +126,12 @@ class MobileAction {
 					param: event.value.param,
 					dataType: event.value.dataType
 				})
-				this.doInterfaceListAction(0, interfaceList, () => {
-					this.doEventList(count += 1, eventList)
+				this.doInterfaceListAction(0, interfaceList, pluginOption, () => {
+					this.doEventList(count += 1, eventList, pluginOption)
 				})
 			} else if (event.type === 'normal') {
 				this.doActionById(event.value.actionId)
-				this.doEventList(count += 1, eventList)
+				this.doEventList(count += 1, eventList, pluginOption)
 			} else if (event.type === 'link') {
 				if (window.parent.pageReload) {
 					window.parent.pageReload(event.value)
@@ -122,17 +139,21 @@ class MobileAction {
 					window.location.href = event.value
 				}
 			} else {
-				this.doEventList(count += 1, eventList)
+				this.doEventList(count += 1, eventList, pluginOption)
 			}
 		} else {
-			this.doEventList(count += 1, eventList)
+			this.doEventList(count += 1, eventList, pluginOption)
 		}
 	}
 	// 执行事件列表
 	doPluginEvent(pluginId, indexList) {
-		for (let i = 0; i < this.eventDataList.length; i++) {
-			if (this.eventDataList[i].pluginId === pluginId) {
-				this.doEventList(0, this.eventDataList[i].eventList)
+		const eventDataList = JSON.parse(JSON.stringify(this.eventDataList))
+		for (let i = 0; i < eventDataList.length; i++) {
+			if (eventDataList[i].pluginId === pluginId) {
+				this.doEventList(0, eventDataList[i].eventList, {
+					pluginId,
+					indexList
+				})
 				break
 			}
 		}
@@ -144,18 +165,17 @@ class MobileAction {
 				this.pluginAttrDataList[i].value = this.getInterfaceKeyData(url, this.pluginAttrDataList[i].keyList)
 			}
 		}
-		console.log(this.pluginAttrDataList)
 	}
 	// 解析请求参数
-	parseAJaxData(param) {
+	parseAJaxData(param, pluginOption) {
 		const data = {}
 		for (let i = 0; i < param.length; i++) {
-			data[param[i].key] = this.parseAjaxDataValue(param[i].value)
+			data[param[i].key] = this.parseAjaxDataValue(param[i].value, pluginOption)
 		}
 		return data
 	}
 	// 解析参数来源
-	parseAjaxDataValue(value) {
+	parseAjaxDataValue(value, pluginOption) {
 		if (value.source === 'static') {
 			return value.data
 		} else if (value.source === 'url') {
@@ -164,6 +184,8 @@ class MobileAction {
 			return this.getSessionStorageParam(value.data)
 		} else if (value.source === 'form') {
 			return this.getFormParam(value.data)
+		} else if (value.source === 'attr') {
+			return this.getPluginAttr(pluginOption)
 		} else {
 			return ''
 		}

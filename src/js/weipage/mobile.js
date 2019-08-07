@@ -22,14 +22,13 @@ var weipage = new Vue({
 				if (res.data) {
 					this.pluginList = res.data.pluginList
 					mobileAction.parseConfigurationDataList(0, this.pluginList)
-					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, () => {
+					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, [], () => {
 						mobileAction.doLoadingAction()
 					})
 				}
 			})
 		},
 		doPluginEvent(option){
-			console.log(option)
 			mobileAction.doPluginEvent(option.pluginId, option.indexList)
 		}
 	}

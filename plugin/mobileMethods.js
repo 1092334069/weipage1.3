@@ -129,6 +129,16 @@ const styleView = {
 			}
 		}
 	},
+	parseEventOption: function(index) {
+		const option = {
+			pluginId: this.viewData.pluginId,
+			indexList: JSON.parse(JSON.stringify(this.indexList))
+		}
+		if (index >= 0) {
+			option.indexList.push(index)
+		}
+		return option
+	},
 	doEvent: function(option) {
 		this.$emit('do-event', {
 			pluginId: option.pluginId,
