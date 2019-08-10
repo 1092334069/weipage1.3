@@ -1,5 +1,5 @@
 <template>
-	<div class="panel plugin" :data-id="viewData.pluginId">
+	<div class="panel plugin" :data-id="viewData.pluginId" :class="viewData.base.type">
 		<template v-if="viewData.base.type == 'normal'">
 			<div class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()" @click="doEvent(parseEventOption(-1))">
 				<template v-for="item in viewData.pluginList">
@@ -75,6 +75,10 @@
 	.panel{
 		overflow:hidden;
 	}
+	.panel.slider{
+		overflow-x:auto;
+		white-space:nowrap;
+	}
 	.panel .panel{
 		display:inline-block;
 	}
@@ -84,5 +88,10 @@
 		position:relative;
 		background-size:100% auto;
 		background-repeat:no-repeat;
+	}
+	.panel .panel-item.slider{
+		display:inline-block;
+		white-space:normal;
+		width:66%;
 	}
 </style>

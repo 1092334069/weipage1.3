@@ -34,7 +34,11 @@ const styleView = {
 			if (this.getViewStyleData('display') === 'none') {
 				return 'display:none'
 			}
-			width = 'width:' + this.getViewStyleData('width') + ';'
+			if (this.viewData.base.type === 'slider') {
+				width = ''
+			} else {
+				width = 'width:' + this.getViewStyleData('width') + ';'
+			}
 			height = 'height:' + this.getViewStyleData('height') + ';'
 			margin = 'margin:' + this.parseFourSides(this.getViewStyleData('margin')) + ';'
 			padding = 'padding:' + this.parseFourSides(this.getViewStyleData('padding')) + ';'
