@@ -34,12 +34,16 @@ const styleView = {
 			if (this.getViewStyleData('display') === 'none') {
 				return 'display:none'
 			}
-			if (this.viewData.base.type === 'slider') {
+			if (this.viewData.base.type === 'slider' || this.viewData.base.type === 'waterfall') {
 				width = ''
 			} else {
 				width = 'width:' + this.getViewStyleData('width') + ';'
 			}
-			height = 'height:' + this.getViewStyleData('height') + ';'
+			if (this.viewData.base.type === 'waterfall') {
+				height = ''
+			} else {
+				height = 'height:' + this.getViewStyleData('height') + ';'
+			}
 			margin = 'margin:' + this.parseFourSides(this.getViewStyleData('margin')) + ';'
 			padding = 'padding:' + this.parseFourSides(this.getViewStyleData('padding')) + ';'
 			borderRadius = 'borderRadius:' + this.parseFourSides(this.getViewStyleData('borderRadius')) + ';'

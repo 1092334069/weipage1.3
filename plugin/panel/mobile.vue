@@ -75,10 +75,6 @@
 	.panel{
 		overflow:hidden;
 	}
-	.panel.slider{
-		overflow-x:auto;
-		white-space:nowrap;
-	}
 	.panel .panel{
 		display:inline-block;
 	}
@@ -88,6 +84,18 @@
 		position:relative;
 		background-size:100% auto;
 		background-repeat:no-repeat;
+	}
+	.panel.slider{
+		overflow-x:auto;
+		white-space:nowrap;
+	}
+	.panel.waterfall{
+		column-count:2;
+	}
+	.panel.waterfall>.panel-item{
+		break-inside:avoid;
+		width:auto;
+		height:auto;
 	}
 	.panel .panel-item.slider{
 		display:inline-block;
