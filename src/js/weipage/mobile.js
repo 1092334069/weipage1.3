@@ -24,12 +24,20 @@ var weipage = new Vue({
 					mobileAction.parseConfigurationDataList(0, this.pluginList)
 					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, [], () => {
 						mobileAction.doLoadingAction()
+						this.loadingEnd()
 					})
 				}
 			})
 		},
 		doPluginEvent(option){
 			mobileAction.doPluginEvent(option.pluginId, option.indexList)
+		},
+		loadingEnd() {
+			setTimeout(() => {
+				new Swiper('.swiper-container', {
+					autoplay: 5000
+				})
+			}, 1000)
 		}
 	}
 })

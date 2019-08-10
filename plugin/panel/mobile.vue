@@ -10,6 +10,22 @@
 				</template>
 			</div>
 		</template>
+		<template v-else-if="viewData.base.type == 'swiper'">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" v-for="(temp,index) in viewData.base.data">
+						<div class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()" @click="doEvent(parseEventOption(index))">
+							<template v-for="item in viewData.pluginList">
+								<panel-view v-if="item.pluginType == 'panel'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)" @do-event="doEvent"></panel-view>
+								<text-view v-else-if="item.pluginType == 'text'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)"></text-view>
+								<image-view v-else-if="item.pluginType == 'image'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)"></image-view>
+								<form-view v-else-if="item.pluginType == 'form'" :view-data="item" :view-data-index-list="parseViewDataIndexList(index)" :index-list="parseIndexList(index)"></form-view>
+							</template>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
 		<template v-else-if="viewData.base.data && viewData.base.data.length">
 			<div v-for="(temp,index) in viewData.base.data" class="panel-item" :class="viewData.base.type" :style="parsePanelStyle()" @click="doEvent(parseEventOption(index))">
 				<template v-for="item in viewData.pluginList">
