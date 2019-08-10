@@ -18,7 +18,9 @@ module.exports = {
           NODE_ENV:"Development"
         }
       }),
-      new CleanWebpackPlugin(['/dist']),
+      new CleanWebpackPlugin(['dist'], {
+        root: path.resolve(__dirname, '../')
+      }),
       new HtmlWebpackPlugin({
         filename: "login.html",
         template: path.resolve(__dirname, ".", "./src/html/login.html"),
