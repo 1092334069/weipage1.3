@@ -1,9 +1,9 @@
 <template>
 	<div class="form plugin" :data-id="viewData.pluginId">
-		<select v-if="viewData.base.type === 'select'" :style="parseFormStyle()" class="form-input" :name="item.key">
+		<select v-if="viewData.base.type === 'select'" :style="parseFormStyle()" class="form-input" :name="viewData.base.key">
 			<option v-for="item in viewData.base.optionList">{{item.label}}</option>
 		</select>
-		<input v-else :style="parseFormStyle()" :value="viewData.base.data" class="form-input" :name="item.key" />
+		<input v-else :style="parseFormStyle()" :value="viewData.base.data" class="form-input" :name="viewData.base.key" />
 	</div>
 </template>
 
