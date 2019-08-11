@@ -34,9 +34,7 @@
 				this.showPluginId = pluginId
 			},
 			selectPlugin: function(pluginId) {
-				this.$emit('form-tree-select', {
-					pluginId: pluginId
-				})
+				this.$emit('form-tree-select', pluginId)
 			}
 		}
 	}

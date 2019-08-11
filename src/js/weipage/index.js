@@ -206,17 +206,17 @@ var weipage = new Vue({
 		openFormTreeModel(option) {
 			this.formTreeModel = true
 			if (option && option.source === 'event') {
-				callbackAction.selectForm = (res) => {
-					formTreeSelect(this, res.pluginId, option.key)
+				callbackAction.selectForm = (pluginId) => {
+					formTreeSelect(this, pluginId, option.key)
 				}
 			}
 		},
 		closeFormTreeModel() {
 			this.formTreeModel = false
 		},
-		formTreeSelect(option) {
+		formTreeSelect(pluginId) {
 			this.closeFormTreeModel()
-			callbackAction.selectForm(option)
+			callbackAction.selectForm(pluginId)
 		},
 		changeInterfacePage(option) {
 			this.interfaceTableData.page = option

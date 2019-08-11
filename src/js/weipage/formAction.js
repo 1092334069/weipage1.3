@@ -176,7 +176,6 @@ function formTreeSelect(weipage, pluginId, key) {
 		const eventDetail = pluginDetail.event.eventList[pluginDetail.event.selectIndex]
 		if (eventDetail.value && eventDetail.value.param && eventDetail.value.param.length) {
 			for (let i = 0; i < eventDetail.value.param.length; i++) {
-				console.log(eventDetail.value.param)
 				if (eventDetail.value.param[i].key === key) {
 					eventDetail.value.param[i].value.data = selectPluginDetail.base.key
 				}
