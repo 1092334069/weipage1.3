@@ -37,6 +37,10 @@
 							<v-input-source v-else :lable="inf.name" :value="inf.value" :name="inf.key" :sourceOptions="sourceOptions" @formChange="interfaceChange" @sourceChange="interfaceChange"></v-input-source>
 						</div>
 					</template>
+					<div class="form-list">
+						<span class="form-lable">累加参数：</span>
+						<div class="form-item" @click="openInteraceTreeModel">{{item.keyword.name}}</div>
+					</div>
 				</template>
 			</template>
 		</div>
@@ -118,6 +122,11 @@
 					key: '',
 					value: {
 						name: '点击选择接口'
+					},
+					keyword: {
+						name: '点击选择接口参数',
+						url: '',
+						keyList: []
 					}
 				})
 				this.weipageChange({
@@ -201,6 +210,9 @@
 			},
 			openInterfaceModel: function() {
 				this.$emit('open-interface-model', 'weipageScroll')
+			},
+			openInteraceTreeModel: function() {
+				this.$emit('open-interface-tree-model', 'weipageScroll')
 			}
 		},
 		computed: {
@@ -217,8 +229,3 @@
 		}
 	}
 </script>
-
-
-<style scoped>
-
-</style>

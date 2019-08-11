@@ -187,6 +187,10 @@ var weipage = new Vue({
 				callbackAction.selectInterfaceParam = (option) => {
 					interfaceAction.baseAttrSelectInterfaceParam(this.getSelectPlugin(), option)
 				}
+			} else if (form === 'weipageScroll') {
+				callbackAction.selectInterfaceParam = (option) => {
+					interfaceAction.weipageScrollSelectInterfaceParam(option)
+				}
 			} else {
 				callbackAction.selectInterfaceParam = (option) => {
 					interfaceAction.eventSelectStatusInterfaceParam(this.getSelectPlugin(),option)

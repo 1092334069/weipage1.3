@@ -76,7 +76,7 @@
 					<li :class="{current: selectForm == 'time'}" @click="changeFormTab('time')">定时器</li>
 				</ul>
 				<weipage-base-form v-if="selectForm == 'base'" :form-data="weipage" @weipage-change="weipageChange" @open-interface-model="openInterfaceModel" @delete-interface="deleteInterface" @select-image="weipageImageUpload"></weipage-base-form>
-				<weipage-scroll-form v-else-if="selectForm == 'scroll'" :form-data="weipage" @weipage-change="weipageChange" @open-plugin-tree-model="openPluginTreeModel" @open-interface-model="openInterfaceModel"></weipage-scroll-form>
+				<weipage-scroll-form v-else-if="selectForm == 'scroll'" :form-data="weipage" @weipage-change="weipageChange" @open-plugin-tree-model="openPluginTreeModel" @open-interface-model="openInterfaceModel" @open-interface-tree-model="openInterfaceTreeModel"></weipage-scroll-form>
 				<weipage-count-form v-else-if="selectForm == 'count'" :form-data="weipage" @weipage-change="weipageChange"></weipage-count-form>
 			</div>
 

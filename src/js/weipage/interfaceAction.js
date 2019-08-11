@@ -146,6 +146,9 @@ class InterfaceAction {
 			attr.keyList = result.keyList
 		}
 	}
+	weipageScrollSelectInterfaceParam(option) {
+		this.weiPageThis.weipage.scrollEvent.eventList[this.weiPageThis.weipage.scrollEvent.selectIndex].keyword = JSON.parse(JSON.stringify(option))
+	}
 	eventSelectStatusInterfaceParam(plugin, option) {
 		const result = this.selectInterfaceParam(option)
 		if (plugin) {
