@@ -64,7 +64,7 @@ class MobileAction {
 			dataType: param.dataType,
 			success: function(res) {
 				if (res) {
-					_this.setInterfaceData(param.url, res)
+					_this.setInterfaceData(param.url, res, param.keyList)
 					_this.doPluginAttr(param.url)
 				}
 			},
@@ -166,6 +166,18 @@ class MobileAction {
 			}
 		}
 	}
+	// 执行滚动事件
+	doScrollEvent(type, eventList, resCallback) {
+		const interfaceList = []
+		for (let i = 0; i < eventList.length; i++) {
+			if (eventList[i].direction === type) {
+				const item = JSON.parse(JSON.stringify(eventList[i].value))
+				item['keyList'] = JSON.parse(JSON.stringify(eventList[i].keyword.keyList))
+				interfaceList.push(item)
+			}
+		}
+		this.doInterfaceListAction(0, interfaceList, {}, resCallback)
+	}
 	// 解析请求参数
 	parseAJaxData(param, pluginOption) {
 		const data = {}
@@ -234,11 +246,39 @@ class MobileAction {
 		}
 	}
 	// 设置接口数据
-	setInterfaceData(url, data) {
-		this.interfaceDataList.push({
-			url,
-			data
-		})
+	setInterfaceData(url, data, keyList) {
+		if (keyList && keyList.length) {
+			const mergeData = this.getInterfaceKeyData(url, keyList)
+			if (Array.isArray(mergeData)) {
+				this.mergeDataByKeyList(0, data, mergeData, keyList)
+				for (var i = 0; i < this.interfaceDataList.length; i++) {
+					if (url === this.interfaceDataList[i].url){
+						this.interfaceDataList[i].data = data
+					}
+				}
+			}
+		} else {
+			this.interfaceDataList.push({
+				url,
+				data
+			})
+		}
+	}
+	mergeDataByKeyList(count, sourceData, mergeData, keyList) {
+		if (count  > 100000 || !keyList.length) {
+			return
+		}
+		const key = keyList.splice(0,1)[0]
+		if (keyList.length) {
+			count += 1
+			this.mergeDataByKeyList(count, sourceData[key], mergeData, keyList)
+		} else {
+			if (Array.isArray(sourceData[key])) {
+				for (let i = 0; i < mergeData.length; i++) {
+					sourceData[key].push(mergeData[i])
+				}
+			}
+		}
 	}
 	// 获取接口数据
 	getInterfaceData(url) {

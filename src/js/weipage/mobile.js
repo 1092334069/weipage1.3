@@ -25,6 +25,7 @@ var weipage = new Vue({
 					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, [], () => {
 						mobileAction.doLoadingAction()
 						this.loadingEnd()
+						this.scrollEvent(res.data.weipage)
 					})
 				}
 			})
@@ -38,6 +39,22 @@ var weipage = new Vue({
 					autoplay: 5000
 				})
 			}, 1000)
+		},
+		scrollEvent(weipageData) {
+			const screenHeight = window.screen.height
+			$(window).scroll(() => {
+				const scrollTop = $(window).scrollTop()
+				const height = $(window).height()
+				if (scrollTop <= 0) {
+					mobileAction.doScrollEvent('top', weipageData.scrollEvent.eventList, () => {
+						mobileAction.doLoadingAction()
+					})
+				} else if (scrollTop >= height - screenHeight) {
+					mobileAction.doScrollEvent('bottom', weipageData.scrollEvent.eventList, () => {
+						mobileAction.doLoadingAction()
+					})
+				}
+			})
 		}
 	}
 })
