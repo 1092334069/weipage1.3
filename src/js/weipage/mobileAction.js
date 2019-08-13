@@ -1,9 +1,14 @@
+import { ajaxOnce } from '../ajaxOnce'
+
 class MobileAction {
 	constructor() {
 		this.interfaceDataList = []
 		this.actionDataList = []
 		this.eventDataList = []
 		this.pluginAttrDataList = []
+
+		this.countDataList = []
+		this.countAction = () => {}
 	}
 	// 获取链接参数
 	getQueryParam(name) {
@@ -13,9 +18,9 @@ class MobileAction {
         return ''
 	}
 	// 获取缓存参数
-	getSessionStorageParam(key) {
-		if (typeof sessionStorage[key] === 'number' || typeof sessionStorage[key] === 'string' || typeof sessionStorage[key] === 'object') {
-			return sessionStorage[key]
+	getSessionStorageParam(name) {
+		if (typeof sessionStorage[name] === 'number' || typeof sessionStorage[name] === 'string' || typeof sessionStorage[name] === 'object') {
+			return sessionStorage[name]
 		} else {
 			return ''
 		}
@@ -28,6 +33,15 @@ class MobileAction {
 		} else {
 			return ''
 		}
+	}
+	getCountParam(name) {
+		for (let i = 0; i < this.countDataList.length; i++) {
+			if (name === this.countDataList[i].countId) {
+				this.setCountAction(name)
+				return this.countDataList[i].data
+			}
+		}
+		return 0
 	}
 	// 获取插件属性
 	getPluginAttr(pluginOption) {
@@ -46,6 +60,19 @@ class MobileAction {
 		}
 		return v ? v : ''
 	}
+	setCountAction(countId) {
+		this.countAction = () => {
+			for (let i = 0; i < this.countDataList.length; i++) {
+				if (countId === this.countDataList[i].countId) {
+					if (this.countDataList[i].rule === 'add') {
+						this.countDataList[i].data += this.countDataList[i].cardinal
+					} else {
+						this.countDataList[i].data -= this.countDataList[i].cardinal
+					}
+				}
+			}
+		}
+	}
 	// 执行接口响应
 	doInterfaceListAction(count, list, pluginOption, resCallback) {
 		if (count > 100000 || !list || !list.length) {
@@ -57,7 +84,7 @@ class MobileAction {
 		if (item && item.length) {
 			param = item[0]
 		}
-		$.ajax({
+		ajaxOnce.ajax({
 			url: param.url,
 			type: param.type,
 			data: this.parseAJaxData(param.param, pluginOption),
@@ -67,6 +94,8 @@ class MobileAction {
 					_this.setInterfaceData(param.url, res, param.keyList)
 					_this.doPluginAttr(param.url)
 				}
+				_this.countAction()
+				_this.countAction = () => {}
 			},
 			complete: function() {
 				if (list.length) {
@@ -198,6 +227,8 @@ class MobileAction {
 			return this.getFormParam(value.data)
 		} else if (value.source === 'attr') {
 			return this.getPluginAttr(pluginOption)
+		} else if (value.source === 'count') {
+			return this.getCountParam(value.data)
 		} else {
 			return ''
 		}

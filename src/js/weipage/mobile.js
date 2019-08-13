@@ -20,6 +20,19 @@ var weipage = new Vue({
 				weipageId
 			}, (res) => {
 				if (res.data) {
+					if (res.data.weipage.countEvent && res.data.weipage.countEvent.eventList.length) {
+						const countEventList = res.data.weipage.countEvent.eventList
+						for (let i = 0; i < countEventList.length; i++) {
+							mobileAction.countDataList.push({
+								cardinal: countEventList[i].cardinal,
+								countId: countEventList[i].countId,
+								initial: countEventList[i].initial,
+								rule: countEventList[i].rule,
+								data: countEventList[i].initial
+							})
+						}
+					}
+
 					this.pluginList = res.data.pluginList
 					mobileAction.parseConfigurationDataList(0, this.pluginList)
 					mobileAction.doInterfaceListAction(0, res.data.weipage.interfaceList, [], () => {
@@ -41,7 +54,7 @@ var weipage = new Vue({
 			}, 1000)
 		},
 		scrollEvent(weipageData) {
-			const screenHeight = window.screen.height
+			const screenHeight = isPC() ? 667 : window.screen.height
 			$(window).scroll(() => {
 				const scrollTop = $(window).scrollTop()
 				const height = $(window).height()
@@ -58,6 +71,20 @@ var weipage = new Vue({
 		}
 	}
 })
+
+
+function isPC() {
+    const userAgentInfo = navigator.userAgent
+    const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod']
+    let flag = true
+    for (let v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false
+            break
+        }
+    }
+    return flag
+}
 
 const weipageId = commonAction.getQueryString('weipageId')
 if (weipageId) {
