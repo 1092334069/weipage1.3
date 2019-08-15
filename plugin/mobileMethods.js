@@ -28,7 +28,7 @@ const styleView = {
 		}
 	},
 	parsePanelStyle: function() {
-		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
+		let width,height,margin,padding,borderRadius,transformRotate,textAlign,border,position,backgroundColor,backgroundImage
 		const viewStyle = this.getViewStyleData()
 		if (viewStyle) {
 			if (this.getViewStyleData('display') === 'none') {
@@ -47,12 +47,13 @@ const styleView = {
 			margin = 'margin:' + this.parseFourSides(this.getViewStyleData('margin')) + ';'
 			padding = 'padding:' + this.parseFourSides(this.getViewStyleData('padding')) + ';'
 			borderRadius = 'borderRadius:' + this.parseFourSides(this.getViewStyleData('borderRadius')) + ';'
+			textAlign = 'textAlign:' + this.viewData.style.textAlign + ';'
 			transformRotate = 'transform:rotate(' + this.getViewStyleData('transformRotate') + 'deg);'
-			border = 'border:' + this.parseBorder() + ';'
-			position = this.parsePosition() + ";"
+			border = this.parseBorder()  + ';'
+			position = this.parsePosition() + ';'
 			backgroundColor = 'backgroundColor:' + this.getViewStyleData('backgroundColor') + ';'
 			backgroundImage = 'backgroundImage:url(' + this.getViewStyleData('backgroundImage') + ')'
-			return width + height + margin + padding + borderRadius + transformRotate + border + position + backgroundColor + backgroundImage
+			return width + height + margin + padding + borderRadius + transformRotate + textAlign + border + position + backgroundColor + backgroundImage
 		} else {
 			return ''
 		}
@@ -82,9 +83,12 @@ const styleView = {
 	},
 	parseBorder: function() {
 		if (this.getViewStyleData('border') === 'block') {
-			return this.getViewStyleData('borderWidth') + 'px ' + this.getViewStyleData('borderStyle') + ' ' + this.getViewStyleData('borderColor')
+			const borderWidth = 'borderWidth:' + this.parseFourSides(this.getViewStyleData('borderWidth')) + ';'
+			const borderStyle = 'borderStyle:' + this.getViewStyleData('borderStyle') + ';'
+			const borderColor = 'borderColor:' + this.getViewStyleData('borderColor') + ''
+			return borderWidth + borderStyle + borderColor
 		} else {
-			return 'none'
+			return 'border:none'
 		}
 	},
 	parsePosition: function() {

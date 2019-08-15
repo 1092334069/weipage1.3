@@ -26,7 +26,8 @@ var pluginConfig = {
 			position: 'relative',
 			top: 0,
 			left: 0,
-			display: 'block'
+			display: 'block',
+			textAlign: 'left'
 		},
 		event: {
 			eventList: [],

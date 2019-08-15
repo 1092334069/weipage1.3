@@ -44,16 +44,17 @@ const styleView = {
 		}
 	},
 	parsePanelItemStyle: function() {
-		let margin,padding,borderRadius,transformRotate,border,backgroundColor,backgroundImage
+		let margin,padding,borderRadius,transformRotate,textAlign,border,backgroundColor,backgroundImage
 		if (this.viewData.style) {
 			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
 			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
 			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
 			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
-			border = 'border:' + this.parseBorder() + ';'
+			textAlign = 'textAlign:' + this.viewData.style.textAlign + ';'
+			border = this.parseBorder()  + ';'
 			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
 			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
-			return margin + padding + borderRadius + transformRotate + border + backgroundColor + backgroundImage
+			return margin + padding + borderRadius + transformRotate + textAlign + border + backgroundColor + backgroundImage
 		} else {
 			return ''
 		}
@@ -67,7 +68,7 @@ const styleView = {
 			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
 			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
 			transformRotate = 'transform:rotate(' + this.viewData.style.transformRotate + 'deg);'
-			border = 'border:' + this.parseBorder() + ';'
+			border = this.parseBorder()  + ';'
 			position = this.parsePosition() + ";"
 			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
 			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
@@ -100,9 +101,12 @@ const styleView = {
 	},
 	parseBorder: function() {
 		if (this.viewData.style.border === 'block') {
-			return this.viewData.style.borderWidth + 'px ' + this.viewData.style.borderStyle + ' ' + this.viewData.style.borderColor
+			const borderWidth = 'borderWidth:' + this.parseFourSides(this.viewData.style.borderWidth) + ';'
+			const borderStyle = 'borderStyle:' + this.viewData.style.borderStyle + ';'
+			const borderColor = 'borderColor:' + this.viewData.style.borderColor + ''
+			return borderWidth + borderStyle + borderColor
 		} else {
-			return 'none'
+			return 'border:none'
 		}
 	},
 	parsePosition: function() {

@@ -23,7 +23,12 @@
 			<div class="form">
 				<v-number lable="旋转" :value="formData.transformRotate" name="transformRotate" @formChange="formChange"></v-number>
 			</div>
-			<v-radio lable="状态" :options="displayOptions" :value="formData.display" name="display" @formChange="formChange"></v-radio>
+			<div class="form">
+				<v-radio lable="对齐" :options="textAlignOptions" :value="formData.textAlign" name="textAlign" @formChange="formChange"></v-radio>
+			</div>
+			<div class="form">
+				<v-radio lable="状态" :options="displayOptions" :value="formData.display" name="display" @formChange="formChange"></v-radio>
+			</div>
 		</div>
 		<div class="form-group" @click="triggerForm('border')">
 			<span>边框</span>
@@ -35,10 +40,10 @@
 			</div>
 			<div v-if="formData.border==='block'">
 				<div class="form">
-					<v-select lable="样式" :options="borderStyleOptions" :value="formData.borderStyle" name="borderStyle" @formChange="formChange"></v-select>
+					<v-radio lable="样式" :options="borderStyleOptions" :value="formData.borderStyle" name="borderStyle" @formChange="formChange"></v-radio>
 				</div>
 				<div class="form">
-					<v-number lable="尺寸" :value="formData.borderWidth" name="borderWidth" @formChange="formChange"></v-number>
+					<v-four-sides lable="尺寸" :value="formData.borderWidth" name="borderWidth" @formChange="formChange"></v-four-sides>
 				</div>
 				<div class="form">
 					<v-color lable="颜色" :value="formData.borderColor" name="borderColor" @formChange="formChange"></v-color>
@@ -96,6 +101,16 @@
 					location: false,
 					fill: false
 				},
+				textAlignOptions:[{
+					label: '左',
+					value: 'left'
+				},{
+					label: '右',
+					value: 'right'
+				},{
+					label: '中',
+					value: 'center'
+				}],
 				displayOptions: [{
 					label: '显示',
 					value: 'block'
