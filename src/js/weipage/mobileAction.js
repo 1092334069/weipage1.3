@@ -114,7 +114,7 @@ class MobileAction {
 			if (actionKeyList[0] === 'base') {
 				actionItem.plugin.base[actionKeyList[1]] = actionData
 			} else if (actionKeyList[0] === 'style') {
-				actionItem.plugin.style[actionKeyList[1]] = actionData
+				actionItem.plugin.style[actionKeyList[1] + '_list'] = actionData
 			}
 		}
 	}

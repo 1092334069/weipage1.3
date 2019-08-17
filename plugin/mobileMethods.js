@@ -125,13 +125,17 @@ const styleView = {
 		if (this.viewDataIndexList && this.viewDataIndexList.length && this.viewData.style) {
 			let v = JSON.parse(JSON.stringify(this.viewData.style))
 			if (key) {
-				v = v[key]
+				if (v.hasOwnProperty(`${key}_list`)) {
+					v = v[`${key}_list`]
+					for (let i = 0; i < this.viewDataIndexList.length; i++) {
+						if (v && Array.isArray(v)) {
+							v = v[this.viewDataIndexList[i]]
+						}
+					}
+				} else {
+					v = v[key]
+				}
 			}
-			// for (let i = 0; i < this.viewDataIndexList.length; i++) {
-			// 	if (v && Array.isArray(v)) {
-			// 		v = v[this.viewDataIndexList[i]]
-			// 	}
-			// }
 			return v
 		} else {
 			if (key) {
