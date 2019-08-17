@@ -33,9 +33,9 @@ const styleView = {
 			}
 			width = 'width:' + this.viewData.style.width + ';'
 			if (this.viewData.base.type === 'list') {
-				height = 'height:' + (2 * this.viewData.style.height) + ';'
+				height = 'minHeight:' + (2 * this.viewData.style.height) + ';'
 			} else {
-				height = 'height:' + this.viewData.style.height + ';'
+				height = 'minHeight:' + this.viewData.style.height + ';'
 			}
 			position = this.parsePosition()
 			return width + height + position
@@ -44,8 +44,9 @@ const styleView = {
 		}
 	},
 	parsePanelItemStyle: function() {
-		let margin,padding,borderRadius,transformRotate,textAlign,border,backgroundColor,backgroundImage
+		let height,margin,padding,borderRadius,transformRotate,textAlign,border,backgroundColor,backgroundImage
 		if (this.viewData.style) {
+			height = 'minHeight:' + this.viewData.style.height + ';'
 			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
 			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
 			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'
@@ -54,7 +55,7 @@ const styleView = {
 			border = this.parseBorder()  + ';'
 			backgroundColor = 'backgroundColor:' + this.viewData.style.backgroundColor + ';'
 			backgroundImage = 'backgroundImage:url(' + this.viewData.style.backgroundImage + ')'
-			return margin + padding + borderRadius + transformRotate + textAlign + border + backgroundColor + backgroundImage
+			return height + margin + padding + borderRadius + transformRotate + textAlign + border + backgroundColor + backgroundImage
 		} else {
 			return ''
 		}
@@ -63,7 +64,7 @@ const styleView = {
 		let width,height,margin,padding,borderRadius,transformRotate,border,position,backgroundColor,backgroundImage
 		if (this.viewData.style && this.viewData.base) {
 			width = 'width:' + this.viewData.style.width + ';'
-			height = 'height:' + this.viewData.style.height + ';'
+			height = 'minHeight:' + this.viewData.style.height + ';'
 			margin = 'margin:' + this.parseFourSides(this.viewData.style.margin) + ';'
 			padding = 'padding:' + this.parseFourSides(this.viewData.style.padding) + ';'
 			borderRadius = 'borderRadius:' + this.parseFourSides(this.viewData.style.borderRadius) + ';'

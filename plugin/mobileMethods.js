@@ -42,7 +42,7 @@ const styleView = {
 			if (this.viewData.base.type === 'waterfall') {
 				height = ''
 			} else {
-				height = 'height:' + this.getViewStyleData('height') + ';'
+				height = 'minHeight:' + this.getViewStyleData('height') + ';'
 			}
 			margin = 'margin:' + this.parseFourSides(this.getViewStyleData('margin')) + ';'
 			padding = 'padding:' + this.parseFourSides(this.getViewStyleData('padding')) + ';'
@@ -127,11 +127,11 @@ const styleView = {
 			if (key) {
 				v = v[key]
 			}
-			for (let i = 0; i < this.viewDataIndexList.length; i++) {
-				if (v && Array.isArray(v)) {
-					v = v[this.viewDataIndexList[i]]
-				}
-			}
+			// for (let i = 0; i < this.viewDataIndexList.length; i++) {
+			// 	if (v && Array.isArray(v)) {
+			// 		v = v[this.viewDataIndexList[i]]
+			// 	}
+			// }
 			return v
 		} else {
 			if (key) {

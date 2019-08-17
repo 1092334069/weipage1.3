@@ -69,16 +69,12 @@
 	}
 	.panel .panel-item{
 		width:100%;
-		height:100%;
 		position:relative;
 		background-size:100% auto;
 		background-repeat:no-repeat;
 	}
 	.panel .panel-item.copy{
 		opacity:0.2;
-	}
-	.panel .panel-item.list{
-		height:50%;
 	}
 	.panel .panel-item.waterfall{
 		width:50%;
